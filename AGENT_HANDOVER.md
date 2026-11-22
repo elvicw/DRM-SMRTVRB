@@ -8,7 +8,7 @@ The user resumed work after the pause. The local build/tests pass and the first 
 
 - Branch `main`, tracking `origin/main`; the wrapper/editor milestone is pushed as `c4abbf5`. Current workflow/docs edits remain uncommitted.
 - JUCE 8.0.6 VST3/standalone wrapper, APVTS state/parameters, eight factory programs, and editor are implemented locally.
-- Windows run [45039813438](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45039813438) passed configure, build, all six tests, and artifact upload. Inspection found upload-artifact stripped the `.vst3` bundle root. Workflow now stages the bundle and uses upload-artifact v7; this correction has not run yet.
+- Windows run [45040878704](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45040878704) passed configure, build, all six tests, bundle staging, and artifact upload. The downloaded archive contains `DRM-SMRTVRB.vst3/Contents/x86_64-win/DRM-SMRTVRB.vst3` and `Contents/Resources/moduleinfo.json`.
 - Latest additions include per-channel meter snapshots, atomic wet history, preset modified-state display, tail smoothing, host BPM display, advanced-control disabling, and populated choice menus.
 - Corrected the tail smoother to a 25 ms ramp (`0.025` seconds).
 - Current macOS `cmake --build build-plugin -j 4` links VST3 and standalone; `ctest --test-dir build-plugin --output-on-failure` passes 6/6.
@@ -16,25 +16,24 @@ The user resumed work after the pause. The local build/tests pass and the first 
 - Parameter formatting is supplied by APVTS parameter attributes so JUCE attachments preserve concise values and units; the standalone screenshot now shows SPACE as `28%` and tail as `0.48 s`.
 - REAPER 7.34/macOS arm64 instantiated the VST3 and opened its editor; audio was not played. One capture showed “Tight Shells” in the host/editor program selector while the controls showed Shells + Spring + SPACE 37.37% and MODIFIED. Reproduce and fix this mismatch.
 - The temporary plugin install and REAPER cache entry were removed; the REAPER instance was closed.
-- Windows CI succeeded, but corrected artifact layout and Windows host validation remain outstanding. No real-recording audition exists. JUCE distribution terms remain unresolved.
+- Windows CI and artifact layout are verified; Windows host validation remains outstanding. No real-recording audition exists. JUCE distribution terms remain unresolved.
 
 ### Next steps
 
-1. Commit/push the workflow staging correction and current documentation; monitor CI and confirm the downloaded artifact contains `DRM-SMRTVRB.vst3/Contents/...`.
-2. Reproduce/fix the REAPER factory program versus parameter mismatch; add regression coverage if practical.
-3. Validate minimum-size layout, keyboard/accessibility behavior, meter decay/hold, wet history, and preset modified/reset behavior.
-4. In Windows REAPER, test audio, all profiles, SPACE 0 dry endpoint, host tempo/fallback, automation, state/preset restore, editor reopen, and resizing.
-5. Resolve JUCE commercial versus AGPL distribution terms before binaries are distributed; audition real drum recordings before audio-quality claims.
-6. Update status docs with results, then commit/push the verified milestone and monitor CI.
+1. Reproduce/fix the REAPER factory program versus parameter mismatch; add regression coverage if practical.
+2. Validate minimum-size layout, keyboard/accessibility behavior, meter decay/hold, wet history, and preset modified/reset behavior.
+3. In Windows REAPER, test audio, all profiles, SPACE 0 dry endpoint, host tempo/fallback, automation, state/preset restore, editor reopen, and resizing.
+4. Resolve JUCE commercial versus AGPL distribution terms before binaries are distributed; audition real drum recordings before audio-quality claims.
+5. Keep status docs current as each validation milestone completes.
 
 ### Do not claim
 
 - Windows host validation or REAPER audio quality.
 - Real drum-recording audition or release readiness.
 
-## Current continuation (2026-11-22)
+## Current continuation (2026-11-23)
 
-- See **Resumed handover (2026-11-22)** above for the latest build, test, host observations, and artifact-layout correction.
+- See **Resumed handover (2026-11-22)** above for the latest build, test, host observations, and Windows artifact verification.
 
 ## Current state
 
