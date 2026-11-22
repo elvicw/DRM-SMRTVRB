@@ -2,7 +2,7 @@
 
 ## Status
 
-Framework-independent Phase 6 design, ready for implementation after the plugin framework and distribution license are selected. The interface must bind only to real host parameters and plugin state; no control may be decorative.
+Phase 6 design with an initial JUCE editor implementation in `Source/PluginEditor.*`. The editor binds to actual APVTS parameters. JUCE 8.0.6 is selected for implementation; distribution license terms remain to be resolved before release.
 
 ## Main window
 
@@ -55,4 +55,4 @@ Framework-independent Phase 6 design, ready for implementation after the plugin 
 
 ## Framework-dependent work remaining
 
-The selected framework determines editor construction, parameter attachments, accessible control APIs, meter handoff utilities, packaging, and licensing obligations. Keep the specification and DSP model unchanged if framework-specific implementation details differ.
+The initial editor implements the main selectors, SPACE, timing controls, advanced overrides, factory preset choice, stereo meter/activity history, and preset modified indication. The current source builds and the standalone editor was visually inspected at default size, including concise parameter values and units. Host BPM and advanced-toggle behavior are implemented but not host-tested. Responsive minimum-size validation, accessibility review, and Windows host validation remain open. Keep the DSP model unchanged if framework-specific details differ.

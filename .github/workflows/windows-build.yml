@@ -1,4 +1,4 @@
-name: Windows DSP Build
+name: Windows VST3 Build
 
 on:
   push:
@@ -8,13 +8,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  dsp:
+  vst3:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v5
       - name: Configure
-        run: cmake -S . -B build -A x64 -DDRMSMRTVRB_BUILD_TESTS=ON
+        run: cmake -S . -B build -A x64 -DDRMSMRTVRB_BUILD_TESTS=ON -DDRMSMRTVRB_BUILD_PLUGIN=ON
       - name: Build
         run: cmake --build build --config Release
       - name: Test
         run: ctest --test-dir build -C Release --output-on-failure
+      - name: Archive Windows VST3
+        uses: actions/upload-artifact@v4
+        with:
+          name: DRM-SMRTVRB-Windows-VST3
+          path: build/DRMSMRTVRB_artefacts/Release/VST3/DRM-SMRTVRB.vst3
+          if-no-files-found: error
+          retention-days: 14

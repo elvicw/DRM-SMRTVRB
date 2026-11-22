@@ -1,6 +1,26 @@
 # Parameters
 
-No host-automatable parameters are implemented yet. The values below are internal DSP/profile settings; they do not have plugin IDs, automation, or saved-state behavior yet. The values are initial engineering defaults and remain provisional pending listening checks with real drum recordings.
+The JUCE wrapper now exposes the host parameters below. IDs are the stable identifiers introduced in the initial wrapper; do not rename them after release. Profile values remain provisional pending listening checks with real drum recordings.
+
+## Host parameters
+
+| ID | Name | Type/range | Default |
+|---|---|---|---|
+| `target` | Target | Choice: Shells, Snare, Room, Overheads | Shells |
+| `engine` | Character | Choice: Room, Spring, Gated | Room |
+| `space` | SPACE | 0–100% | 0 |
+| `sync` | Sync | Choice: Free, Host, Tap | Host |
+| `bpm` | Tap BPM | 20–300 BPM | 120 |
+| `division` | Division | 1/16, 1/8, 1/4, 1/2, 1 bar, 2 bars | 1/4 |
+| `freeDecay` | Free Decay | 0.08–8 s | 1.2 |
+| `advPreDelayOn`, `advToneOn`, `advWidthOn`, `advMixOn`, `advTailOn` | Advanced enables | Boolean | Off |
+| `advPreDelay` | Advanced Pre-delay | 0–200 ms | 12 |
+| `advTone` | Advanced Tone | -1–1 | 0 |
+| `advWidth` | Advanced Width | 0–2 | 1 |
+| `advMix` | Advanced Mix | 0–1 | 1 |
+| `advTail` | Advanced Tail | 0.08–8 s | 1.2 |
+
+The wrapper uses JUCE APVTS parameter state and XML host serialization. Host tempo is read-only and not a parameter. Tap BPM is editable in Tap mode. The TAP button updates the BPM parameter from tap intervals. The portable versioned text codec remains separate from host serialization.
 
 ## Internal controls
 
@@ -41,4 +61,4 @@ The source-controlled table is in `Source/TargetProfiles.cpp`; `Tests/TargetProf
 
 Factory presets are defined in `Source/PluginState.cpp`: Tight Shells, Big Snare, Explosive Snare, Small Studio, Large Room, Wide Overheads, Metallic Spring, and Vintage Gated. Portable state format version 1 serializes the selected target/engine, SPACE, sync/division, free decay, advanced override enable flags, and values. Host IDs and actual plugin state callbacks are still pending.
 
-Planned host controls include Target, Character, SPACE, sync mode, BPM/tap tempo, musical division, and optional Pre-delay, Tone, Width, Mix, and Tail controls. Host IDs, automation, smoothing, and state persistence will be specified when the plugin wrapper is implemented.
+Audio-thread automation is read from APVTS atomics. SPACE is smoothed; profile, timing, and advanced parameters are currently sampled at block/control-quantum boundaries. Test automation and state round trips in a Windows host before release.

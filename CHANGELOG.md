@@ -43,3 +43,24 @@
 - Added optional Pre-delay, Tone, Width, Mix, and Tail override composition on top of SPACE.
 - Added the eight named factory presets from the roadmap.
 - Added versioned state serialization with bounds checks and forward-compatible unknown fields.
+# Unreleased
+
+## Added
+
+- Initial JUCE 8.0.6 VST3 and standalone plugin targets with stable APVTS IDs.
+- Host parameter state serialization, factory programs, host BPM lookup, tap tempo control, and a parameter-attached hardware-inspired editor.
+- CMake plugin build option and local build instructions.
+- Windows-only VST3 CI build and artifact upload configuration.
+- Stereo input/output meter snapshots, meter hold/release, wet activity history, factory-preset modified indication, host BPM display, and advanced-toggle behavior.
+- Added per-parameter value formatting for compact SPACE, BPM, time, and trim readouts.
+
+## Fixed
+
+- Added the missing editor factory implementation required to link the standalone and VST3 targets.
+
+## Validation
+
+- macOS Apple clang 21.0.1 Release build produced VST3 and standalone targets.
+- Existing CTest suite passed 6/6.
+- Windows build, REAPER validation, UI acceptance checks, and release licensing remain outstanding.
+- The current source compiled on macOS and the existing six tests passed. Windows CI and host audio/state validation remain outstanding.

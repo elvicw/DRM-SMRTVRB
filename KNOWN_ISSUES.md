@@ -1,20 +1,36 @@
 # Known Issues
 
-## VST3 plugin integration remains outstanding
+## Host factory program and parameter state may disagree
+
+- **Reproduction:** Load the VST3 in REAPER 7.34 on macOS arm64 and inspect the initial factory program and editor values.
+- **Expected:** The selected “Tight Shells” program should show Shells + Room and SPACE 28%, with an unmodified status.
+- **Actual:** One local capture showed “Tight Shells” as the host and editor program name, but Character was Spring, SPACE was 37.37%, and the UI said MODIFIED. The test session was not repeated, so the cause is unknown.
+- **Workaround:** Select a factory preset again in the editor and confirm its values update consistently.
+- **Suggested fix:** Reproduce in REAPER, then inspect JUCE program callbacks, APVTS parameter restoration, and preset status comparison; add host-level regression coverage.
+
+## Windows VST3 and REAPER validation remain outstanding
 
 - **Reproduction:** Build the current CMake project and inspect its targets.
 - **Expected:** A functioning Windows VST3 drum reverb plugin with musically tuned source profiles.
-- **Actual:** Framework-independent DSP engines, twelve target profiles, SPACE, tempo calculations, advanced controls, factory presets, portable state codec, tests, and an offline WAV tool exist. There is no VST3 target, host integration, UI, or plugin-bound preset/state layer.
-- **Workaround:** The DSP can be evaluated offline; it cannot yet be loaded by REAPER.
-- **Suggested fix:** Choose the plugin framework/licensing model, implement the UI and wrapper from `UI_SPEC.md`, then continue through Phases 6–7 in ROADMAP.md.
+- **Actual:** The current JUCE VST3 and standalone compile locally, and REAPER 7.34/macOS arm64 instantiated the VST3 and opened its editor. We did not play audio. No Windows build, automation/state round-trip, or Windows host UI validation has been performed.
+- **Workaround:** Use the standalone DSP renderer and tests for non-host evaluation.
+- **Suggested fix:** Build on Windows, validate in REAPER, and complete the UI acceptance checks before distribution.
 
-## Host tempo and automation are not connected
+## Host transport behavior and full automation validation remain outstanding
 
 - **Reproduction:** Inspect `Source/TempoSync.*` and the plugin targets in CMake.
 - **Expected:** Host BPM and tempo changes drive synchronized timing in a Windows VST3.
-- **Actual:** Subdivision math and fallback logic are unit-tested, but no host API adapter or VST3 wrapper exists.
-- **Workaround:** Call the standalone timing API with supplied BPM values; it cannot read a DAW transport.
-- **Suggested fix:** Add host extraction after framework selection and validate tempo automation in REAPER.
+- **Actual:** The wrapper reads BPM when the host exposes it and uses the timing module, but it does not consume transport play/stop state. Tempo automation, host parameter automation, and state restoration have not been exercised in a DAW.
+- **Workaround:** Free and Tap modes remain available; missing BPM uses the timing module fallback.
+- **Suggested fix:** Validate host tempo changes, transport behavior, automation, and host state restore in REAPER.
+
+## UI acceptance checks remain
+
+- **Reproduction:** Open the editor and inspect the meter strip and preset selector.
+- **Expected:** Host tempo display, advanced values enabled only when their toggles are active, and a responsive, accessible editor.
+- **Actual:** The BPM display and toggle-based control enabling are implemented and compile. The default editor size was visually checked; Host/Tap modes, minimum-size layout, keyboard/accessibility behavior, meter activity, and live wet history have not been verified.
+- **Workaround:** Numeric parameters and host controls remain available.
+- **Suggested fix:** Complete the UI meter handoff and interaction requirements in `UI_SPEC.md`.
 
 ## DSP tuning not verified with drum recordings
 

@@ -1,7 +1,44 @@
 cmake_minimum_required(VERSION 3.22)
-project(DRM_SMRTVRB VERSION 0.1.0 LANGUAGES CXX)
+project(DRM_SMRTVRB VERSION 0.1.0 LANGUAGES C CXX)
 
 option(DRMSMRTVRB_BUILD_TESTS "Build DSP validation tests" ON)
+option(DRMSMRTVRB_BUILD_PLUGIN "Build the JUCE VST3 and standalone plugin" ON)
+
+if(DRMSMRTVRB_BUILD_PLUGIN)
+    include(FetchContent)
+    FetchContent_Declare(JUCE
+        GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
+        GIT_TAG 8.0.6
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(JUCE)
+
+    juce_add_plugin(DRMSMRTVRB
+        COMPANY_NAME "yeahwaah audio"
+        BUNDLE_ID "audio.yeahwaah.drmsmrtvrb"
+        PLUGIN_MANUFACTURER_CODE Ywaa
+        PLUGIN_CODE SmRv
+        PRODUCT_NAME "DRM-SMRTVRB"
+        DESCRIPTION "Source-aware drum reverb"
+        FORMATS VST3 Standalone
+        IS_SYNTH FALSE
+        NEEDS_MIDI_INPUT FALSE
+        NEEDS_MIDI_OUTPUT FALSE
+        IS_MIDI_EFFECT FALSE
+        EDITOR_WANTS_KEYBOARD_FOCUS TRUE
+        COPY_PLUGIN_AFTER_BUILD FALSE)
+    juce_generate_juce_header(DRMSMRTVRB)
+    target_sources(DRMSMRTVRB PRIVATE
+        Source/PluginProcessor.cpp Source/PluginProcessor.h
+        Source/PluginEditor.cpp Source/PluginEditor.h)
+    target_compile_features(DRMSMRTVRB PRIVATE cxx_std_17)
+    target_compile_definitions(DRMSMRTVRB PUBLIC
+        JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_VST3_CAN_REPLACE_VST2=0)
+    target_link_libraries(DRMSMRTVRB PRIVATE
+        drmsmrtvrb_dsp juce::juce_audio_utils juce::juce_dsp
+        PUBLIC juce::juce_recommended_config_flags
+               juce::juce_recommended_lto_flags
+               juce::juce_recommended_warning_flags)
+endif()
 
 add_library(drmsmrtvrb_dsp STATIC
     Source/ReverbEngines.cpp
