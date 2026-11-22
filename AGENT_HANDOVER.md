@@ -14,17 +14,16 @@ The user resumed work after the pause. The local build/tests pass and the first 
 - Current macOS `cmake --build build-plugin -j 4` links VST3 and standalone; `ctest --test-dir build-plugin --output-on-failure` passes 6/6.
 - The standalone UI was opened and checked at its default size. The choice menus are now populated. Minimum-size and accessibility checks remain.
 - Parameter formatting is supplied by APVTS parameter attributes so JUCE attachments preserve concise values and units; the standalone screenshot now shows SPACE as `28%` and tail as `0.48 s`.
-- REAPER 7.34/macOS arm64 instantiated the VST3 and opened its editor; audio was not played. One capture showed “Tight Shells” in the host/editor program selector while the controls showed Shells + Spring + SPACE 37.37% and MODIFIED. Reproduce and fix this mismatch.
+- REAPER 7.34/macOS arm64 instantiated the VST3 and opened its editor; audio was not played. One capture showed “Tight Shells” with different parameter values and MODIFIED. Source inspection shows this is consistent with retaining the selected preset and marking edited values; no defect was established. Revisit only if a fresh host reproduction shows inconsistent restored state.
 - The temporary plugin install and REAPER cache entry were removed; the REAPER instance was closed.
 - Windows CI and artifact layout are verified; Windows host validation remains outstanding. No real-recording audition exists. JUCE distribution terms remain unresolved.
 
 ### Next steps
 
-1. Reproduce/fix the REAPER factory program versus parameter mismatch; add regression coverage if practical.
-2. Validate minimum-size layout, keyboard/accessibility behavior, meter decay/hold, wet history, and preset modified/reset behavior.
-3. In Windows REAPER, test audio, all profiles, SPACE 0 dry endpoint, host tempo/fallback, automation, state/preset restore, editor reopen, and resizing.
-4. Resolve JUCE commercial versus AGPL distribution terms before binaries are distributed; audition real drum recordings before audio-quality claims.
-5. Keep status docs current as each validation milestone completes.
+1. Validate minimum-size layout, keyboard/accessibility behavior, meter decay/hold, wet history, and preset modified/reset behavior.
+2. In Windows REAPER, test audio, all profiles, SPACE 0 dry endpoint, host tempo/fallback, automation, state/preset restore, editor reopen, and resizing.
+3. Resolve JUCE commercial versus AGPL distribution terms before binaries are distributed; audition real drum recordings before audio-quality claims.
+4. Keep status docs current as each validation milestone completes.
 
 ### Do not claim
 

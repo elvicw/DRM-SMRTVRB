@@ -1,12 +1,11 @@
 # Known Issues
 
-## Host factory program and parameter state may disagree
+## Modified factory programs retain their selected name
 
-- **Reproduction:** Load the VST3 in REAPER 7.34 on macOS arm64 and inspect the initial factory program and editor values.
-- **Expected:** The selected “Tight Shells” program should show Shells + Room and SPACE 28%, with an unmodified status.
-- **Actual:** One local capture showed “Tight Shells” as the host and editor program name, but Character was Spring, SPACE was 37.37%, and the UI said MODIFIED. The test session was not repeated, so the cause is unknown.
-- **Workaround:** Select a factory preset again in the editor and confirm its values update consistently.
-- **Suggested fix:** Reproduce in REAPER, then inspect JUCE program callbacks, APVTS parameter restoration, and preset status comparison; add host-level regression coverage.
+- **Observation:** One REAPER 7.34/macOS arm64 capture showed “Tight Shells” while Character was Spring, SPACE was 37.37%, and the editor said MODIFIED.
+- **Expected behavior:** The editor retains the selected factory preset name when its parameters are edited and marks it MODIFIED. `isCurrentPresetModified()` compares current APVTS values with the selected preset; parameter edits do not clear the selected preset index.
+- **Assessment:** Source inspection matches the observed behavior. No host state defect was established; a fresh REAPER reproduction is still useful during broader host validation.
+- **Workaround:** Select a factory preset again to restore its factory values.
 
 ## Windows VST3 host validation remains outstanding
 
