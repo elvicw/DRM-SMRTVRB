@@ -14,6 +14,10 @@ ctest --test-dir build --output-on-failure
 
 Windows CI currently builds/tests this DSP core only. It does not yet produce a plugin artifact.
 
+## Offline WAV renderer
+
+After building, run `./build/drmsmrtvrb_render --help` for options. The renderer accepts mono/stereo PCM16, PCM24, PCM32, and float32 RIFF/WAVE input. It writes wet-only float32 WAV and appends a four-second tail by default. For Windows multi-config builds, the executable is typically `build/Release/drmsmrtvrb_render.exe`.
+
 ## Framework investigation
 
 The neighboring DRM-RESHAPE source uses CMake and fetches JUCE 8.0.6. Before adopting it, review license obligations and pin dependencies for reproducible builds. Windows VST3 build prerequisites and exact commands will be documented after the project build system exists.

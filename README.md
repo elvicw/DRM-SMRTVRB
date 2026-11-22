@@ -19,3 +19,7 @@ See [ROADMAP.md](ROADMAP.md) for the detailed requirements and milestone order. 
 ## Build status
 
 The initial development machine is macOS. Windows VST3 build and REAPER validation have not yet been performed. See [BUILD_INSTRUCTIONS.md](BUILD_INSTRUCTIONS.md) for the current environment notes.
+
+## Offline DSP renders
+
+The `drmsmrtvrb_render` utility renders mono/stereo WAV through a wet-only engine. See [TESTING.md](TESTING.md) for formats, commands, and listening checks. Put private audio in the ignored `recordings/` directory; do not commit recordings.

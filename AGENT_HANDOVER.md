@@ -3,9 +3,9 @@
 ## Current state
 
 - **Phase:** 1 — core reverb engines.
-- **Last completed milestone:** Phase 0 foundation pushed; first standalone Room/Spring/Gated DSP baseline and tests build locally.
-- **Active milestone:** Refine and audition algorithms; proceed to target-specific profiles.
-- **Implementation status:** DSP library and unit test executable exist. No VST3 plugin, host integration, target profiles, SPACE macro, UI, or presets.
+- **Last completed milestone:** Core engine baseline builds and passes local stress tests; offline WAV renderer and WAV I/O tests are implemented.
+- **Active milestone:** Run listening tests with actual drum WAVs and review DSP behavior before marking Phase 1 complete.
+- **Implementation status:** DSP library, offline renderer, and two CTest targets exist. No VST3 plugin, host integration, target profiles, SPACE macro, UI, or presets.
 
 ## Completed work
 
@@ -21,8 +21,9 @@
 - Machine: macOS; Apple clang 21.0.1, CMake 4.5.0, Ninja.
 - Build: `cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build`
 - Test: `ctest --test-dir build --output-on-failure`
-- Latest local result: build succeeded; CTest passed 1/1 on macOS Apple clang 21.0.1.
-- No Windows build, real drum audition, REAPER validation, or plugin build has been performed.
+- Render help: `./build/drmsmrtvrb_render --help`
+- Latest local result: build succeeded; CTest passed 2/2 on macOS Apple clang 21.0.1. A generated stereo drum-like WAV rendered through all engines, and float32 output was read back successfully.
+- No actual drum recordings were available; no real-material listening, REAPER validation, or plugin build has been performed.
 - Windows VST3 and REAPER validation remain required.
 
 ## GitHub status
@@ -35,10 +36,11 @@
 ## Next steps
 
 1. Audit stability and gate timing at several sample rates/block sizes; add tests for parameter extremes and long decay.
-2. Audition with real drum recordings and tune Room/Spring/Gated before calling them musically ready.
-3. Decide JUCE commercial vs AGPLv3 use (or another framework) and establish a Windows VST3 build route.
-4. Implement target profiles, then proceed to SPACE macro and tempo sync per ROADMAP.md.
-5. Update status, design, testing, issue, and handover docs as work advances.
+2. Put actual kick/shell, snare, tom, room, and overhead WAVs into the ignored `recordings/` directory; use the documented renderer command to listen to all engine/source examples.
+3. Tune Room/Spring/Gated based on those recordings and note evidence in TESTING.md before marking Phase 1 complete.
+4. Decide JUCE commercial vs AGPLv3 use (or another framework) and establish a Windows VST3 build route.
+5. Implement target profiles, then proceed to SPACE macro and tempo sync per ROADMAP.md.
+6. Update status, design, testing, issue, and handover docs as work advances.
 
 ## Next agent instruction
 

@@ -11,3 +11,10 @@
 - Added independent Room, Spring, and Gated wet-only DSP engines.
 - Added CMake build and impulse-response tests for engine output, separation, mono handling, and gated tail reduction.
 - This baseline has not been integrated into a VST3 plugin or auditioned with real drum recordings.
+
+## Unreleased — Phase 1 validation tools
+
+- Added `drmsmrtvrb_render`, an offline wet-only WAV renderer for Room, Spring, and Gated.
+- Added mono/stereo PCM16/24/32 and float32 WAV input, float32 output, and configurable rendered tail.
+- Expanded automated checks across sample rates, block sizes, and parameter extremes.
+- Added WAV read/write tests and ignored the local `recordings/` folder.

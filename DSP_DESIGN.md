@@ -16,4 +16,4 @@ The four user-selected sources (Shells, Snare, Room, Overheads) will each tune a
 
 ## Safety and verification
 
-Delay buffers are prepared outside processing. Feedback is bounded, parameter inputs are clamped, and non-finite output samples are zeroed. The current automated impulse tests check finite/bounded response, nonzero output, engine distinction, mono routing, and gated tail reduction. Real-time behavior, transient preservation, and audio quality still need listening tests with drum recordings and host automation.
+Delay buffers are prepared outside processing. Feedback is bounded, parameter inputs are clamped, and non-finite output samples are zeroed. Automated checks cover finite/bounded impulse response, engine distinction, mono routing, gated tail reduction, and generated drum-like signals at three sample rates, five block sizes, and parameter extremes. An offline WAV renderer is available for listening tests. Audio quality still needs validation with actual drum recordings and host automation.
