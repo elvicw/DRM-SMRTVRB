@@ -4,7 +4,7 @@
 
 Latest local result: CMake Release build succeeded on macOS with Apple clang 21.0.1; CTest passed 2/2 (`ReverbEngines`, `WavFile`).
 
-The first Windows CI run compiled successfully but the test executable segfaulted because the harness stored multiple full render buffers on the Windows thread stack. Moving these buffers to heap-backed vectors fixed the issue. Windows run 45003176174 passed configure, build, and CTest on `windows-latest`.
+The first Windows CI run compiled successfully but the test executable segfaulted because the harness stored multiple full render buffers on the Windows thread stack. Moving these buffers to heap-backed vectors fixed the issue. Windows run 45004120337 passed configure, build, and both CTest targets on `windows-latest`.
 
 Planned coverage includes mono/stereo routing, all twelve source/engine combinations, SPACE range and transitions, tempo sync and missing tempo, transport and automation changes, preset/state restoration, sample-rate and block-size changes, long runs, CPU/memory behavior, and real drum recordings. Final host validation is required in REAPER on Windows.
 
@@ -28,4 +28,4 @@ No actual drum recordings were available in the workspace. Listening validation 
 
 ## Offline render smoke check
 
-A generated stereo drum-like fixture (three decaying low-frequency hits plus short noise bursts) was rendered through all three engines at 48 kHz. Each produced a finite float32 stereo WAV with a two-second appended tail. The output WAV was then read back through the renderer successfully. These synthetic results verify the tool path, not real-world audio quality.
+A generated stereo drum-like fixture (three decaying low-frequency hits plus short noise bursts) was rendered through all three engines at 48 kHz. Each produced a finite float32 stereo WAV with a two-second appended tail. The output WAV was then read back through the renderer successfully. The WAV tests also round-trip float32 and decode PCM16/24/32 fixtures. These synthetic results verify the tool path, not real-world audio quality.

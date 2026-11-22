@@ -3,7 +3,7 @@
 ## Current state
 
 - **Phase:** 1 — core reverb engines.
-- **Last completed milestone:** Core engine baseline builds and passes local stress tests; offline WAV renderer and WAV I/O tests are implemented.
+- **Last completed milestone:** Core engine and offline WAV tools pass local tests and Windows CI.
 - **Active milestone:** Run listening tests with actual drum WAVs and review DSP behavior before marking Phase 1 complete.
 - **Implementation status:** DSP library, offline renderer, and two CTest targets exist. No VST3 plugin, host integration, target profiles, SPACE macro, UI, or presets.
 
@@ -23,6 +23,7 @@
 - Test: `ctest --test-dir build --output-on-failure`
 - Render help: `./build/drmsmrtvrb_render --help`
 - Latest local result: build succeeded; CTest passed 2/2 on macOS Apple clang 21.0.1. A generated stereo drum-like WAV rendered through all engines, and float32 output was read back successfully.
+- Windows CI run 45004120337 passed configure, build, and both CTest targets on `windows-latest`.
 - No actual drum recordings were available; no real-material listening, REAPER validation, or plugin build has been performed.
 - Windows VST3 and REAPER validation remain required.
 
@@ -32,15 +33,15 @@
 - Repository URL: https://github.com/elvicw/DRM-SMRTVRB.
 - Repository is private. Foundation commit `1e1b9b995d10d1e39b509dc38d785b1abc2c8258` and DSP implementation commit `784d21243f774e3a78bc84c2976f8560494fec39` are pushed to `main`.
 - Implementation commit `9d8ea32` moved render test buffers to heap-backed vectors after Windows run 45003050211 exposed a stack overflow. Windows run 45003176174 then passed configure, build, and CTest on `windows-latest`.
+- Phase 1 validation tools commit `f95f7a2` is pushed; Windows run 45004120337 passed with the WAV renderer and expanded tests.
 
 ## Next steps
 
-1. Audit stability and gate timing at several sample rates/block sizes; add tests for parameter extremes and long decay.
-2. Put actual kick/shell, snare, tom, room, and overhead WAVs into the ignored `recordings/` directory; use the documented renderer command to listen to all engine/source examples.
-3. Tune Room/Spring/Gated based on those recordings and note evidence in TESTING.md before marking Phase 1 complete.
-4. Decide JUCE commercial vs AGPLv3 use (or another framework) and establish a Windows VST3 build route.
-5. Implement target profiles, then proceed to SPACE macro and tempo sync per ROADMAP.md.
-6. Update status, design, testing, issue, and handover docs as work advances.
+1. Put actual kick/shell, snare, tom, room, and overhead WAVs into the ignored `recordings/` directory; use the documented renderer command to listen to all engine/source examples.
+2. Tune Room/Spring/Gated based on those recordings and note evidence in TESTING.md before marking Phase 1 complete.
+3. Decide JUCE commercial vs AGPLv3 use (or another framework) and establish a Windows VST3 build route.
+4. Implement target profiles, then proceed to SPACE macro and tempo sync per ROADMAP.md.
+5. Update status, design, testing, issue, and handover docs as work advances.
 
 ## Next agent instruction
 
