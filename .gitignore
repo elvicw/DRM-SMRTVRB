@@ -1,0 +1,12 @@
+# Build output
+/build/
+/cmake-build-*/
+/out/
+*.vst3/
+*.dll
+*.pdb
+
+# IDE and OS files
+.DS_Store
+.vscode/
+.idea/
