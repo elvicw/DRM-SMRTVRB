@@ -9,7 +9,7 @@
 - **Outstanding:** Host integration, advanced controls, presets/state persistence, VST3 wrapper/UI, Windows/REAPER validation, packaging, release, and real-recording tuning.
 - **Latest successful build:** macOS Apple clang 21.0.1, CMake Release; local DSP build succeeded.
 - **Latest successful test:** CTest passed 5/5 (`ReverbEngines`, `TargetProfiles`, `SpaceMacro`, `TempoSync`, `WavFile`) on macOS.
-- **Windows CI:** Run 45004605150 passed on the previous DSP baseline; Phase 2/3 changes are awaiting Windows CI.
+- **Windows CI:** Run 45007487202 passed (configure, build, and all five CTest targets) on `windows-latest`.
 - **Repository:** https://github.com/elvicw/DRM-SMRTVRB (private)
 
 ## Environment observations

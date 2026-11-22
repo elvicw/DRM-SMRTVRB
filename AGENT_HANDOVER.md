@@ -30,7 +30,7 @@
 - Test: `ctest --test-dir build --output-on-failure`
 - Render help: `./build/drmsmrtvrb_render --help`
 - Latest local result: build succeeded; CTest passed 5/5 on macOS Apple clang 21.0.1. All five synthetic inputs rendered through all twelve source/engine profiles at SPACE 65; all output peaks remained below 0 dBFS.
-- Windows CI run 45004605150 passed the previous baseline; Phase 2/3 changes are awaiting CI.
+- Windows CI run 45007487202 passed configure, build, and all five CTest targets for profile, SPACE, and tempo changes.
 - No actual drum recordings were available; no real-material listening, REAPER validation, or plugin build has been performed.
 - Windows VST3 and REAPER validation remain required.
 
