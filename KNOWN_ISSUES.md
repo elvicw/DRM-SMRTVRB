@@ -11,7 +11,7 @@
 
 - **Reproduction:** Build the current CMake project and inspect its targets.
 - **Expected:** A functioning Windows VST3 drum reverb plugin with musically tuned source profiles.
-- **Actual:** Windows CI run [45040878704](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45040878704) passed configure, build, six tests, bundle staging, and upload. The downloaded artifact contains the top-level `.vst3` bundle directory. REAPER 7.34/macOS arm64 instantiated the VST3 and opened its editor, but we did not play audio. No Windows host, automation/state round-trip, or Windows UI validation has been performed.
+- **Actual:** Windows CI run [45045203823](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45045203823) passed configure, build, six tests, bundle staging, and upload for the latest editor patch. The downloaded artifact contains the top-level `.vst3` bundle directory. REAPER 7.34/macOS arm64 instantiated the VST3 and opened its editor, but we did not play audio. No Windows host, automation/state round-trip, or Windows UI validation has been performed.
 - **Workaround:** Use the standalone DSP renderer and tests for non-host evaluation.
 - **Suggested fix:** Validate the Windows VST3 in REAPER and complete the UI acceptance checks before distribution.
 

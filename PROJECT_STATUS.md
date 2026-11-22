@@ -9,7 +9,7 @@
 - **Outstanding:** Test REAPER audio/automation/state/tempo; validate minimum-size/accessibility behavior; tune with real recordings.
 - **Latest successful build:** macOS Apple clang 21.0.1, CMake 4.5.0, Ninja Release; JUCE VST3 and standalone linked after accessible control titles and responsive preset-status placement were added.
 - **Latest successful test:** `ctest --test-dir build-plugin --output-on-failure` passed 6/6 before the latest editor-only accessibility/layout patch; it has not been rerun after that patch.
-- **Windows CI:** Run [45040878704](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45040878704) passed configure, build, all six tests, bundle staging, and artifact upload. Download inspection confirmed `DRM-SMRTVRB.vst3/Contents/x86_64-win/DRM-SMRTVRB.vst3` and `Contents/Resources/moduleinfo.json` are present.
+- **Windows CI:** Run [45045203823](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45045203823) passed configure, build, all six tests, bundle staging, and artifact upload for the latest editor patch. Download inspection confirmed `DRM-SMRTVRB.vst3/Contents/x86_64-win/DRM-SMRTVRB.vst3` and `Contents/Resources/moduleinfo.json` are present.
 - **Repository:** https://github.com/elvicw/DRM-SMRTVRB (private)
 
 ## Environment observations
@@ -21,5 +21,5 @@
 - JUCE distribution licensing remains unresolved and must be settled before binary distribution.
 - Local REAPER 7.34 (macOS arm64) scanned and instantiated the VST3 and opened its editor. No audio was played. One capture showed “Tight Shells” with different parameter values and a MODIFIED indicator. Source inspection confirms the editor intentionally retains the selected factory preset while flagging parameter differences; no defect was established. Temporary install was removed and REAPER was closed.
 - The standalone UI was visually captured at default size; choice menus display labels and values use concise units/precision. REA accessibility inspection verified titles and values for the Source, Character, and Tempo Sync selectors plus enabled sliders. Preset/division selector accessibility, direct 640 x 420 resize, and keyboard operation remain unverified.
-- Workflow artifact staging and handover updates are pushed. The accessible-title/responsive-status editor change and its notes are pending commit.
+- The accessible-title/responsive-status editor change and handover updates are pushed in `8b15eab`.
 - Offline WAV renderer is built as `drmsmrtvrb_render`; five local synthetic fixtures and fifteen profile renders are under ignored `recordings/`; no user recordings were available.

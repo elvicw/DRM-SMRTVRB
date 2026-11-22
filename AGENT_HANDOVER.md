@@ -6,18 +6,18 @@ The user resumed work after the pause. The local build/tests pass and the first 
 
 ### Current state
 
-- Branch `main`, tracking `origin/main`; wrapper/editor and artifact-layout fix are pushed. Current editor accessibility/layout change and its documentation are pending commit.
+- Branch `main`, tracking `origin/main`; latest pushed commit is `8b15eab` (`fix: improve editor accessibility and narrow layout`).
 - JUCE 8.0.6 VST3/standalone wrapper, APVTS state/parameters, eight factory programs, and editor are implemented locally.
-- Windows run [45040878704](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45040878704) passed configure, build, all six tests, bundle staging, and artifact upload. The downloaded archive contains `DRM-SMRTVRB.vst3/Contents/x86_64-win/DRM-SMRTVRB.vst3` and `Contents/Resources/moduleinfo.json`.
+- Windows run [45045203823](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45045203823) passed configure, build, all six tests, bundle staging, and artifact upload for the latest editor patch. Download inspection confirmed `DRM-SMRTVRB.vst3/Contents/x86_64-win/DRM-SMRTVRB.vst3` and `Contents/Resources/moduleinfo.json`.
 - Latest additions include per-channel meter snapshots, atomic wet history, preset modified-state display, tail smoothing, host BPM display, advanced-control disabling, and populated choice menus.
 - Corrected the tail smoother to a 25 ms ramp (`0.025` seconds).
-- Current macOS `cmake --build build-plugin -j 4` links VST3 and standalone; `ctest --test-dir build-plugin --output-on-failure` passes 6/6.
+- Current macOS `cmake --build build-plugin -j 4` links VST3 and standalone. Windows CI run 45045203823 passed all six CTest targets after the latest editor patch; the latest macOS CTest pass predates it.
 - The standalone UI was visually inspected at default size; the choice menus are populated. The latest accessibility and minimum-size findings are recorded below.
 - Follow-up UI review found that combo boxes and sliders needed explicit accessible titles; Source, Character, Tempo Sync, SPACE, Free Decay, and advanced slider names are observed in the REA accessibility tree. The preset status label now moves with editor width to avoid clipping at 640 px. The native resize action did not reach 640 x 420, so verify that size and keyboard operation when a reliable host resize path is available.
 - Parameter formatting is supplied by APVTS parameter attributes so JUCE attachments preserve concise values and units; the standalone screenshot now shows SPACE as `28%` and tail as `0.48 s`.
 - REAPER 7.34/macOS arm64 instantiated the VST3 and opened its editor; audio was not played. One capture showed “Tight Shells” with different parameter values and MODIFIED. Source inspection shows this is consistent with retaining the selected preset and marking edited values; no defect was established. Revisit only if a fresh host reproduction shows inconsistent restored state.
 - The temporary plugin install and REAPER cache entry were removed; the REAPER instance was closed.
-- Windows CI and artifact layout are verified; Windows host validation remains outstanding. No real-recording audition exists. JUCE distribution terms remain unresolved.
+- Latest Windows CI and artifact layout are verified; Windows host validation remains outstanding. No real-recording audition exists. JUCE distribution terms remain unresolved.
 
 ### Next steps
 
