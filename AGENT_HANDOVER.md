@@ -30,7 +30,7 @@
 - Owner/account: `elvicw`.
 - Repository URL: https://github.com/elvicw/DRM-SMRTVRB.
 - Repository is private. Foundation commit `1e1b9b995d10d1e39b509dc38d785b1abc2c8258` and DSP implementation commit `784d21243f774e3a78bc84c2976f8560494fec39` are pushed to `main`.
-- Windows run 45003050211 compiled but its test executable segfaulted. The test harness used several large render buffers on the thread stack; the buffers have been moved to heap-backed vectors. A rerun is pending.
+- Implementation commit `9d8ea32` moved render test buffers to heap-backed vectors after Windows run 45003050211 exposed a stack overflow. Windows run 45003176174 then passed configure, build, and CTest on `windows-latest`.
 
 ## Next steps
 

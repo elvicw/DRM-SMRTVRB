@@ -9,7 +9,7 @@
 - **Outstanding:** Real drum auditioning, source profiles, SPACE macro, tempo sync, advanced controls, presets, VST3 wrapper/UI, Windows/REAPER validation, packaging, and release.
 - **Latest successful build:** macOS Apple clang 21.0.1, CMake Release; local DSP build succeeded.
 - **Latest successful test:** CTest `ReverbEngines`, 1/1 passed on macOS.
-- **Windows CI:** Run 45003050211 compiled successfully but the test process segfaulted because the test harness used large stack arrays; the harness now uses heap-backed result buffers and a rerun is pending.
+- **Windows CI:** Run 45003176174 passed (configure, build, and CTest) on `windows-latest`.
 - **Repository:** https://github.com/elvicw/DRM-SMRTVRB (private)
 
 ## Environment observations
