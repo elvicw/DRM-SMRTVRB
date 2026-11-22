@@ -29,7 +29,8 @@
 
 - Owner/account: `elvicw`.
 - Repository URL: https://github.com/elvicw/DRM-SMRTVRB.
-- Repository is private. Foundation commit `1e1b9b995d10d1e39b509dc38d785b1abc2c8258` is pushed; latest commit is recorded in Git.
+- Repository is private. Foundation commit `1e1b9b995d10d1e39b509dc38d785b1abc2c8258` and DSP implementation commit `784d21243f774e3a78bc84c2976f8560494fec39` are pushed to `main`.
+- Working tree was clean after pushing the DSP implementation. Windows workflow run 45003050211 was queued; result pending at handover update.
 
 ## Next steps
 
