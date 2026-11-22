@@ -9,7 +9,7 @@
 - **Outstanding:** Test REAPER audio/automation/state/tempo; tune with real recordings.
 - **Latest successful build:** macOS Apple clang 21.0.1, CMake 4.5.0, Ninja Release; JUCE VST3 and standalone linked after accessible control titles and responsive preset-status placement were added.
 - **Latest successful test:** `ctest --test-dir build-plugin --output-on-failure` passed 6/6 before the latest editor-only accessibility/layout patch; it has not been rerun after that patch.
-- **Windows CI:** Run [45052266119](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45052266119) passed configure, build, all six tests, bundle staging, and artifact upload for the minimum-size/focus patch. Download inspection confirmed `DRM-SMRTVRB.vst3/Contents/x86_64-win/DRM-SMRTVRB.vst3` and `Contents/Resources/moduleinfo.json` are present.
+- **Windows CI:** Run [45053765301](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45053765301) passed configure, build, all six tests, bundle staging, and artifact upload for the focus-ring clearance patch. Download inspection confirmed `DRM-SMRTVRB.vst3/Contents/x86_64-win/DRM-SMRTVRB.vst3` and `Contents/Resources/moduleinfo.json` are present.
 - **Repository:** https://github.com/elvicw/DRM-SMRTVRB (private)
 
 ## Environment observations
