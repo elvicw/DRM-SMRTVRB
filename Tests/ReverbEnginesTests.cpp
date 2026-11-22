@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <vector>
 
 namespace
 {
@@ -14,8 +15,8 @@ void require(bool condition, const char* message);
 
 struct Result
 {
-    std::array<float, count> left {};
-    std::array<float, count> right {};
+    std::vector<float> left;
+    std::vector<float> right;
     double energy = 0.0;
     float peak = 0.0f;
 };
@@ -32,6 +33,8 @@ Result render(drmspace::Engine engine, int channels)
     reverb.setParameters(p);
 
     Result result;
+    result.left.resize(count);
+    result.right.resize(count);
     std::array<float, block> inL {}, inR {}, outL {}, outR {};
     inL[0] = 1.0f;
     inR[0] = channels == 2 ? 0.7f : 0.0f;
