@@ -3,9 +3,9 @@
 - **Product:** DRM-SMRTVRB
 - **Company:** yeahwaah audio
 - **Version:** 0.0.0 (development)
-- **Phase:** 5 — Advanced controls and presets
+- **Phase:** 6 — Hardware-inspired UI
 - **Completed:** Standalone engines/profiles/SPACE; Free/Host/Tap timing calculations; five synthetic fixtures; optional advanced overrides; eight factory presets; portable versioned state codec.
-- **Active tasks:** Prepare Phase 6 plugin/UI integration; choose framework and license model before implementing the wrapper.
+- **Active tasks:** Phase 6 UI specification is ready; choose framework and license model before implementing the wrapper/editor.
 - **Outstanding:** Host BPM extraction, VST3 state callbacks, host parameter binding, preset browser, UI/meters, Windows/REAPER plugin validation, packaging, release, and real-recording tuning.
 - **Latest successful build:** macOS Apple clang 21.0.1, CMake Release; local DSP build succeeded.
 - **Latest successful test:** CTest passed 6/6 (`ReverbEngines`, `TargetProfiles`, `SpaceMacro`, `TempoSync`, `PluginState`, `WavFile`) on macOS.

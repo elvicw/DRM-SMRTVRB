@@ -8,7 +8,7 @@ You are the lead software engineer, DSP engineer, audio plugin architect, UI des
 - Phase 3 standalone SPACE macro is implemented and tested across all twelve combinations; host automation binding remains for plugin integration.
 - Phase 4 calculations are implemented: Free/Host/Tap timing and subdivisions are tested; host BPM/transport extraction remains for the plugin wrapper.
 - Phase 5 is implemented and passes Windows CI: advanced overrides, eight factory presets, and versioned portable state serialization.
-- Phase 6 is next; select the plugin framework and license model before building the actual UI and VST3 wrapper.
+- Phase 6 design is documented in `UI_SPEC.md`; select the plugin framework and license model before building the actual UI and VST3 wrapper.
 - Plugin framework/license choice and Windows build environment remain open. The DSP core is kept independent while these are evaluated.
 
 Your responsibility is to take this project from an empty repository to a functional, tested, documented, and distributable Windows audio plugin.
