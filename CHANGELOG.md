@@ -19,3 +19,21 @@
 - Expanded automated checks across sample rates, block sizes, and parameter extremes.
 - Added WAV read/write tests and ignored the local `recordings/` folder.
 - Added deterministic synthetic kick/shell, snare, tom, room-mic, and overhead fixture generation plus a 15-case render-matrix script.
+
+## Unreleased — target profile baseline
+
+- Added distinct initial profiles for all four targets across Room, Spring, and Gated.
+- Added source-specific wet-send filtering, send level, and engine-specific density/wet-level controls.
+- Added `ProfiledReverb` and automated checks for all twelve combinations, including mono input and block chunking.
+
+## Unreleased — SPACE macro baseline
+
+- Added twelve target/engine SPACE curves that vary multiple reverb controls and per-profile wet caps.
+- Added a default 20 ms smoother and dry/wet processor; SPACE 0% returns the exact dry input.
+- Added offline renderer support for `--target` and `--space` and expanded tests for range, smoothing, dry endpoint, and wet output.
+
+## Unreleased — tempo synchronization calculations
+
+- Added six musical division calculations for Free, Host, and Tap timing modes.
+- Added last-valid/default BPM fallback, tap-tempo interval averaging, gated timing clamp reporting, and a timing smoother.
+- Added tests for tempo changes and missing source timing. Host transport extraction remains pending a plugin wrapper.

@@ -8,11 +8,21 @@ The first core engine pass is implemented in `Source/ReverbEngines.*`. It is a d
 - **Spring:** four differently timed resonant lines feed a serial dispersive allpass path for a more metallic response.
 - **Gated:** short-delay dense feedback tank followed by a separately timed gate envelope; gate duration is not treated as RT60.
 
-The engines expose decay, pre-delay, damping, width, and gate duration. These are raw engine controls; target-specific profiles and SPACE mapping are later milestones.
+The engines expose decay, pre-delay, damping, width, gate duration, density, and wet level. These internal controls are not yet host parameters.
 
-## Source profiles and SPACE
+## Target-specific profiles
 
-The four user-selected sources (Shells, Snare, Room, Overheads) will each tune all three engines. SPACE (0–100%) will map to multiple smoothed DSP parameters for each of the twelve combinations; 0% must be fully dry. Do not treat RT60 as the audible end of a natural tail.
+`Source/TargetProfiles.*` defines a distinct profile for every one of the twelve target/engine combinations. Each profile combines an input high-pass/low-pass wet-send band and send level with engine decay, pre-delay, damping, density, width, gate duration, and wet level. These values are initial settings validated for bounds and finite output; they are not claimed as final musical tuning.
+
+The wet-send filters target source behavior: Shells reduce sub-bass excitation, Snare retains body while allowing a strong tail, Room uses lower send and tighter bandwidth, and Overheads use a narrower, more damped send to limit cymbal wash. These are processing profiles, not automatic detection.
+
+## SPACE macro
+
+The four user-selected sources (Shells, Snare, Room, Overheads) each have all three initial engine profiles. `Source/SpaceMacro.*` maps 0–100% through twelve per-combination curves. Smoothstep/power curves change decay, pre-delay, damping, density, width, gated duration, and wet level. The dry/wet gains use an equal-power crossfade scaled by a profile-specific wet cap. 0% is exactly dry; values ramp over 20 ms by default. Engine controls update in 32-sample quanta and mix gains update per sample without process-time allocation. These curves are initial values, not validated musical tuning. Do not treat RT60 as the audible end of a natural tail.
+
+## Tempo synchronization calculations
+
+`Source/TempoSync.*` converts Host, Tap, and Free modes into timing values for 1/16, 1/8, 1/4, 1/2, one bar, or two bars. A valid host/tap BPM must be 20–300; missing host tempo falls back to the last valid value or 120 BPM. Room/Spring use the division as an RT60 target, which remains a natural fade. Gated uses it as a separate termination time and reports when its four-second limit clamps a slower tempo/long division. A tempo smoother ramps timing changes. The actual host BPM adapter and transport callback are not implemented before framework selection.
 
 ## Safety and verification
 

@@ -3,13 +3,13 @@
 - **Product:** DRM-SMRTVRB
 - **Company:** yeahwaah audio
 - **Version:** 0.0.0 (development)
-- **Phase:** 1 — Core reverb engine
-- **Completed:** Phase 0 foundation; initial Room, Spring, and Gated DSP engines; CMake tests; offline WAV renderer; five synthetic fixture types and 15 rendered combinations.
-- **Active tasks:** Run offline WAV listening tests on actual drum recordings; review engine behavior before Phase 2.
-- **Outstanding:** Real drum auditioning, source profiles, SPACE macro, tempo sync, advanced controls, presets, VST3 wrapper/UI, Windows/REAPER validation, packaging, and release.
+- **Phase:** 4 — Tempo synchronization
+- **Completed:** Standalone engine and profile processing; twelve SPACE curves with smoothing and exact dry endpoint; Free/Host/Tap timing calculations and division timing; five synthetic fixtures and 15 macro-profile renders.
+- **Active tasks:** Prepare host timing integration; implement advanced controls and factory presets. Actual host BPM extraction waits for plugin framework/wrapper selection.
+- **Outstanding:** Host integration, advanced controls, presets/state persistence, VST3 wrapper/UI, Windows/REAPER validation, packaging, release, and real-recording tuning.
 - **Latest successful build:** macOS Apple clang 21.0.1, CMake Release; local DSP build succeeded.
-- **Latest successful test:** CTest passed 2/2 (`ReverbEngines`, `WavFile`) on macOS, including sample-rate/block-size/parameter-extreme stress cases.
-- **Windows CI:** Run 45004120337 passed (configure, build, and both CTest targets) on `windows-latest`.
+- **Latest successful test:** CTest passed 5/5 (`ReverbEngines`, `TargetProfiles`, `SpaceMacro`, `TempoSync`, `WavFile`) on macOS.
+- **Windows CI:** Run 45004605150 passed on the previous DSP baseline; Phase 2/3 changes are awaiting Windows CI.
 - **Repository:** https://github.com/elvicw/DRM-SMRTVRB (private)
 
 ## Environment observations
@@ -19,4 +19,4 @@
 - No Windows cross-compiler or JUCE package was found in the initial PATH/Homebrew check.
 - The adjacent `../drum-shaper` directory contains the DRM-RESHAPE source project.
 - Its CMake config fetches JUCE 8.0.6. This architecture is a reference only; framework/license choice remains open.
-- Offline WAV renderer is built as `drmsmrtvrb_render`; no user drum recordings were available in the workspace.
+- Offline WAV renderer is built as `drmsmrtvrb_render`; five local synthetic fixtures and fifteen profile renders are under ignored `recordings/`; no user recordings were available.

@@ -1,4 +1,6 @@
 #include "ReverbEngines.h"
+#include "SpaceMacro.h"
+#include "TargetProfiles.h"
 #include "WavFile.h"
 
 #include <algorithm>
@@ -13,6 +15,7 @@ namespace
 void usage()
 {
     std::puts("Usage: drmsmrtvrb_render --engine room|spring|gated --input in.wav --output wet.wav [options]\n"
+              "Optional source profile: --target shells|snare|room|overheads [--space 0..100]\n"
               "Options: --decay seconds --predelay ms --damping 0..1 --width 0..2 --gate seconds --tail seconds\n"
               "Renders wet-only float32 WAV. Input: mono/stereo PCM16/24/32 or float32.");
 }
@@ -28,10 +31,12 @@ bool number(const char* text, float& value)
 int main(int argc, char** argv)
 {
     drmspace::wav::Audio audio;
-    std::string inputPath, outputPath, error;
+    std::string inputPath, outputPath, targetName, error;
     std::string engineName;
     drmspace::ReverbParameters parameters;
     float tailSeconds = 4.0f;
+    float spacePercent = 100.0f;
+    bool hasSpace = false;
     for (int i = 1; i < argc; ++i)
     {
         const std::string option = argv[i];
@@ -39,6 +44,8 @@ int main(int argc, char** argv)
         if (i + 1 >= argc) { std::fprintf(stderr, "Missing value for %s\n", option.c_str()); usage(); return 2; }
         const char* value = argv[++i];
         if (option == "--engine") engineName = value;
+        else if (option == "--target") targetName = value;
+        else if (option == "--space") { if (!number(value, spacePercent)) return 2; hasSpace = true; }
         else if (option == "--input") inputPath = value;
         else if (option == "--output") outputPath = value;
         else if (option == "--decay") { if (!number(value, parameters.decaySeconds)) return 2; }
@@ -55,15 +62,44 @@ int main(int argc, char** argv)
     else if (engineName == "spring") engine = drmspace::Engine::spring;
     else if (engineName == "gated") engine = drmspace::Engine::gated;
     else { std::fprintf(stderr, "Choose --engine room, spring, or gated\n"); return 2; }
+    drmspace::SourceTarget target = drmspace::SourceTarget::shells;
+    if (targetName == "shells") target = drmspace::SourceTarget::shells;
+    else if (targetName == "snare") target = drmspace::SourceTarget::snare;
+    else if (targetName == "room") target = drmspace::SourceTarget::room;
+    else if (targetName == "overheads") target = drmspace::SourceTarget::overheads;
+    else if (!targetName.empty()) { std::fprintf(stderr, "Choose --target shells, snare, room, or overheads\n"); return 2; }
+    if (hasSpace && targetName.empty())
+    { std::fprintf(stderr, "--space requires a --target source profile\n"); return 2; }
+    if (!targetName.empty())
+        for (int i = 1; i < argc; ++i)
+            if (std::string(argv[i]) == "--decay" || std::string(argv[i]) == "--predelay"
+                || std::string(argv[i]) == "--damping" || std::string(argv[i]) == "--width"
+                || std::string(argv[i]) == "--gate")
+            { std::fprintf(stderr, "Use either --target profile defaults or manual DSP controls, not both\n"); return 2; }
     if (inputPath.empty() || outputPath.empty()) { usage(); return 2; }
     if (!drmspace::wav::read(inputPath, audio, error)) { std::fprintf(stderr, "%s\n", error.c_str()); return 1; }
     if (audio.frames() == 0) { std::fprintf(stderr, "Input WAV has no samples\n"); return 1; }
 
     drmspace::ReverbEngines reverb;
+    drmspace::ProfiledReverb profiledReverb;
+    drmspace::SpaceMacroProcessor macroReverb;
     constexpr int blockSize = 256;
-    reverb.prepare(audio.sampleRate, blockSize);
-    reverb.setEngine(engine);
-    reverb.setParameters(parameters);
+    if (targetName.empty())
+    {
+        reverb.prepare(audio.sampleRate, blockSize);
+        reverb.setEngine(engine);
+        reverb.setParameters(parameters);
+    }
+    else if (hasSpace)
+    {
+        macroReverb.prepare(audio.sampleRate, blockSize, target, engine);
+        macroReverb.setSpace(spacePercent);
+    }
+    else
+    {
+        profiledReverb.prepare(audio.sampleRate, blockSize);
+        profiledReverb.setProfile(target, engine);
+    }
     std::vector<float> inLeft(blockSize), inRight(blockSize), outLeft(blockSize), outRight(blockSize);
     const float* inputs[] { inLeft.data(), inRight.data() };
     float* outputs[] { outLeft.data(), outRight.data() };
@@ -84,7 +120,9 @@ int main(int argc, char** argv)
             inRight[static_cast<std::size_t>(i)] = audio.channels == 2 && frame < audio.frames()
                 ? audio.interleaved[frame * 2 + 1] : 0.0f;
         }
-        reverb.process(inputs, outputs, audio.channels, n);
+        if (targetName.empty()) reverb.process(inputs, outputs, audio.channels, n);
+        else if (hasSpace) macroReverb.process(inputs, outputs, audio.channels, n);
+        else profiledReverb.process(inputs, outputs, audio.channels, n);
         for (int i = 0; i < n; ++i)
         {
             for (int ch = 0; ch < audio.channels; ++ch)
@@ -100,9 +138,12 @@ int main(int argc, char** argv)
     if (!drmspace::wav::writeFloat32(outputPath, wet, error)) { std::fprintf(stderr, "%s\n", error.c_str()); return 1; }
     const auto sampleCount = wet.interleaved.size();
     const auto rms = sampleCount == 0 ? 0.0 : std::sqrt(sumSquares / sampleCount);
-    std::printf("Engine: %s\nInput: %s\nOutput: %s\nFormat: %u Hz, %u channel(s), %.2f seconds\n"
+    std::printf("Target: %s\nEngine: %s\nSPACE: %s\nInput: %s\nOutput: %s\nFormat: %u Hz, %u channel(s), %.2f seconds\n"
                 "Wet peak: %.6f (%.2f dBFS), RMS: %.6f\n",
-                engineName.c_str(), inputPath.c_str(), outputPath.c_str(), audio.sampleRate, audio.channels,
+                targetName.empty() ? "manual" : drmspace::targetProfile(target, engine).name,
+                engineName.c_str(), hasSpace ? std::to_string(spacePercent).c_str() : "profile/manual",
+                inputPath.c_str(), outputPath.c_str(), static_cast<unsigned>(audio.sampleRate),
+                static_cast<unsigned>(audio.channels),
                 static_cast<double>(wet.frames()) / audio.sampleRate, peak,
                 peak > 0.0f ? 20.0 * std::log10(peak) : -120.0, rms);
     return 0;

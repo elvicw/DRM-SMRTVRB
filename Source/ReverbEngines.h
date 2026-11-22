@@ -14,6 +14,8 @@ struct ReverbParameters
     float damping = 0.45f;
     float width = 1.0f;
     float gateSeconds = 0.45f;
+    float density = 0.65f;
+    float wetLevel = 1.0f;
 };
 
 // Wet-only reverb engines. Call prepare() before processing; process() performs

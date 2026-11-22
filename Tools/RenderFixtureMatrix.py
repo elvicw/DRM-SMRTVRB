@@ -15,6 +15,7 @@ def main():
     parser.add_argument("--directory", default=str(ROOT / "recordings"),
                         help="directory containing synthetic-*.wav fixtures")
     parser.add_argument("--tail", type=float, default=4.0, help="seconds of appended wet tail")
+    parser.add_argument("--space", type=float, default=65.0, help="SPACE macro position, 0..100")
     args = parser.parse_args()
 
     directory = Path(args.directory)
@@ -23,20 +24,26 @@ def main():
         parser.error(f"No synthetic-*.wav fixtures found in {directory}; run GenerateTestRecordings.py first")
     output_dir = directory / "rendered"
     output_dir.mkdir(parents=True, exist_ok=True)
-    settings = {
-        "room": ("1.2", "8", "0.45", "1", "0.35"),
-        "spring": ("0.9", "4", "0.30", "1.2", "0.35"),
-        "gated": ("0.8", "8", "0.55", "1", "0.24"),
+    targets = {
+        "synthetic-kick-shells": "shells",
+        "synthetic-snare": "snare",
+        "synthetic-toms": "shells",
+        "synthetic-room-mic": "room",
+        "synthetic-overheads": "overheads",
     }
+    engines = ("room", "spring", "gated")
     for fixture in fixtures:
-        for engine, (decay, predelay, damping, width, gate) in settings.items():
+        target = targets.get(fixture.stem)
+        if target is None:
+            print(f"Skipping unknown fixture: {fixture.name}")
+            continue
+        for engine in engines:
             output = output_dir / f"{fixture.stem}-{engine}.wav"
             command = [args.renderer, "--engine", engine, "--input", str(fixture), "--output", str(output),
-                       "--decay", decay, "--predelay", predelay, "--damping", damping,
-                       "--width", width, "--gate", gate, "--tail", str(args.tail)]
+                       "--target", target, "--space", str(args.space), "--tail", str(args.tail)]
             print(f"Rendering {fixture.name} -> {output.name}", flush=True)
             subprocess.run(command, check=True)
-    print(f"Rendered {len(fixtures) * len(settings)} synthetic combinations to {output_dir}")
+    print(f"Rendered {sum(f.stem in targets for f in fixtures) * len(engines)} synthetic profile combinations to {output_dir}")
 
 
 if __name__ == "__main__":

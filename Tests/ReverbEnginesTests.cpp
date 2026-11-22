@@ -96,6 +96,8 @@ void stressSampleRatesAndBlocks()
                 p.damping = high ? 0.0f : 1.0f;
                 p.width = high ? 2.0f : 0.0f;
                 p.gateSeconds = high ? 4.0f : 0.03f;
+                p.density = high ? 1.0f : 0.0f;
+                p.wetLevel = high ? 2.0f : 0.0f;
                 reverb.setParameters(p);
 
                 std::vector<float> inL(static_cast<std::size_t>(blocks[b]));

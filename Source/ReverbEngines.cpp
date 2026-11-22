@@ -86,6 +86,8 @@ void ReverbEngines::setParameters(const ReverbParameters& value) noexcept
     params.damping = std::clamp(value.damping, 0.0f, 1.0f);
     params.width = std::clamp(value.width, 0.0f, 2.0f);
     params.gateSeconds = std::clamp(value.gateSeconds, 0.03f, 4.0f);
+    params.density = std::clamp(value.density, 0.0f, 1.0f);
+    params.wetLevel = std::clamp(value.wetLevel, 0.0f, 2.0f);
     predelaySamples = static_cast<int>(sampleRate * params.preDelayMs * 0.001f);
     gateSamples = static_cast<int>(sampleRate * params.gateSeconds);
     // Approximate RT60 feedback for the shortest tank delay. Kept below unity.
@@ -131,8 +133,10 @@ float ReverbEngines::processRoom(int channel, float input) noexcept
         for (int j = 0; j < 4; ++j) mixed += matrix[i][j] * ch.dampingState[static_cast<size_t>(j)];
         ch.tank[static_cast<size_t>(i)].write(excitation * 0.24f + mixed * feedback * (1.0f - params.damping * 0.08f));
     }
-    const float diffuse = ch.diffusion[1].process(ch.diffusion[0].process(sum * 0.22f, 0.67f), 0.61f);
-    return early * 0.58f + diffuse * 0.56f;
+    const float diffusionA = 0.48f + params.density * 0.30f;
+    const float diffusionB = 0.44f + params.density * 0.30f;
+    const float diffuse = ch.diffusion[1].process(ch.diffusion[0].process(sum * 0.22f, diffusionA), diffusionB);
+    return early * (0.76f - params.density * 0.32f) + diffuse * (0.24f + params.density * 0.48f);
 }
 
 float ReverbEngines::processSpring(int channel, float input) noexcept
@@ -149,11 +153,13 @@ float ReverbEngines::processSpring(int channel, float input) noexcept
         const float tap = ch.tank[index].read(delay);
         auto& lp = ch.dampingState[index];
         lp += (1.0f - params.damping * 0.8f) * (tap - lp);
-        const float resonance = std::min(feedback, 0.97f) * (0.88f + 0.07f * (1.0f - params.damping));
+        const float resonance = std::min(feedback, 0.97f) * (0.88f + 0.07f * (1.0f - params.damping))
+                              * (0.72f + 0.28f * params.density);
         ch.tank[index].write(excitation * 0.45f + resonance * lp);
         resonant += tap * 0.25f;
     }
-    resonant = ch.diffusion[1].process(ch.diffusion[0].process(resonant, 0.76f), 0.68f);
+    resonant = ch.diffusion[1].process(ch.diffusion[0].process(resonant, 0.54f + params.density * 0.28f),
+                                      0.49f + params.density * 0.28f);
     return resonant;
 }
 
@@ -184,9 +190,11 @@ float ReverbEngines::processGated(int channel, float input) noexcept
     {
         float mixed = 0.0f;
         for (int j = 0; j < 4; ++j) mixed += signs[i][j] * taps[static_cast<size_t>(j)];
-        ch.tank[static_cast<size_t>(i)].write(excitation * 0.32f + mixed * std::min(feedback, 0.88f));
+        ch.tank[static_cast<size_t>(i)].write(excitation * (0.22f + params.density * 0.20f)
+                                           + mixed * std::min(feedback * (0.76f + params.density * 0.24f), 0.88f));
     }
-    const float dense = ch.diffusion[1].process(ch.diffusion[0].process(sum * 0.3f, 0.7f), 0.63f);
+    const float dense = ch.diffusion[1].process(ch.diffusion[0].process(sum * 0.3f, 0.48f + params.density * 0.28f),
+                                               0.45f + params.density * 0.28f);
     if (ch.gateRemaining > 0) --ch.gateRemaining;
     const float target = ch.gateRemaining > 0 ? 1.0f : 0.0f;
     const float coefficient = target > ch.gateGain ? 0.992f : 0.985f;
@@ -203,10 +211,12 @@ void ReverbEngines::process(const float* const* input, float* const* output,
         float wet[2] {};
         for (int ch = 0; ch < count; ++ch)
         {
-            const float x = input[ch] != nullptr ? input[ch][n] : 0.0f;
+            const float sample = input != nullptr && input[ch] != nullptr ? input[ch][n] : 0.0f;
+            const float x = std::isfinite(sample) ? sample : 0.0f;
             wet[ch] = engine == Engine::room ? processRoom(ch, x)
                     : engine == Engine::spring ? processSpring(ch, x)
                     : processGated(ch, x);
+            wet[ch] *= params.wetLevel;
             if (!std::isfinite(wet[ch])) wet[ch] = 0.0f;
         }
         if (count == 2)

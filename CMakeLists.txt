@@ -5,7 +5,13 @@ option(DRMSMRTVRB_BUILD_TESTS "Build DSP validation tests" ON)
 
 add_library(drmsmrtvrb_dsp STATIC
     Source/ReverbEngines.cpp
-    Source/ReverbEngines.h)
+    Source/ReverbEngines.h
+    Source/SpaceMacro.cpp
+    Source/SpaceMacro.h
+    Source/TargetProfiles.cpp
+    Source/TargetProfiles.h
+    Source/TempoSync.cpp
+    Source/TempoSync.h)
 target_include_directories(drmsmrtvrb_dsp PUBLIC Source)
 target_compile_features(drmsmrtvrb_dsp PUBLIC cxx_std_17)
 if(MSVC)
@@ -27,6 +33,18 @@ if(DRMSMRTVRB_BUILD_TESTS)
     add_executable(drmsmrtvrb_dsp_tests Tests/ReverbEnginesTests.cpp)
     target_link_libraries(drmsmrtvrb_dsp_tests PRIVATE drmsmrtvrb_dsp)
     add_test(NAME ReverbEngines COMMAND drmsmrtvrb_dsp_tests)
+    add_executable(drmsmrtvrb_profile_tests Tests/TargetProfilesTests.cpp)
+    target_link_libraries(drmsmrtvrb_profile_tests PRIVATE drmsmrtvrb_dsp)
+    target_compile_features(drmsmrtvrb_profile_tests PRIVATE cxx_std_17)
+    add_test(NAME TargetProfiles COMMAND drmsmrtvrb_profile_tests)
+    add_executable(drmsmrtvrb_space_tests Tests/SpaceMacroTests.cpp)
+    target_link_libraries(drmsmrtvrb_space_tests PRIVATE drmsmrtvrb_dsp)
+    target_compile_features(drmsmrtvrb_space_tests PRIVATE cxx_std_17)
+    add_test(NAME SpaceMacro COMMAND drmsmrtvrb_space_tests)
+    add_executable(drmsmrtvrb_tempo_tests Tests/TempoSyncTests.cpp)
+    target_link_libraries(drmsmrtvrb_tempo_tests PRIVATE drmsmrtvrb_dsp)
+    target_compile_features(drmsmrtvrb_tempo_tests PRIVATE cxx_std_17)
+    add_test(NAME TempoSync COMMAND drmsmrtvrb_tempo_tests)
     add_executable(drmsmrtvrb_wav_tests Tests/WavFileTests.cpp)
     target_link_libraries(drmsmrtvrb_wav_tests PRIVATE drmsmrtvrb_wav)
     target_compile_features(drmsmrtvrb_wav_tests PRIVATE cxx_std_17)
