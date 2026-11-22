@@ -65,7 +65,7 @@ const TargetProfile& targetProfile(SourceTarget target, Engine engine) noexcept
 
 void ProfiledReverb::prepare(double rate, int blockSize)
 {
-    sampleRate = std::clamp(rate, 8000.0, 384000.0);
+    sampleRate = std::clamp(std::isfinite(rate) ? rate : 44100.0, 8000.0, 384000.0);
     maxBlockSize = std::max(1, blockSize);
     for (auto& buffer : scratch) buffer.assign(static_cast<std::size_t>(maxBlockSize), 0.0f);
     reverb.prepare(sampleRate, maxBlockSize);

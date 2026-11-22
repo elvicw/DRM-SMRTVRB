@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <limits>
 #include <string>
 
 namespace
@@ -92,6 +93,11 @@ int main()
     require(first > 500.0 && first < 501.0, "tempo change begins with a short ramp step");
     for (int i = 1; i < 1200; ++i) smoother.next();
     require(near(smoother.current(), 1000.0), "tempo smoother reaches its target after 25 ms");
+    drmspace::TempoSmoother invalidSmoother;
+    invalidSmoother.prepare(std::nan(""), std::numeric_limits<float>::quiet_NaN());
+    invalidSmoother.reset(400.0);
+    invalidSmoother.setTarget(600.0);
+    require(std::isfinite(invalidSmoother.next()), "non-finite sample rate and ramp use safe defaults");
 
     std::puts("DRM-SMRTVRB tempo sync tests passed");
     return 0;

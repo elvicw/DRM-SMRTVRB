@@ -5,6 +5,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <limits>
 #include <vector>
 
 namespace
@@ -100,6 +101,16 @@ int main()
     float* monoOutputs[] { monoOut.data() };
     monoReverb.process(monoInputs, monoOutputs, 1, static_cast<int>(monoIn.size()));
     for (const auto sample : monoOut) require(std::isfinite(sample), "mono profile output remains finite");
+
+    drmspace::ProfiledReverb invalidInputReverb;
+    invalidInputReverb.prepare(std::numeric_limits<double>::quiet_NaN(), 16);
+    invalidInputReverb.setProfile(drmspace::SourceTarget::shells, drmspace::Engine::room);
+    std::array<float, 32> invalidInput {}, invalidOutput {};
+    invalidInput[0] = std::numeric_limits<float>::quiet_NaN();
+    const float* invalidInputs[] { invalidInput.data() };
+    float* invalidOutputs[] { invalidOutput.data() };
+    invalidInputReverb.process(invalidInputs, invalidOutputs, 1, static_cast<int>(invalidInput.size()));
+    for (const auto sample : invalidOutput) require(std::isfinite(sample), "non-finite input and sample rate are contained");
 
     std::puts("DRM-SMRTVRB target profile tests passed (12 profiles)");
     return 0;

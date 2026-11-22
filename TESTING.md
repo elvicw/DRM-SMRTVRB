@@ -18,6 +18,8 @@ The automated stress test renders repeated drum-like hits and deterministic nois
 
 `PluginState` checks advanced overrides and their interaction with SPACE, all eight preset names/states, version-1 state round trips, unknown-field forward compatibility, CRLF input, and fail-without-partial-mutation for unsupported state versions.
 
+Numerical guards cover non-finite sample rates, SPACE inputs, and audio samples; invalid control values fall back to safe settings.
+
 ## Listening with drum recordings
 
 The `drmsmrtvrb_render` utility accepts mono/stereo PCM16, PCM24, PCM32, or float32 WAV. It produces wet-only float32 WAV and appends four seconds by default. Example from the repository root:

@@ -50,7 +50,7 @@ float ReverbEngines::Allpass::process(float input, float coefficient) noexcept
 
 void ReverbEngines::prepare(double rate, int)
 {
-    sampleRate = std::clamp(rate, 8000.0, 384000.0);
+    sampleRate = std::clamp(std::isfinite(rate) ? rate : 44100.0, 8000.0, 384000.0);
     const int maxDelay = static_cast<int>(sampleRate * 4.0) + 4;
     for (auto& ch : state)
     {
@@ -81,13 +81,13 @@ void ReverbEngines::setEngine(Engine value) noexcept { engine = value; }
 
 void ReverbEngines::setParameters(const ReverbParameters& value) noexcept
 {
-    params.decaySeconds = std::clamp(value.decaySeconds, 0.08f, 8.0f);
-    params.preDelayMs = std::clamp(value.preDelayMs, 0.0f, 200.0f);
-    params.damping = std::clamp(value.damping, 0.0f, 1.0f);
-    params.width = std::clamp(value.width, 0.0f, 2.0f);
-    params.gateSeconds = std::clamp(value.gateSeconds, 0.03f, 4.0f);
-    params.density = std::clamp(value.density, 0.0f, 1.0f);
-    params.wetLevel = std::clamp(value.wetLevel, 0.0f, 2.0f);
+    params.decaySeconds = std::clamp(std::isfinite(value.decaySeconds) ? value.decaySeconds : params.decaySeconds, 0.08f, 8.0f);
+    params.preDelayMs = std::clamp(std::isfinite(value.preDelayMs) ? value.preDelayMs : params.preDelayMs, 0.0f, 200.0f);
+    params.damping = std::clamp(std::isfinite(value.damping) ? value.damping : params.damping, 0.0f, 1.0f);
+    params.width = std::clamp(std::isfinite(value.width) ? value.width : params.width, 0.0f, 2.0f);
+    params.gateSeconds = std::clamp(std::isfinite(value.gateSeconds) ? value.gateSeconds : params.gateSeconds, 0.03f, 4.0f);
+    params.density = std::clamp(std::isfinite(value.density) ? value.density : params.density, 0.0f, 1.0f);
+    params.wetLevel = std::clamp(std::isfinite(value.wetLevel) ? value.wetLevel : params.wetLevel, 0.0f, 2.0f);
     predelaySamples = static_cast<int>(sampleRate * params.preDelayMs * 0.001f);
     gateSamples = static_cast<int>(sampleRate * params.gateSeconds);
     // Approximate RT60 feedback for the shortest tank delay. Kept below unity.

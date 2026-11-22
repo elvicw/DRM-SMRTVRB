@@ -5,6 +5,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <limits>
 #include <vector>
 
 namespace
@@ -51,6 +52,10 @@ int main()
                 previousWet = result.wetGain;
             }
         }
+    const auto invalidSpace = drmspace::SpaceMacro::evaluate(drmspace::SourceTarget::shells,
+        drmspace::Engine::room, std::numeric_limits<float>::quiet_NaN());
+    require(invalidSpace.dryGain == 1.0f && invalidSpace.wetGain == 0.0f,
+            "non-finite SPACE input safely falls back to dry");
 
     const auto base = drmspace::SpaceMacro::evaluate(drmspace::SourceTarget::snare, drmspace::Engine::gated, 0.0f);
     const auto maximum = drmspace::SpaceMacro::evaluate(drmspace::SourceTarget::snare, drmspace::Engine::gated, 100.0f);

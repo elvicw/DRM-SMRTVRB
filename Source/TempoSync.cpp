@@ -148,8 +148,8 @@ std::optional<double> TapTempo::tap(double timeMilliseconds) noexcept
 
 void TempoSmoother::prepare(double rate, float rampMs) noexcept
 {
-    sampleRate = std::clamp(rate, 8000.0, 384000.0);
-    rampMilliseconds = std::clamp(rampMs, 1.0f, 100.0f);
+    sampleRate = std::clamp(std::isfinite(rate) ? rate : 44100.0, 8000.0, 384000.0);
+    rampMilliseconds = std::clamp(std::isfinite(rampMs) ? rampMs : 25.0f, 1.0f, 100.0f);
     remainingSamples = 0;
 }
 

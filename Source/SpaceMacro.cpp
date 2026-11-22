@@ -86,7 +86,8 @@ SpaceMacroResult SpaceMacro::evaluate(SourceTarget target, Engine engine, float 
 {
     const auto& base = targetProfile(target, engine);
     const auto& curve = curves[targetIndex(target)][engineIndex(engine)];
-    const float x = std::clamp(percent, 0.0f, 100.0f) * 0.01f;
+    const float safePercent = std::isfinite(percent) ? percent : 0.0f;
+    const float x = std::clamp(safePercent, 0.0f, 100.0f) * 0.01f;
     const float smooth = x * x * (3.0f - 2.0f * x);
     const float amount = std::pow(smooth, curve.exponent);
     SpaceMacroResult result;
@@ -107,14 +108,14 @@ SpaceMacroResult SpaceMacro::evaluate(SourceTarget target, Engine engine, float 
 
 void SpaceMacroSmoother::prepare(double rate, float rampMs) noexcept
 {
-    sampleRate = std::clamp(rate, 8000.0, 384000.0);
+    sampleRate = std::clamp(std::isfinite(rate) ? rate : 44100.0, 8000.0, 384000.0);
     setRampMilliseconds(rampMs);
     remainingSamples = 0;
 }
 
 void SpaceMacroSmoother::setRampMilliseconds(float rampMs) noexcept
 {
-    rampMilliseconds = std::clamp(rampMs, 1.0f, 100.0f);
+    rampMilliseconds = std::clamp(std::isfinite(rampMs) ? rampMs : 20.0f, 1.0f, 100.0f);
 }
 
 void SpaceMacroSmoother::reset(const SpaceMacroResult& value) noexcept
