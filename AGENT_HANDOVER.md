@@ -14,7 +14,10 @@
 - The incoming roadmap was moved to ROADMAP.md with product naming updated.
 - Adjacent `../drum-shaper` is DRM-RESHAPE and uses CMake with JUCE 8.0.6 FetchContent. This is a reference only.
 - `Source/ReverbEngines.*` implements early-reflection/tank Room, resonant/dispersive Spring, and separately gated feedback engines. Processing does not allocate; delay memory is allocated in `prepare`.
-- `Tests/ReverbEnginesTests.cpp` checks finite/bounded impulse responses, engine distinction, mono rendering, and gated tail reduction.
+- `Tools/RenderWav.cpp` and `Tools/WavFile.*` provide an offline mono/stereo WAV renderer. Supported input is PCM16/24/32 and float32; output is wet-only float32 with a configurable appended tail.
+- `Tests/ReverbEnginesTests.cpp` checks finite/bounded impulse responses, engine distinction, mono rendering, gated tail reduction, and stress across 3 sample rates, 5 block sizes, and parameter extremes.
+- `Tests/WavFileTests.cpp` checks float32 round trip and PCM16/24/32 decoding.
+- `recordings/` is git-ignored. No actual drum recordings have been supplied, so real-material listening is still outstanding.
 
 ## Build and test status
 
@@ -33,7 +36,8 @@
 - Repository URL: https://github.com/elvicw/DRM-SMRTVRB.
 - Repository is private. Foundation commit `1e1b9b995d10d1e39b509dc38d785b1abc2c8258` and DSP implementation commit `784d21243f774e3a78bc84c2976f8560494fec39` are pushed to `main`.
 - Implementation commit `9d8ea32` moved render test buffers to heap-backed vectors after Windows run 45003050211 exposed a stack overflow. Windows run 45003176174 then passed configure, build, and CTest on `windows-latest`.
-- Phase 1 validation tools commit `f95f7a2` is pushed; Windows run 45004120337 passed with the WAV renderer and expanded tests.
+- Phase 1 validation tools commit `f95f7a2` is pushed; Windows run 45004120337 passed with the WAV renderer and expanded tests. The subsequent documentation commit `631ac9e` is also pushed; its Windows run 45004216285 passed.
+- Current branch is `main`, tracking `origin/main`. Last verified working tree was clean.
 
 ## Next steps
 
