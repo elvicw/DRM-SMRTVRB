@@ -3,7 +3,7 @@ You are the lead software engineer, DSP engineer, audio plugin architect, UI des
 ## Execution status (updated 2026-11-22)
 
 - Phase 0 foundation is complete: private GitHub repository created and initial documentation pushed to `main`.
-- Phase 1 is active: framework-independent Room, Spring, and Gated engines, stress tests, and an offline WAV renderer exist. They have not been auditioned with actual drum recordings.
+- Phase 1 is active: framework-independent Room, Spring, and Gated engines, stress tests, synthetic fixture generation, and an offline WAV renderer exist. Actual drum recordings have not been auditioned.
 - Plugin framework/license choice and Windows build environment remain open. The DSP core is kept independent while these are evaluated.
 
 Your responsibility is to take this project from an empty repository to a functional, tested, documented, and distributable Windows audio plugin.

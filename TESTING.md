@@ -26,6 +26,13 @@ Render all three engines on kick/shells, snare, tom, room-mic, and overhead reco
 
 No actual drum recordings were available in the workspace. Listening validation with real material remains outstanding; record the source, settings, observations, and any problematic samples here before marking Phase 1 complete.
 
-## Offline render smoke check
+## Synthetic fixture matrix
 
-A generated stereo drum-like fixture (three decaying low-frequency hits plus short noise bursts) was rendered through all three engines at 48 kHz. Each produced a finite float32 stereo WAV with a two-second appended tail. The output WAV was then read back through the renderer successfully. The WAV tests also round-trip float32 and decode PCM16/24/32 fixtures. These synthetic results verify the tool path, not real-world audio quality.
+Generate the deterministic fixtures and render all 15 combinations (five inputs by three engines):
+
+```sh
+python3 Tools/GenerateTestRecordings.py
+python3 Tools/RenderFixtureMatrix.py
+```
+
+The generator creates kick/shells, snare, toms, a synthetic room-mic signal, and synthetic overheads. Each is six seconds, 48 kHz, stereo PCM16. The matrix renderer writes wet-only float32 results with a four-second tail under `recordings/rendered/`. These local audio files are git-ignored. The scripts ran successfully; every output was finite and had peak below 0 dBFS. This checks repeatability and basic signal safety, not realism or musical quality. Continue to audition with actual drum recordings when available.

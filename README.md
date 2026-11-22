@@ -23,3 +23,5 @@ The initial development machine is macOS. Windows VST3 build and REAPER validati
 ## Offline DSP renders
 
 The `drmsmrtvrb_render` utility renders mono/stereo WAV through a wet-only engine. See [TESTING.md](TESTING.md) for formats, commands, and listening checks. Put private audio in the ignored `recordings/` directory; do not commit recordings.
+
+Generate repeatable synthetic input fixtures with `python3 Tools/GenerateTestRecordings.py`, then render every fixture/engine pair with `python3 Tools/RenderFixtureMatrix.py`. These are procedural drum-like test signals, not recordings.

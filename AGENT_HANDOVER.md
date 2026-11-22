@@ -15,9 +15,10 @@
 - Adjacent `../drum-shaper` is DRM-RESHAPE and uses CMake with JUCE 8.0.6 FetchContent. This is a reference only.
 - `Source/ReverbEngines.*` implements early-reflection/tank Room, resonant/dispersive Spring, and separately gated feedback engines. Processing does not allocate; delay memory is allocated in `prepare`.
 - `Tools/RenderWav.cpp` and `Tools/WavFile.*` provide an offline mono/stereo WAV renderer. Supported input is PCM16/24/32 and float32; output is wet-only float32 with a configurable appended tail.
+- `Tools/GenerateTestRecordings.py` creates five procedural drum-like fixtures (kick/shells, snare, toms, room-mic, overheads); `Tools/RenderFixtureMatrix.py` renders all 15 fixture/engine pairs. Generated WAVs are local under ignored `recordings/`.
 - `Tests/ReverbEnginesTests.cpp` checks finite/bounded impulse responses, engine distinction, mono rendering, gated tail reduction, and stress across 3 sample rates, 5 block sizes, and parameter extremes.
 - `Tests/WavFileTests.cpp` checks float32 round trip and PCM16/24/32 decoding.
-- `recordings/` is git-ignored. No actual drum recordings have been supplied, so real-material listening is still outstanding.
+- Synthetic outputs were finite and below 0 dBFS in the generated matrix. They are not real recordings; no actual drum recordings have been supplied, so real-material listening is still outstanding.
 
 ## Build and test status
 
@@ -25,7 +26,7 @@
 - Build: `cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build`
 - Test: `ctest --test-dir build --output-on-failure`
 - Render help: `./build/drmsmrtvrb_render --help`
-- Latest local result: build succeeded; CTest passed 2/2 on macOS Apple clang 21.0.1. A generated stereo drum-like WAV rendered through all engines, and float32 output was read back successfully.
+- Latest local result: build succeeded; CTest passed 2/2 on macOS Apple clang 21.0.1. All five synthetic inputs rendered through all three engines; float32 output read-back and PCM fixture decoding passed.
 - Windows CI run 45004120337 passed configure, build, and both CTest targets on `windows-latest`.
 - No actual drum recordings were available; no real-material listening, REAPER validation, or plugin build has been performed.
 - Windows VST3 and REAPER validation remain required.
@@ -41,7 +42,7 @@
 
 ## Next steps
 
-1. Put actual kick/shell, snare, tom, room, and overhead WAVs into the ignored `recordings/` directory; use the documented renderer command to listen to all engine/source examples.
+1. Put actual kick/shell, snare, tom, room, and overhead WAVs into the ignored `recordings/` directory; use the documented renderer command to listen to all engine/source examples. Synthetic fixtures already exist for tool checks but do not count as this listening validation.
 2. Tune Room/Spring/Gated based on those recordings and note evidence in TESTING.md before marking Phase 1 complete.
 3. Decide JUCE commercial vs AGPLv3 use (or another framework) and establish a Windows VST3 build route.
 4. Implement target profiles, then proceed to SPACE macro and tempo sync per ROADMAP.md.

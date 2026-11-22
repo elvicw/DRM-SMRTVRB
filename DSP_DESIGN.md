@@ -16,4 +16,4 @@ The four user-selected sources (Shells, Snare, Room, Overheads) will each tune a
 
 ## Safety and verification
 
-Delay buffers are prepared outside processing. Feedback is bounded, parameter inputs are clamped, and non-finite output samples are zeroed. Automated checks cover finite/bounded impulse response, engine distinction, mono routing, gated tail reduction, and generated drum-like signals at three sample rates, five block sizes, and parameter extremes. An offline WAV renderer is available for listening tests. Audio quality still needs validation with actual drum recordings and host automation.
+Delay buffers are prepared outside processing. Feedback is bounded, parameter inputs are clamped, and non-finite output samples are zeroed. Automated checks cover finite/bounded impulse response, engine distinction, mono routing, gated tail reduction, and generated drum-like signals at three sample rates, five block sizes, and parameter extremes. Five deterministic synthetic fixtures are also rendered through all three engines. These are procedural signals, not recordings; audio quality still needs validation with actual drum recordings and host automation.

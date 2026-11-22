@@ -18,3 +18,4 @@
 - Added mono/stereo PCM16/24/32 and float32 WAV input, float32 output, and configurable rendered tail.
 - Expanded automated checks across sample rates, block sizes, and parameter extremes.
 - Added WAV read/write tests and ignored the local `recordings/` folder.
+- Added deterministic synthetic kick/shell, snare, tom, room-mic, and overhead fixture generation plus a 15-case render-matrix script.

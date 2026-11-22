@@ -4,7 +4,7 @@
 - **Company:** yeahwaah audio
 - **Version:** 0.0.0 (development)
 - **Phase:** 1 — Core reverb engine
-- **Completed:** Phase 0 foundation; first Room, Spring, and Gated DSP engine baseline; CMake build and impulse tests.
+- **Completed:** Phase 0 foundation; initial Room, Spring, and Gated DSP engines; CMake tests; offline WAV renderer; five synthetic fixture types and 15 rendered combinations.
 - **Active tasks:** Run offline WAV listening tests on actual drum recordings; review engine behavior before Phase 2.
 - **Outstanding:** Real drum auditioning, source profiles, SPACE macro, tempo sync, advanced controls, presets, VST3 wrapper/UI, Windows/REAPER validation, packaging, and release.
 - **Latest successful build:** macOS Apple clang 21.0.1, CMake Release; local DSP build succeeded.
