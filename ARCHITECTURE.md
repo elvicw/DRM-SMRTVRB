@@ -6,7 +6,7 @@ The project now has an initial JUCE VST3/standalone wrapper around the independe
 
 ## Framework and build
 
-The project uses JUCE 8.0.6 with CMake FetchContent. JUCE is dual licensed under commercial terms and AGPLv3; the appropriate product license and distribution model have not been selected. Resolve the license before distributing binaries. See the official [JUCE licensing page](https://juce.com/get-juce/).
+The project uses JUCE 8.0.6 with CMake FetchContent. JUCE offers its JUCE licence plans and AGPLv3 terms; the applicable plan depends on the product's revenue and distribution model. The private repository does not establish that the required licensing conditions are met. Confirm the account's JUCE licence or the AGPL source/distribution obligations before distributing binaries. See JUCE's current [licensing overview](https://juce.com/get-juce/) and [JUCE 8 EULA](https://juce.com/legal/juce-8-licence/).
 
 ## Planned boundaries
 

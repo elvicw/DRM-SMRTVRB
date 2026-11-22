@@ -20,7 +20,7 @@ After building, run `./build/drmsmrtvrb_render --help` for options. The renderer
 
 ## Framework and licensing
 
-The wrapper fetches JUCE 8.0.6 through CMake FetchContent. JUCE is dual licensed; the project's commercial license/distribution choice remains open. Resolve that before distributing a binary. The dependency is pinned to tag 8.0.6, but FetchContent still requires network access for a clean build.
+The wrapper fetches JUCE 8.0.6 through CMake FetchContent. JUCE offers its JUCE licence plans and AGPLv3 terms; verify which applies to this product before distributing a binary. The dependency is pinned to tag 8.0.6, but FetchContent still requires network access for a clean build. See JUCE's [licensing overview](https://juce.com/get-juce/) and [JUCE 8 EULA](https://juce.com/legal/juce-8-licence/).
 
 To build the plugin and DSP tests on a machine with CMake, a C++17 compiler, and Git/network access:
 

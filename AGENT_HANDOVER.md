@@ -2,13 +2,13 @@
 
 ## Resumed handover (2026-11-22)
 
-The user resumed work after the pause. The current local build and tests now pass; continue verification below.
+The user resumed work after the pause. The local build/tests pass and the first Windows plugin build succeeded; continue verification below.
 
 ### Current state
 
-- Branch `main`, tracking `origin/main`; changes remain uncommitted. The pushed base is `75b4c1f` plus earlier history.
+- Branch `main`, tracking `origin/main`; the wrapper/editor milestone is pushed as `c4abbf5`. Current workflow/docs edits remain uncommitted.
 - JUCE 8.0.6 VST3/standalone wrapper, APVTS state/parameters, eight factory programs, and editor are implemented locally.
-- Windows workflow builds/tests the VST3 and uploads the artifact, but has not run.
+- Windows run [45039813438](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45039813438) passed configure, build, all six tests, and artifact upload. Inspection found upload-artifact stripped the `.vst3` bundle root. Workflow now stages the bundle and uses upload-artifact v7; this correction has not run yet.
 - Latest additions include per-channel meter snapshots, atomic wet history, preset modified-state display, tail smoothing, host BPM display, advanced-control disabling, and populated choice menus.
 - Corrected the tail smoother to a 25 ms ramp (`0.025` seconds).
 - Current macOS `cmake --build build-plugin -j 4` links VST3 and standalone; `ctest --test-dir build-plugin --output-on-failure` passes 6/6.
@@ -16,12 +16,12 @@ The user resumed work after the pause. The current local build and tests now pas
 - Parameter formatting is supplied by APVTS parameter attributes so JUCE attachments preserve concise values and units; the standalone screenshot now shows SPACE as `28%` and tail as `0.48 s`.
 - REAPER 7.34/macOS arm64 instantiated the VST3 and opened its editor; audio was not played. One capture showed “Tight Shells” in the host/editor program selector while the controls showed Shells + Spring + SPACE 37.37% and MODIFIED. Reproduce and fix this mismatch.
 - The temporary plugin install and REAPER cache entry were removed; the REAPER instance was closed.
-- No Windows CI result, Windows host validation, or real-recording audition exists. JUCE distribution terms remain unresolved.
+- Windows CI succeeded, but corrected artifact layout and Windows host validation remain outstanding. No real-recording audition exists. JUCE distribution terms remain unresolved.
 
 ### Next steps
 
-1. Reproduce/fix the REAPER factory program versus parameter mismatch; add regression coverage if practical.
-2. Run `.github/workflows/windows-build.yml`, resolve Windows build/test failures, and confirm the VST3 artifact upload.
+1. Commit/push the workflow staging correction and current documentation; monitor CI and confirm the downloaded artifact contains `DRM-SMRTVRB.vst3/Contents/...`.
+2. Reproduce/fix the REAPER factory program versus parameter mismatch; add regression coverage if practical.
 3. Validate minimum-size layout, keyboard/accessibility behavior, meter decay/hold, wet history, and preset modified/reset behavior.
 4. In Windows REAPER, test audio, all profiles, SPACE 0 dry endpoint, host tempo/fallback, automation, state/preset restore, editor reopen, and resizing.
 5. Resolve JUCE commercial versus AGPL distribution terms before binaries are distributed; audition real drum recordings before audio-quality claims.
@@ -29,12 +29,12 @@ The user resumed work after the pause. The current local build and tests now pas
 
 ### Do not claim
 
-- Windows build/host validation or REAPER audio quality.
+- Windows host validation or REAPER audio quality.
 - Real drum-recording audition or release readiness.
 
 ## Current continuation (2026-11-22)
 
-- See **Resumed handover (2026-11-22)** above for the latest build, test, and host observations.
+- See **Resumed handover (2026-11-22)** above for the latest build, test, host observations, and artifact-layout correction.
 
 ## Current state
 
