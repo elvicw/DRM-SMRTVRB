@@ -42,7 +42,7 @@
 - Owner/account: `elvicw`.
 - Repository URL: https://github.com/elvicw/DRM-SMRTVRB.
 - Repository is private; current branch is `main`, tracking `origin/main`.
-- Latest pushed commit at handover preparation: `02c027382ceac955e0cb0dc5a1831e3bcc3b6553` (`fix: guard DSP controls against non-finite values`).
+- Latest pushed implementation commit: `02c027382ceac955e0cb0dc5a1831e3bcc3b6553`; current documentation commit: `75b4c1f` (`docs: define Phase 6 interface specification`).
 - The UI specification and synchronized roadmap/status updates are included in the current documentation change.
 
 ## Next steps
