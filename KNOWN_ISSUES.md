@@ -4,7 +4,7 @@
 
 - **Reproduction:** Build the current CMake project and inspect its targets.
 - **Expected:** A functioning Windows VST3 drum reverb plugin with musically tuned source profiles.
-- **Actual:** Framework-independent DSP engines, twelve target profiles, a SPACE processor, tests, and an offline WAV tool exist. There is no VST3 target, host integration, tempo sync, UI, or preset layer.
+- **Actual:** Framework-independent DSP engines, twelve target profiles, SPACE, tempo calculations, advanced controls, factory presets, portable state codec, tests, and an offline WAV tool exist. There is no VST3 target, host integration, UI, or plugin-bound preset/state layer.
 - **Workaround:** The DSP can be evaluated offline; it cannot yet be loaded by REAPER.
 - **Suggested fix:** Choose the plugin framework/licensing model and continue through Phases 4–7 in ROADMAP.md.
 

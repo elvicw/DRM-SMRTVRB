@@ -3,13 +3,13 @@
 - **Product:** DRM-SMRTVRB
 - **Company:** yeahwaah audio
 - **Version:** 0.0.0 (development)
-- **Phase:** 4 — Tempo synchronization
-- **Completed:** Standalone engine and profile processing; twelve SPACE curves with smoothing and exact dry endpoint; Free/Host/Tap timing calculations and division timing; five synthetic fixtures and 15 macro-profile renders.
-- **Active tasks:** Prepare host timing integration; implement advanced controls and factory presets. Actual host BPM extraction waits for plugin framework/wrapper selection.
-- **Outstanding:** Host integration, advanced controls, presets/state persistence, VST3 wrapper/UI, Windows/REAPER validation, packaging, release, and real-recording tuning.
+- **Phase:** 5 — Advanced controls and presets
+- **Completed:** Standalone engines/profiles/SPACE; Free/Host/Tap timing calculations; five synthetic fixtures; optional advanced overrides; eight factory presets; portable versioned state codec.
+- **Active tasks:** Verify Phase 5 on Windows CI; then plan the UI and plugin framework integration.
+- **Outstanding:** Host BPM extraction, VST3 state callbacks, advanced controls/UI binding, preset browser, UI/meters, Windows/REAPER plugin validation, packaging, release, and real-recording tuning.
 - **Latest successful build:** macOS Apple clang 21.0.1, CMake Release; local DSP build succeeded.
-- **Latest successful test:** CTest passed 5/5 (`ReverbEngines`, `TargetProfiles`, `SpaceMacro`, `TempoSync`, `WavFile`) on macOS.
-- **Windows CI:** Run 45007487202 passed (configure, build, and all five CTest targets) on `windows-latest`.
+- **Latest successful test:** CTest passed 6/6 (`ReverbEngines`, `TargetProfiles`, `SpaceMacro`, `TempoSync`, `PluginState`, `WavFile`) on macOS.
+- **Windows CI:** Run 45007487202 passed through Phase 4; Phase 5 changes are awaiting CI.
 - **Repository:** https://github.com/elvicw/DRM-SMRTVRB (private)
 
 ## Environment observations

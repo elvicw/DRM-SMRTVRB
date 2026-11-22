@@ -2,10 +2,10 @@
 
 ## Current state
 
-- **Phase:** 4 — Tempo synchronization.
-- **Last completed milestone:** Standalone SPACE macro and Free/Host/Tap timing calculations are implemented; all five CTest targets pass locally.
-- **Active milestone:** Verify Phase 2–4 changes on Windows CI, then proceed to advanced controls and presets.
-- **Implementation status:** DSP library, offline renderer, twelve target profiles, SPACE processor, tempo calculator/tap tracker, and five CTest targets exist. No VST3 plugin, host transport adapter, UI, or presets.
+- **Phase:** 5 — Advanced controls and presets.
+- **Last completed milestone:** Advanced override composition, eight factory presets, and versioned state codec pass local tests; Phase 2–4 DSP/timing modules are also implemented.
+- **Active milestone:** Verify Phase 5 on Windows CI, then prepare Phase 6 framework/UI integration.
+- **Implementation status:** DSP library, offline renderer, target profiles, SPACE, tempo calculator/tap tracker, advanced controls, preset bank/state codec, and six CTest targets exist. No VST3 plugin, host transport adapter, or UI.
 
 ## Completed work
 
@@ -17,6 +17,7 @@
 - `Source/TargetProfiles.*` defines twelve distinct profiles with source-specific wet-send filtering and engine controls.
 - `Source/SpaceMacro.*` maps 0–100% through twelve independent curves, equal-power dry/wet gains, and a default 20 ms smoother. `SpaceMacroProcessor` returns exactly dry at 0% and processes parameters in 32-sample quanta.
 - `Source/TempoSync.*` calculates six musical divisions for Free/Host/Tap modes, retains valid fallback BPM values, handles tap intervals, and smooths timing changes. Actual host BPM extraction is not implemented.
+- `Source/PluginState.*` composes advanced overrides after SPACE and contains the eight roadmap presets plus a versioned text state codec. The codec is not connected to host state callbacks.
 - `Tools/RenderWav.cpp` and `Tools/WavFile.*` provide an offline mono/stereo WAV renderer. Supported input is PCM16/24/32 and float32; output is wet-only float32 with a configurable appended tail.
 - `Tools/GenerateTestRecordings.py` creates five procedural drum-like fixtures (kick/shells, snare, toms, room-mic, overheads); `Tools/RenderFixtureMatrix.py` renders all 15 profile/engine pairs at SPACE 65. Generated WAVs are local under ignored `recordings/`.
 - `Tests/ReverbEnginesTests.cpp`, `Tests/TargetProfilesTests.cpp`, and `Tests/SpaceMacroTests.cpp` cover engine safety, all twelve profiles, SPACE range/smoothing/exact dry endpoint, mono, and block chunking.
@@ -29,8 +30,8 @@
 - Build: `cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build`
 - Test: `ctest --test-dir build --output-on-failure`
 - Render help: `./build/drmsmrtvrb_render --help`
-- Latest local result: build succeeded; CTest passed 5/5 on macOS Apple clang 21.0.1. All five synthetic inputs rendered through all twelve source/engine profiles at SPACE 65; all output peaks remained below 0 dBFS.
-- Windows CI run 45007487202 passed configure, build, and all five CTest targets for profile, SPACE, and tempo changes.
+- Latest local result: build succeeded; CTest passed 6/6 on macOS Apple clang 21.0.1. All five synthetic inputs rendered through all twelve source/engine profiles at SPACE 65; all output peaks remained below 0 dBFS.
+- Windows CI run 45007487202 passed Phase 2–4. Phase 5 changes await CI.
 - No actual drum recordings were available; no real-material listening, REAPER validation, or plugin build has been performed.
 - Windows VST3 and REAPER validation remain required.
 
@@ -45,12 +46,12 @@
 
 ## Next steps
 
-1. Verify current profile, SPACE, and tempo changes on Windows CI; fix any platform-specific failures.
-2. Continue Phase 5 with advanced-control overrides and the eight requested factory presets, including state serialization tests.
-3. Decide JUCE commercial vs AGPLv3 use (or another framework) before plugin wrapper integration.
-4. Connect host BPM/transport and automation after framework selection; generated inputs are not real recordings and do not establish musical quality.
-5. Continue through Phases 6–7 and update status/design/testing/issue/handover docs as work advances.
+1. Verify advanced overrides, presets, and state codec on Windows CI; fix platform-specific issues.
+2. Choose a plugin framework and licensing/distribution path before Phase 6 UI/VST3 integration.
+3. Connect host BPM/transport, host state, and automation once the framework is selected.
+4. Continue through Phase 7; generated inputs are not real recordings and do not establish musical quality.
+5. Keep the release checklist honest about actual drum listening, Windows REAPER, packaging, and screenshot requirements.
 
 ## Next agent instruction
 
-Start by checking the `main` branch, repository status, and this handover. Run the documented CMake build and CTest. Continue Phase 5 with advanced controls and presets. Keep actual host tempo extraction pending framework selection; do not claim real-recording audition or plugin validation.
+Start by checking the `main` branch, repository status, and this handover. Run the documented CMake build and CTest. Verify Phase 5 on Windows CI, then proceed to framework/UI integration after resolving its licensing model. Do not claim real-recording audition or plugin validation.

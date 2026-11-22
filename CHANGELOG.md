@@ -37,3 +37,9 @@
 - Added six musical division calculations for Free, Host, and Tap timing modes.
 - Added last-valid/default BPM fallback, tap-tempo interval averaging, gated timing clamp reporting, and a timing smoother.
 - Added tests for tempo changes and missing source timing. Host transport extraction remains pending a plugin wrapper.
+
+## Unreleased — advanced controls and preset state
+
+- Added optional Pre-delay, Tone, Width, Mix, and Tail override composition on top of SPACE.
+- Added the eight named factory presets from the roadmap.
+- Added versioned state serialization with bounds checks and forward-compatible unknown fields.

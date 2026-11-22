@@ -2,7 +2,7 @@
 
 **DRM-SMRTVRB** is a purpose-built drum reverb plugin by **yeahwaah audio**. Its workflow centers on selecting a drum source, choosing a reverb character, and shaping the result with the SPACE macro.
 
-The project has completed the standalone DSP work through Phase 3 and started Phase 4 timing calculations. The three reverb engines, twelve source/engine profiles, and SPACE macro processor are tested, but no plugin wrapper or distributable build is claimed. Real drum recordings were not available, so profile tuning remains provisional.
+The standalone DSP foundation through Phase 5 is implemented: three engines, twelve source/engine profiles, SPACE, tempo calculations, advanced overrides, presets, and portable state. The VST3 wrapper and UI are not implemented, and real drum recordings were unavailable, so profile tuning remains provisional.
 
 ## Planned V1
 

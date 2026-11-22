@@ -30,3 +30,5 @@ Keep audio processing real-time safe: no file I/O, blocking locks, or dynamic al
 `Source/SpaceMacro.*` evaluates one independently tuned macro curve per target/engine pair, smooths its values over 20 ms by default, and mixes dry/wet output. It is not yet connected to host automation or a plugin wrapper.
 
 `Source/TempoSync.*` supplies division math, Free/Host/Tap mode semantics, BPM fallback, tap interval tracking, and a timing smoother. Host transport/BPM extraction remains in the future plugin adapter.
+
+`Source/PluginState.*` defines the portable plugin state, five optional advanced overrides, eight factory presets, and a versioned text codec. It is independent of the plugin framework; the VST3 state callbacks and UI preset browser still need integration.

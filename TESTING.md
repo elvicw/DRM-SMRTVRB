@@ -2,7 +2,7 @@
 
 `Tests/ReverbEnginesTests.cpp` exercises Room, Spring, and Gated using stereo impulse input, checks finite/bounded output and nonzero tails, checks that the engine responses differ, checks mono processing, and checks gated tail reduction after its selected gate interval.
 
-Latest local result: CMake Release build succeeded on macOS with Apple clang 21.0.1; CTest passed 5/5 (`ReverbEngines`, `TargetProfiles`, `SpaceMacro`, `TempoSync`, `WavFile`).
+Latest local result: CMake Release build succeeded on macOS with Apple clang 21.0.1; CTest passed 6/6 (`ReverbEngines`, `TargetProfiles`, `SpaceMacro`, `TempoSync`, `PluginState`, `WavFile`).
 
 The first Windows CI run compiled successfully but the test executable segfaulted because the harness stored multiple full render buffers on the Windows thread stack. Moving these buffers to heap-backed vectors fixed the issue. Windows run 45004120337 passed configure, build, and both CTest targets on `windows-latest`.
 
@@ -15,6 +15,8 @@ The automated stress test renders repeated drum-like hits and deterministic nois
 `TargetProfiles` checks all twelve distinct source/engine profiles for valid ranges, finite/bounded wet output, and mono/stereo processing. `SpaceMacro` checks all twelve curve endpoints and bounds, 20 ms smoothing, exact dry output at zero, and wet output after automation. The render matrix uses each source profile and SPACE 65 for the synthetic source fixtures.
 
 `TempoSync` checks all six subdivision calculations, BPM changes and missing-host fallback, Free mode, Tap mode fallback, tap averaging/outlier behavior, natural decay vs gated termination limits, and a 25 ms timing ramp. It does not test host transport extraction because no plugin framework/wrapper exists yet.
+
+`PluginState` checks advanced overrides and their interaction with SPACE, all eight preset names/states, version-1 state round trips, unknown-field forward compatibility, CRLF input, and fail-without-partial-mutation for unsupported state versions.
 
 ## Listening with drum recordings
 

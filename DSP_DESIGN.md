@@ -24,6 +24,10 @@ The four user-selected sources (Shells, Snare, Room, Overheads) each have all th
 
 `Source/TempoSync.*` converts Host, Tap, and Free modes into timing values for 1/16, 1/8, 1/4, 1/2, one bar, or two bars. A valid host/tap BPM must be 20–300; missing host tempo falls back to the last valid value or 120 BPM. Room/Spring use the division as an RT60 target, which remains a natural fade. Gated uses it as a separate termination time and reports when its four-second limit clamps a slower tempo/long division. A tempo smoother ramps timing changes. The actual host BPM adapter and transport callback are not implemented before framework selection.
 
+## Advanced override behavior
+
+`applyAdvancedControls` applies enabled controls after the SPACE curve. Pre-delay, Tone, Width, and Tail replace their corresponding macro-derived value; positive Tone reduces damping (brighter), negative Tone increases it (darker). Advanced Mix replaces the profile wet cap with a user wet proportion while preserving the SPACE position and exact dry output at SPACE 0%. Disabled overrides leave SPACE results unchanged. Preset/state recall uses the portable state model; the plugin wrapper must route changes through the smoothers before connecting UI automation.
+
 ## Safety and verification
 
 Delay buffers are prepared outside processing. Feedback is bounded, parameter inputs are clamped, and non-finite output samples are zeroed. Automated checks cover finite/bounded impulse response, engine distinction, mono routing, gated tail reduction, and generated drum-like signals at three sample rates, five block sizes, and parameter extremes. Five deterministic synthetic fixtures are also rendered through all three engines. These are procedural signals, not recordings; audio quality still needs validation with actual drum recordings and host automation.

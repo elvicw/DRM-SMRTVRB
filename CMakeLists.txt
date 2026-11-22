@@ -8,6 +8,8 @@ add_library(drmsmrtvrb_dsp STATIC
     Source/ReverbEngines.h
     Source/SpaceMacro.cpp
     Source/SpaceMacro.h
+    Source/PluginState.cpp
+    Source/PluginState.h
     Source/TargetProfiles.cpp
     Source/TargetProfiles.h
     Source/TempoSync.cpp
@@ -45,6 +47,10 @@ if(DRMSMRTVRB_BUILD_TESTS)
     target_link_libraries(drmsmrtvrb_tempo_tests PRIVATE drmsmrtvrb_dsp)
     target_compile_features(drmsmrtvrb_tempo_tests PRIVATE cxx_std_17)
     add_test(NAME TempoSync COMMAND drmsmrtvrb_tempo_tests)
+    add_executable(drmsmrtvrb_state_tests Tests/PluginStateTests.cpp)
+    target_link_libraries(drmsmrtvrb_state_tests PRIVATE drmsmrtvrb_dsp)
+    target_compile_features(drmsmrtvrb_state_tests PRIVATE cxx_std_17)
+    add_test(NAME PluginState COMMAND drmsmrtvrb_state_tests)
     add_executable(drmsmrtvrb_wav_tests Tests/WavFileTests.cpp)
     target_link_libraries(drmsmrtvrb_wav_tests PRIVATE drmsmrtvrb_wav)
     target_compile_features(drmsmrtvrb_wav_tests PRIVATE cxx_std_17)

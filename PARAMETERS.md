@@ -20,6 +20,11 @@ No host-automatable parameters are implemented yet. The values below are interna
 | Sync mode | Free / Host / Tap | Selects unrestricted, host BPM, or tapped BPM timing |
 | BPM | 20–300 | Host/tap musical timing; missing source falls back to last valid BPM or 120 |
 | Division | 1/16, 1/8, 1/4, 1/2, 1 bar, 2 bars | Converts BPM to timing milliseconds |
+| Advanced Pre-delay | ms, 0–200; optional | Overrides the macro pre-delay when enabled |
+| Advanced Tone | -1–1; optional | Dark-to-bright damping offset |
+| Advanced Width | 0–2; optional | Overrides macro stereo width |
+| Advanced Mix | 0–1; optional | Overrides profile wet cap while SPACE sets the amount |
+| Advanced Tail | seconds, 0.08–8; optional | Overrides natural decay; Gated termination clamps to 4 s |
 
 ## Initial twelve source/engine profiles
 
@@ -33,5 +38,7 @@ Values are `(HP Hz / LP Hz / Send / Decay s / Pre-delay ms / Damping / Width / G
 | Overheads | `170 / 9000 / .38 / .72 / 5 / .82 / .72 / .40 / .65 / .48` | `200 / 8500 / .32 / .82 / 8 / .72 / .70 / .45 / .62 / .38` | `180 / 9000 / .38 / .48 / 0 / .85 / .66 / .16 / .68 / .43` |
 
 The source-controlled table is in `Source/TargetProfiles.cpp`; `Tests/TargetProfilesTests.cpp` verifies distinctness, ranges, finite output, and mono/stereo processing. Twelve SPACE curves are in `Source/SpaceMacro.cpp`; `Tests/SpaceMacroTests.cpp` verifies endpoints, input clamps, smoothing, and exact dry output at zero.
+
+Factory presets are defined in `Source/PluginState.cpp`: Tight Shells, Big Snare, Explosive Snare, Small Studio, Large Room, Wide Overheads, Metallic Spring, and Vintage Gated. Portable state format version 1 serializes the selected target/engine, SPACE, sync/division, free decay, advanced override enable flags, and values. Host IDs and actual plugin state callbacks are still pending.
 
 Planned host controls include Target, Character, SPACE, sync mode, BPM/tap tempo, musical division, and optional Pre-delay, Tone, Width, Mix, and Tail controls. Host IDs, automation, smoothing, and state persistence will be specified when the plugin wrapper is implemented.
