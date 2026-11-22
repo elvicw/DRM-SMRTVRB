@@ -2,7 +2,17 @@
 
 ## Current status
 
-No DRM-SMRTVRB build files or plugin target exist yet. Initial machine inspection found macOS, Apple clang 21.0.1, CMake 4.5.0, and Ninja. No Windows cross-compiler or JUCE Homebrew package was detected. Windows is the only supported build/release target for V1.
+The framework-independent DSP library and tests build with CMake. Initial machine inspection found macOS, Apple clang 21.0.1, CMake 4.5.0, and Ninja. No Windows cross-compiler or JUCE Homebrew package was detected. Windows is the only supported plugin build/release target for V1; the VST3 target is not implemented yet.
+
+## DSP core build
+
+```sh
+cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+ctest --test-dir build --output-on-failure
+```
+
+Windows CI currently builds/tests this DSP core only. It does not yet produce a plugin artifact.
 
 ## Framework investigation
 

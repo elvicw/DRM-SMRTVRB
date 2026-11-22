@@ -6,7 +6,7 @@ Architecture decisions are provisional because the plugin does not exist yet. Th
 
 ## Framework and build
 
-The adjacent DRM-RESHAPE project provides a local reference using JUCE 8.0.6 and CMake. Evaluate that approach for DRM-SMRTVRB, including JUCE licensing and reproducible Windows dependency acquisition, before implementation.
+The adjacent DRM-RESHAPE project provides a local reference using JUCE 8.0.6 and CMake. DRM-SMRTVRB currently keeps its DSP core framework-independent. JUCE is dual licensed under commercial terms and AGPLv3; the appropriate product license and distribution model have not been selected. See the official [JUCE licensing page](https://juce.com/get-juce/) before integrating JUCE.
 
 ## Planned boundaries
 
@@ -19,3 +19,7 @@ The adjacent DRM-RESHAPE project provides a local reference using JUCE 8.0.6 and
 - **Build/release:** Windows-only CI and reproducible VST3 packaging.
 
 Keep audio processing real-time safe: no file I/O, blocking locks, or dynamic allocation in the audio callback.
+
+## Implemented DSP boundary
+
+`Source/ReverbEngines.*` currently provides wet-only Room, Spring, and Gated engines behind one prepared processor interface. Delay memory is allocated in `prepare`; `process` does not allocate. Plugin wrapping, host communication, source profiles, state/presets, UI, and parameter smoothing are not implemented.
