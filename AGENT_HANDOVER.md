@@ -36,6 +36,8 @@ The user resumed work after the pause. The local build/tests pass and the first 
 - See **Resumed handover (2026-11-22)** above for the latest build, test, host observations, and Windows artifact verification.
 - 640 x 420 content-size standalone capture verified the minimum layout and exposed two defects: SPACE overlapped Character, and the Wet Envelope caption reached the bottom edge. `Source/PluginEditor.cpp` now centers the shrinking SPACE knob under its label and shortens/repositions the history region/caption. The revised capture is clear.
 - Sliders now request keyboard focus and use `DRMFocusableSlider` to draw an amber focus outline. Local CMake build succeeds; keyboard interaction has not yet been verified at runtime. Docs `PROJECT_STATUS.md`, `KNOWN_ISSUES.md`, and `UI_SPEC.md` record the result and remaining checks.
+- Windows CI run [45052266119](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45052266119) passed configure, build, all six tests, VST3 bundle staging, and artifact upload for commit `f7a8882`. Downloaded artifact inspection confirmed both the Windows VST3 binary and `moduleinfo.json` under the expected bundle root.
+- Standalone accessibility inspection now reports selector names for preset, source, character, sync, and division, plus slider values for SPACE and the advanced controls. An accessibility-driven arrow-key attempt did not focus SPACE; do not mark keyboard operation verified. A native/physical key path is still needed.
 - Next: verify keyboard adjustment and focus outline on the standalone app; inspect preset/division selector accessibility; then proceed with Windows REAPER integration checks. No user recordings or Windows host validation are available yet.
 
 ## Current state
