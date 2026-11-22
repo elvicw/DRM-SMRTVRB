@@ -215,9 +215,10 @@ void DRMsmrtvrbAudioProcessorEditor::resized()
     target.setBounds(32, 103, 150, 30);
     characterLabel.setBounds(198, 84, 130, 18);
     character.setBounds(198, 103, 150, 30);
-    spaceLabel.setBounds(360, 82, 120, 20);
     const int knob = juce::jmin(190, getHeight() - 292);
-    space.setBounds(420 - knob / 2, 98, knob, knob);
+    const int spaceX = juce::jmax(356, 420 - knob / 2);
+    spaceLabel.setBounds(spaceX + knob / 2 - 60, 82, 120, 20);
+    space.setBounds(spaceX, 98, knob, knob);
 
     syncLabel.setBounds(32, 158, 120, 18);
     sync.setBounds(32, 178, 116, 28);

@@ -27,9 +27,9 @@
 
 - **Reproduction:** Open the editor and inspect the meter strip and preset selector.
 - **Expected:** Host tempo display, advanced values enabled only when their toggles are active, and a responsive, accessible editor.
-- **Actual:** The BPM display and toggle-based control enabling are implemented. Default-size and 640 x 420 content-size standalone captures show the layout; the minimum-size review found SPACE overlapping Character and the Wet Envelope caption touching the bottom edge, and both issues are fixed. The accessibility tree reports names for preset, source, character, sync, and division selectors, plus slider names/values for SPACE, Free Decay, and advanced controls. Sliders request keyboard focus and paint an amber focus outline. An accessibility-driven arrow-key attempt did not focus SPACE, so keyboard operation is still unverified. Host/Tap behavior, meter activity, and wet history also remain unverified.
+- **Actual:** The BPM display and toggle-based control enabling are implemented. Default-size and 640 x 420 content-size standalone captures show the layout; the minimum-size review fixed SPACE overlapping Character and Wet Envelope caption clipping. A native click and Right arrow moved SPACE from 28% to 29%, then it was restored to 28%; the amber focus outline was visible. Its border touched Character at default size, so the rotary and label were shifted together to leave a clear gap. The accessibility tree reports names for preset, source, character, sync, and division selectors, plus slider names/values for SPACE, Free Decay, and advanced controls. Host/Tap behavior, meter activity, and wet history remain unverified.
 - **Workaround:** Numeric parameters and host controls remain available.
-- **Suggested fix:** Verify keyboard interaction through a physical/native key path, then verify meter handoff and Host/Tap modes in a host and standalone session.
+- **Suggested fix:** Verify meter handoff and Host/Tap modes in a host and standalone session.
 
 ## DSP tuning not verified with drum recordings
 
