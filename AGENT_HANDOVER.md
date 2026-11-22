@@ -34,6 +34,9 @@ The user resumed work after the pause. The local build/tests pass and the first 
 ## Current continuation (2026-11-23)
 
 - See **Resumed handover (2026-11-22)** above for the latest build, test, host observations, and Windows artifact verification.
+- 640 x 420 content-size standalone capture verified the minimum layout and exposed two defects: SPACE overlapped Character, and the Wet Envelope caption reached the bottom edge. `Source/PluginEditor.cpp` now centers the shrinking SPACE knob under its label and shortens/repositions the history region/caption. The revised capture is clear.
+- Sliders now request keyboard focus and use `DRMFocusableSlider` to draw an amber focus outline. Local CMake build succeeds; keyboard interaction has not yet been verified at runtime. Docs `PROJECT_STATUS.md`, `KNOWN_ISSUES.md`, and `UI_SPEC.md` record the result and remaining checks.
+- Next: verify keyboard adjustment and focus outline on the standalone app; inspect preset/division selector accessibility; then proceed with Windows REAPER integration checks. No user recordings or Windows host validation are available yet.
 
 ## Current state
 

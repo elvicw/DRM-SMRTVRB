@@ -126,6 +126,7 @@ DRMsmrtvrbAudioProcessorEditor::DRMsmrtvrbAudioProcessorEditor(DRMsmrtvrbAudioPr
 
 void DRMsmrtvrbAudioProcessorEditor::styleSlider(juce::Slider& slider, bool rotary)
 {
+    slider.setWantsKeyboardFocus(true);
     slider.setSliderStyle(rotary ? juce::Slider::RotaryHorizontalVerticalDrag : juce::Slider::LinearHorizontal);
     slider.setTextBoxStyle(rotary ? juce::Slider::TextBoxBelow : juce::Slider::TextBoxRight, false,
                            rotary ? 82 : 70, rotary ? 20 : 20);
@@ -186,7 +187,7 @@ void DRMsmrtvrbAudioProcessorEditor::paint(juce::Graphics& g)
     g.drawText("L", static_cast<int>(meterStart + 36.0f), 321, 12, 12, juce::Justification::centred);
     g.drawText("R", static_cast<int>(meterStart + 54.0f), 321, 12, 12, juce::Justification::centred);
 
-    const juce::Rectangle<float> activityArea { static_cast<float>(getWidth() - 126), 358.0f, 92.0f, 42.0f };
+    const juce::Rectangle<float> activityArea { static_cast<float>(getWidth() - 126), 350.0f, 92.0f, 34.0f };
     g.setColour(display);
     g.fillRoundedRectangle(activityArea, 2.0f);
     g.setColour(amber.withAlpha(0.85f));
@@ -198,7 +199,7 @@ void DRMsmrtvrbAudioProcessorEditor::paint(juce::Graphics& g)
                    activityArea.getBottom() - height, juce::jmax(1.0f, barWidth - 0.5f), height);
     }
     g.setColour(muted);
-    g.drawText("WET ENVELOPE", getWidth() - 126, 401, 92, 13, juce::Justification::centred);
+    g.drawText("WET ENVELOPE", getWidth() - 126, 386, 92, 13, juce::Justification::centred);
 }
 
 void DRMsmrtvrbAudioProcessorEditor::resized()
@@ -216,7 +217,7 @@ void DRMsmrtvrbAudioProcessorEditor::resized()
     character.setBounds(198, 103, 150, 30);
     spaceLabel.setBounds(360, 82, 120, 20);
     const int knob = juce::jmin(190, getHeight() - 292);
-    space.setBounds(324, 98, knob, knob);
+    space.setBounds(420 - knob / 2, 98, knob, knob);
 
     syncLabel.setBounds(32, 158, 120, 18);
     sync.setBounds(32, 178, 116, 28);

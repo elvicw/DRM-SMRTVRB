@@ -3,6 +3,17 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 
+class DRMFocusableSlider final : public juce::Slider
+{
+public:
+    void paintOverChildren(juce::Graphics& graphics) override
+    {
+        if (!hasKeyboardFocus(true)) return;
+        graphics.setColour(findColour(juce::Slider::rotarySliderFillColourId));
+        graphics.drawRoundedRectangle(getLocalBounds().toFloat().reduced(1.5f), 4.0f, 2.0f);
+    }
+};
+
 class DRMsmrtvrbAudioProcessorEditor final : public juce::AudioProcessorEditor,
                                                private juce::Timer
 {
@@ -22,7 +33,7 @@ private:
     juce::LookAndFeel_V4 lookAndFeel;
     juce::ComboBox preset, target, character, sync, division;
     juce::TextButton tapButton { "TAP" };
-    juce::Slider space, bpm, freeDecay, preDelay, tone, width, mix, tail;
+    DRMFocusableSlider space, bpm, freeDecay, preDelay, tone, width, mix, tail;
     juce::ToggleButton preDelayOn { "Pre-delay" }, toneOn { "Tone" }, widthOn { "Width" },
                        mixOn { "Mix" }, tailOn { "Tail" };
     juce::Label title, brand, spaceLabel, bpmLabel, syncLabel, advancedLabel;

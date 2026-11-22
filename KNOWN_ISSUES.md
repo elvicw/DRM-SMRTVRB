@@ -27,9 +27,9 @@
 
 - **Reproduction:** Open the editor and inspect the meter strip and preset selector.
 - **Expected:** Host tempo display, advanced values enabled only when their toggles are active, and a responsive, accessible editor.
-- **Actual:** The BPM display and toggle-based control enabling are implemented. Default-size standalone capture shows the full layout. Accessibility inspection initially found unnamed combos/sliders; explicit accessible titles are now set and observed on the Source, Character, Tempo Sync, SPACE, Free Decay, and advanced sliders. The preset status position now follows window width to avoid clipping at the 640 px minimum. An interactive minimum-size resize and keyboard operation were not verified; Host/Tap mode behavior, meter activity, and wet history also remain unverified.
+- **Actual:** The BPM display and toggle-based control enabling are implemented. Default-size standalone capture shows the full layout. Accessibility inspection observed names/values for Source, Character, Tempo Sync, SPACE, Free Decay, and advanced sliders. A 640 x 420 content-size capture revealed SPACE overlapping Character and the Wet Envelope caption touching the bottom edge; both layout issues are fixed and the revised capture is clear. Sliders request keyboard focus and paint an amber focus outline, but keyboard operation has not been verified at runtime. Preset/division selector accessibility, Host/Tap behavior, meter activity, and wet history remain unverified.
 - **Workaround:** Numeric parameters and host controls remain available.
-- **Suggested fix:** Finish minimum-size and keyboard interaction checks, then verify meter handoff and the Host/Tap modes in a host and standalone session.
+- **Suggested fix:** Verify keyboard interaction and preset/division selector accessibility, then verify meter handoff and Host/Tap modes in a host and standalone session.
 
 ## DSP tuning not verified with drum recordings
 
