@@ -30,6 +30,11 @@ DRMsmrtvrbAudioProcessorEditor::DRMsmrtvrbAudioProcessorEditor(DRMsmrtvrbAudioPr
     configureCombo(character);
     configureCombo(sync);
     configureCombo(division);
+    preset.setTitle("Factory Preset");
+    target.setTitle("Source");
+    character.setTitle("Character");
+    sync.setTitle("Tempo Sync");
+    division.setTitle("Tempo Division");
 
     target.addItemList({ "Shells", "Snare", "Room", "Overheads" }, 1);
     character.addItemList({ "Room", "Spring", "Gated" }, 1);
@@ -51,6 +56,14 @@ DRMsmrtvrbAudioProcessorEditor::DRMsmrtvrbAudioProcessorEditor(DRMsmrtvrbAudioPr
     styleSlider(width, false);
     styleSlider(mix, false);
     styleSlider(tail, false);
+    space.setTitle("SPACE amount");
+    bpm.setTitle("Tap BPM");
+    freeDecay.setTitle("Free Decay");
+    preDelay.setTitle("Pre-delay");
+    tone.setTitle("Tone");
+    width.setTitle("Width");
+    mix.setTitle("Mix");
+    tail.setTitle("Tail");
     space.setTextValueSuffix(" %");
     bpm.setTextValueSuffix(" BPM");
     freeDecay.setTextValueSuffix(" s");
@@ -194,7 +207,7 @@ void DRMsmrtvrbAudioProcessorEditor::resized()
     title.setBounds(32, 22, 260, 30);
     brand.setBounds(32, 51, 260, 18);
     presetLabel.setBounds(322, 20, 68, 18);
-    presetStatus.setBounds(566, 20, 142, 18);
+    presetStatus.setBounds(getWidth() - 194, 20, 142, 18);
     presetStatus.setJustificationType(juce::Justification::centredRight);
     preset.setBounds(322, 39, juce::jmax(190, getWidth() - 354), 28);
     targetLabel.setBounds(32, 84, 100, 18);
