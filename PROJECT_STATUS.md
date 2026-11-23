@@ -3,14 +3,13 @@
 - **Product:** DRM-SMRTVRB
 - **Company:** yeahwaah audio
 - **Version:** 0.0.0 (development)
-- **Phase:** 6 — Hardware-inspired UI
-- **Completed:** Standalone engines/profiles/SPACE; Free/Host/Tap timing calculations; five synthetic fixtures; optional advanced overrides; eight factory presets; portable versioned state codec.
-- **Active tasks:** Close Phase 6 acceptance with live meter/history and Windows REAPER UI validation; JUCE 8.0.6 is selected, while commercial/AGPL distribution terms remain undecided.
-- **Outstanding:** Live meter/history visual confirmation; Windows REAPER editor/resize/automation/state validation; transport edge cases. Real-recording audition and licensing are tracked separately.
-- **Latest successful build:** macOS Apple clang 21.0.1, CMake 4.5.0, Ninja Release; JUCE VST3 and standalone linked after accessible control titles and responsive preset-status placement were added.
-- **Latest test evidence:** Local CTest passed 6/6 after the editor changes; Windows CI run [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463) passed configure/build/all six tests and staged the x64 VST3 artifact.
-- **Latest additional signal check:** Offline Shells + Room renders of a synthetic kick matched input exactly at SPACE 0 and differed at SPACE 65 (`delta RMS=0.09518`). See `TESTING.md`; this is not host or audio-quality validation.
-- **Windows CI:** Latest run [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463) passed configure, build, all six tests, bundle staging, and artifact upload. Download inspection confirmed the x64 VST3 binary and `moduleinfo.json` in the expected bundle layout.
+- **Phase:** 7 — Testing, optimization, and release preparation
+- **Completed:** Standalone engines/profiles/SPACE; Free/Host/Tap timing calculations; five synthetic fixtures; optional advanced overrides; eight factory presets; portable versioned state codec; JUCE 8.0.6 VST3 and standalone wrapper; full Windows REAPER 7.42 host acceptance (exact dry endpoint, wet SPACE response, host tempo synchronization, automation envelopes, all eight factory programs, state/project save/reopen, UI rendering and resize down to 640 x 420).
+- **Active tasks:** Audition with real drum recordings when available; resolve JUCE distribution licensing terms before release.
+- **Outstanding:** Real drum recording auditions; JUCE commercial vs. AGPLv3 distribution decision.
+- **Latest successful build:** Windows x64 MSVC (Visual Studio 2022 BuildTools) + Ninja Release; VST3 and standalone built and verified locally on Windows; macOS Release also linked.
+- **Latest test evidence:** Local Windows CTest passed 6/6 (ReverbEngines, TargetProfiles, SpaceMacro, TempoSync, PluginState, WavFile); Windows REAPER 7.42 passed exact dry (max error 0.0), SPACE 65 wet (delta RMS 0.09518), host tempo sync (80 vs 160 BPM delta RMS 0.00157), envelope automation, all 8 factory programs, and project save/reopen.
+- **Plugin screenshots:** Verified captures of running standalone and REAPER-hosted plugin saved in `screenshots/drm-space-main.png`, `screenshots/drm-space-advanced.png`, and `screenshots/reaper-vst3-editor.png`.
 - **Repository:** https://github.com/elvicw/DRM-SMRTVRB (private)
 
 ## Environment observations

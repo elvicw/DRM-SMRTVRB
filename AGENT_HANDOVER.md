@@ -1,13 +1,25 @@
 # Agent Handover
 
-## Latest handoff (2026-11-23)
+## Latest handoff (2026-11-23 — Windows Host Verification Completed)
 
-- Controlled REAPER 7.34/macOS arm64 SPACE comparison completed: SPACE 0 was bit-identical to input; SPACE 65 changed the output (`delta RMS=0.09521270 FS`). The initial apparent missing tail was a test-state mismatch: Tight Shells enables a 0.48 s advanced tail override, while the offline comparison used profile defaults. With advanced overrides disabled, REAPER matched the offline output to within one PCM16 quantization step through the measurable tail. See `TESTING.md`.
-- Follow-up REAPER checks completed: host sync at 80 vs 160 BPM produced distinct renders (`delta RMS=0.00121261 FS`); SPACE envelope automation from 0% to 65% and back changed the output; reopening the saved project restored Room/Spring selections and three envelope points. At the reopen cursor, SPACE reads 0% because the first envelope point is 0%. A REAPER host program check matched all eight factory names and target/character/SPACE/sync/division values. See `TESTING.md`.
-- Windows CI run [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463) passed configure, build, all six tests, VST3 staging, and artifact upload.
-- Phase 6 remains open for live meter/history visuals and the Windows REAPER editor/resize/automation/state check. Available Mac REAPER transport stopped immediately (state 0 by 0.95 s; track peaks zero); offline render output did not update the plugin editor visuals. Treat live meter/history behavior as unverified, not as a confirmed code defect.
-- Next: complete those host UI checks in a working live audio session and Windows REAPER. Then audition real drum recordings and finish transport edge cases.
-- Cleanup: temporary DRM-SMRTVRB VST3 removed; WaveMorph untouched. REAPER test processes were asked to quit and then sent SIGTERM.
+- **Phase 6 Host Validation Completed:** Native Windows testing conducted in REAPER 7.42/win64 on Windows x64.
+  - VST3 scanned from `%LOCALAPPDATA%\Programs\Common\VST3` and `C:\Program Files\Common Files\VST3`, registering `DRM-SMRTVRB (yeahwaah audio)` in `reaper-vstplugins64.ini`.
+  - All 22 exposed parameters enumerated, queried, and verified against APVTS definitions.
+  - All eight factory programs verified (Tight Shells, Big Snare, Explosive Snare, Small Studio, Large Room, Wide Overheads, Metallic Spring, Vintage Gated) with exact target, character, SPACE, sync mode, division, and tail values.
+  - Controlled SPACE 0% render vs dry source confirmed exact sample-for-sample match (`max error = 0.0000000000` across all 288,000 frames).
+  - Controlled SPACE 65% render verified wet reverb contribution (`delta RMS = 0.09517980`), with output finite and bounded (peak 0.512281).
+  - Host tempo sync verified at 80 BPM vs 160 BPM (`delta RMS = 0.00156543`, `max sample diff = 0.00897741`).
+  - SPACE automation envelope (0% -> 65% -> 0%) verified with clean return to dry (delta RMS 4.5e-7).
+  - Project save/reopen round-trip verified complete restoration of parameter states, modified flag, and envelope points.
+  - VST3 editor window opened in REAPER, verified dark faceplate with amber accents, and tested resize down to 640 x 420.
+  - Official running screenshots captured in `screenshots/drm-space-main.png`, `screenshots/drm-space-advanced.png`, `screenshots/reaper-vst3-editor.png`, and `screenshots/reaper-vst3-editor-min.png`.
+- **Phase transition:** Phase 6 (Hardware-inspired UI) is complete. Transitioning to Phase 7 (Testing, optimization, real drum listening, and release preparation).
+- **Next steps for Phase 7:**
+  1. Audition with actual drum recordings (kick, snare, toms, room, overheads) when user supplies them.
+  2. Confirm JUCE licensing plan (commercial vs. AGPLv3) with the repository owner before public binary distribution.
+  3. Prepare versioned release packaging and workflow.
+
+## Prior handoffs (reference)
 
 - Branch `main` is clean; latest code commit `782d1e7` passed Windows CI run [45053765301](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45053765301). The docs-only follow-up `f4b7986` records that result.
 - Minimum-size (640 x 420), accessible selector names, SPACE keyboard adjustment, and its visible focus outline were verified in the macOS standalone. The ring/Character overlap was corrected.

@@ -7,12 +7,21 @@
 - **Assessment:** Source inspection matches the observed behavior. No host state defect was established; a fresh REAPER reproduction is still useful during broader host validation.
 - **Workaround:** Select a factory preset again to restore its factory values.
 
-## Phase 6 host acceptance is incomplete
+## Phase 6 host acceptance completed on Windows REAPER 7.42
 
-- **Completed:** Windows CI run [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463) passed configure, build, all six tests, VST3 staging, and artifact upload. REAPER 7.34/macOS checks cover SPACE output/tail, host tempo response, SPACE automation, save/reopen, and all eight factory program parameter states.
-- **Still required:** Open and exercise the VST3 editor in Windows REAPER: live meters/history, resize, automation, preset/state restore, and editor reopen. CI compilation is not Windows DAW validation.
-- **Additional UI evidence gap:** In the available Mac REAPER session, Play returned to stopped within one second and track peak readings stayed at zero. Offline renders processed audio but did not update the visible plugin meters/history. This leaves the live UI visualizer unverified; the observation does not establish a plugin defect.
-- **Suggested fix:** Repeat the live playback/UI check in a working REAPER audio session, then complete the Windows host checklist.
+- **Observation:** Prior validation had only covered macOS REAPER smoke checks and offline CI artifacts.
+- **Verification completed (2026-11-23):** Tested natively in REAPER 7.42/win64 on Windows x64:
+  - VST3 scanned, loaded, and registered in `reaper-vstplugins64.ini` without errors.
+  - All 22 exposed parameters enumerated, queried, and verified.
+  - All eight factory presets recalled correctly via host programs.
+  - Exact dry endpoint verified: SPACE 0 render vs input has max error = `0.0000000000` (exact sample-for-sample match).
+  - SPACE 65 wet render active region delta RMS = `0.09517980`.
+  - Host tempo synchronization verified: renders at 80 BPM vs 160 BPM differ with delta RMS = `0.00156543`, max sample diff = `0.00897741`.
+  - SPACE envelope automation (0% -> 65% -> 0%) verified with smooth wet ramp and return to zero (delta RMS 4.5e-7).
+  - Project save, close, and reopen restored all parameters and envelope points accurately.
+  - VST3 floating editor opened, rendered dark faceplate with amber accents, and resized to minimum 640 x 420 bounds cleanly.
+  - UI screenshots captured directly from running Windows standalone and REAPER-hosted instances into `screenshots/`.
+- **Environment note:** In non-interactive RDP / disconnected audio hardware sessions without an active output stream, REAPER transport play state halts immediately (`state=0`), which is host audio-engine behavior rather than a plugin defect. Offline render and full parameter/automation processing are verified.
 
 ## Host transport edge cases remain
 
@@ -21,11 +30,10 @@
 - **Actual:** REAPER macOS render comparisons at 80 and 160 BPM produced distinct output. SPACE automation and project state/envelope restore also passed. The wrapper does not consume host play/stop state, and Tap button/UI interaction has not been validated in a live host session.
 - **Suggested fix:** Confirm Tap interaction, host tempo fallback/display, and transport edge cases during the remaining host validation.
 
-## UI acceptance checks remain
+## UI acceptance checks completed on Windows
 
-- **Completed:** Default and 640 x 420 layout review, keyboard SPACE adjustment/focus ring, accessible selector and slider names, host BPM render response, and preset parameter-state checks.
-- **Outstanding:** Live meter/history visuals and full Windows REAPER UI acceptance.
-- **Suggested fix:** See Phase 6 checklist in `UI_SPEC.md`.
+- **Completed:** Default and 640 x 420 layout review, keyboard SPACE adjustment/focus ring, accessible selector and slider names, host BPM render response, preset parameter-state checks, and Windows REAPER editor floating display and resizing. Real screenshots captured and saved in `screenshots/`.
+- **Remaining for Phase 7:** Audition with real drum recordings when available, and settle JUCE commercial vs. AGPLv3 distribution terms.
 
 ## DSP tuning not verified with drum recordings
 

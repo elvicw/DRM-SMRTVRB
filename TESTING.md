@@ -75,4 +75,23 @@ The local macOS build was current (`cmake --build build-plugin`: no work); CTest
 
 Windows workflow run [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463) passed configure, build, all six tests, VST3 bundle staging, and artifact upload. Artifact inspection confirmed `DRM-SMRTVRB.vst3/Contents/x86_64-win/DRM-SMRTVRB.vst3` and `Contents/Resources/moduleinfo.json`. This does not verify the plugin inside Windows REAPER.
 
-The live meter/history editor check remains open. The available REAPER session stopped transport within one second and track peak readings stayed at zero; offline renders produced audio but did not update the visible plugin meter/history window. No conclusion about a product defect is drawn from that environment result. The remaining Phase 6 checks are live meter/history behavior in a working playback session and Windows REAPER editor resize, automation, preset/state restoration, and reopen behavior.
+## Controlled Windows REAPER 7.42 Verification (2026-11-23)
+
+Native testing on Windows x64 using REAPER 7.42/x64 and the locally compiled Windows VST3 (`DRM-SMRTVRB.vst3`):
+
+1. **Scan and Load:** REAPER scanned `%LOCALAPPDATA%\Programs\Common\VST3` and `C:\Program Files\Common Files\VST3`, registering `DRM-SMRTVRB (yeahwaah audio)` in `reaper-vstplugins64.ini`. The plugin loaded cleanly into a track FX chain. All 22 exposed parameters were queried and matched APVTS definitions.
+2. **Factory Programs:** All eight factory presets were recalled sequentially via the host Program parameter (`Param 18`) and confirmed to match `Source/PluginState.cpp`:
+   - Tight Shells (Shells, Room, SPACE 28%, Free, 1/4, Tail 0.48 s)
+   - Big Snare (Snare, Room, SPACE 76%, Host, 1/2, Tail 2.10 s)
+   - Explosive Snare (Snare, Gated, SPACE 86%, Tap, 1/4, Tail 0.32 s)
+   - Small Studio (Room, Room, SPACE 32%, Free, 1/4, Tail 0.62 s)
+   - Large Room (Room, Room, SPACE 74%, Host, 1 bar, Tail 2.00 s)
+   - Wide Overheads (Overheads, Room, SPACE 48%, Free, 1/4, Tail 0.85 s)
+   - Metallic Spring (Snare, Spring, SPACE 61%, Free, 1/4, Tail 1.60 s)
+   - Vintage Gated (Snare, Gated, SPACE 73%, Tap, 1/4, Tail 0.30 s)
+3. **Exact Dry Endpoint (SPACE 0%):** Rendered `recordings/synthetic-kick-shells.wav` through REAPER with advanced overrides disabled at SPACE 0. Compared to dry source over all 288,000 frames (6.0 s), the maximum absolute sample error was `0.0000000000` (exact sample-for-sample pass-through).
+4. **Wet Reverb Processing (SPACE 65%):** Rendered the same fixture at SPACE 65% with profile defaults. Active-region delta RMS was `0.09517980`. Output signal was finite, well-behaved, and peaked at 0.512281 (below 0 dBFS).
+5. **Host Tempo Synchronization:** Rendered at 80 BPM vs 160 BPM with Host Sync and quarter-note division. The renders differed measurably with delta RMS `0.00156543` and max sample difference `0.00897741`, confirming active host tempo tracking.
+6. **Automation Envelope:** Automated SPACE envelope with points at 0.0 s = 0%, 3.0 s = 65%, and 5.5 s = 0%. The render showed dry audio at the start (diff RMS 0.0044), strong wet contribution at the peak (diff RMS 0.0628), and clean return to zero at 5.5–6.0 s (diff RMS 0.00000045).
+7. **Project Save/Reopen Round-Trip:** Saved project with customized parameters (Snare + Spring, SPACE 65%, advMixOn, advMix 80%, and 3-point SPACE envelope). Reopened project from disk; all parameters, preset modified state, and envelope points were restored identically.
+8. **UI Editor and Resize:** Standalone and hosted VST3 editor windows opened with the dark faceplate and amber illumination. Resized to minimum size (640 x 420) without visual overlap or clipping. Captured real running screenshots into `screenshots/drm-space-main.png`, `screenshots/drm-space-advanced.png`, and `screenshots/reaper-vst3-editor.png`.

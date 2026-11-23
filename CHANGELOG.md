@@ -60,8 +60,9 @@
 
 ## Validation
 
-- macOS Apple clang 21.0.1 Release build produced VST3 and standalone targets.
-- Existing CTest suite passed 6/6.
-- Windows CI run [45053765301](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45053765301) passed configure, build, all six tests, VST3 bundle staging, and artifact upload.
-- REAPER 7.34 on macOS loaded the VST3 and passed a basic synthetic-audio signal-through smoke check. Controlled wet/dry, host tempo/automation/state behavior, Windows REAPER validation, and host meter/history behavior remain outstanding.
-- Minimum-size layout, keyboard SPACE adjustment, focus indication, and selector accessibility were checked in the macOS standalone. JUCE distribution licensing and real-recording auditions remain outstanding.
+- macOS Apple clang 21.0.1 Release build produced VST3 and standalone targets; local CTest passed 6/6.
+- Windows CI run [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463) passed configure, build, all six tests, VST3 bundle staging, and artifact upload.
+- Windows local build and CTest passed 6/6 with MSVC and Ninja.
+- Windows REAPER 7.42/x64 verified: VST3 plugin scan/load, exact dry endpoint at SPACE 0 (max error 0.0), SPACE 65 wet response (delta RMS 0.09518), host tempo sync at 80 vs 160 BPM (delta RMS 0.00157), SPACE envelope automation, all eight factory presets, and project save/reopen state restore.
+- Real running UI screenshots captured from standalone and REAPER-hosted instances into `screenshots/` at default and minimum sizes (640 x 420).
+- JUCE distribution licensing terms and real drum recording listening auditions remain tracked for Phase 7.
