@@ -4,7 +4,7 @@
 
 - Branch `build/release-packaging` (from `main` at `83c1913`). Added `.github/workflows/release-package.yml`; updated `CHANGELOG.md`, `BUILD_INSTRUCTIONS.md`, `PROJECT_STATUS.md`.
 - Also added `Tools/Benchmark.cpp` + `drmsmrtvrb_benchmark` CMake target (DSP CPU benchmark; results in `TESTING.md`). macOS Release build and CTest 6/6 passed; benchmark ran, all output finite.
-- Checks: workflow YAML parses (ruby). It has NOT been run on GitHub; the version-vs-tag check and zip/SHA-256 output are unverified until a manual dispatch run.
+- Checks: workflow YAML parses (ruby). At that time it had not been run on GitHub; it has since passed manual dispatch (run 45210138012, see the Windows CPU benchmark entry above).
 - Usage check: no exact figure was accessible; the owner authorized proceeding, and an estimate (well above 20% remaining) was used.
 - Next: push the branch, run the workflow via `workflow_dispatch`, inspect the artifact, then owner review/merge. JUCE licensing and real-recording auditions remain open.
 
