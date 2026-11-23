@@ -281,3 +281,57 @@ and accidental changes to the stable branch.
 
 If an instruction cannot be followed safely, stop and explain the blocker. Never
 silently skip a mandatory step.
+
+
+
+## 10. Agent Shift and Account Rotation Protocol
+
+This protocol applies to non-Qwen agents when their remaining usage allowance reaches 15% or below.
+
+### Mandatory Shift Procedure
+
+1. Immediately stop all implementation and optional investigation.
+2. Do not start additional tasks or features.
+3. Inspect the current Git branch and working tree.
+4. Preserve all existing work. Never discard uncommitted changes.
+5. Update AGENT_HANDOVER.md with:
+   - Current project state.
+   - Completed work.
+   - Modified files.
+   - Outstanding tasks.
+   - Known issues and blockers.
+   - Exact next steps for the incoming agent.
+   - Relevant validation results.
+6. Verify that the handover accurately reflects the working tree.
+7. Save or commit the handover when safe and appropriate.
+8. If the provider offers a documented logout mechanism that is safe to use, perform the logout only when explicitly authorized.
+9. Never automatically switch accounts, obtain credentials, or authenticate another account.
+10. Enter WAITING_FOR_MANUAL_AUTHENTICATION state.
+
+### Waiting State
+
+While waiting:
+
+- Do not continue development.
+- Do not launch another coding agent.
+- Do not attempt account switching.
+- Do not request or store account credentials.
+- Wait for the project owner to manually authenticate another account.
+- Resume only after explicit authorization from the project owner.
+
+### Qwen Exception
+
+Qwen agents are exempt from cloud-token rotation.
+
+Qwen must still follow Git isolation, documentation,
+handover, and project safety requirements.
+
+### Supervisor Compatibility
+
+If an external agent supervisor is available,
+it may monitor usage, terminate agent processes,
+manage handovers, and detect authentication changes.
+
+The supervisor must never perform unauthorized
+account switching or authentication.
+
