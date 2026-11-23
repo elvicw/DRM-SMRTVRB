@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0 — Windows VST3 pre-release
+
+- Published v0.1.0 as a GitHub pre-release (Windows x64 VST3, unsigned, AGPLv3, source link bundled). macOS/Linux deferred.
+
 ## Unreleased — Phase 7 close-out
 
 - Phase 7 exit review added to `PROJECT_STATUS.md`; stale licence/visibility/version statements reconciled. No code changes.
