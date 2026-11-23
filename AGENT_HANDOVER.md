@@ -1,5 +1,10 @@
 # Agent Handover
 
+## Audition analysis tool (2026-11-24, Claude Sonnet 5.5)
+
+- Branch `phase7/audition-analysis-tool` (from `main` at `5f94845`): added `drmsmrtvrb_analyze`, `drmsmrtvrb_metrics` library and CTest `AudioMetrics`. macOS DSP-only build: CTest 7/7. Ready for real recordings: render with `drmsmrtvrb_render` then analyze with `--dry`.
+- Not done: real-recording auditions (none supplied), JUCE licence decision. The analyzer gives numbers only, no thresholds.
+
 ## Stability soak (2026-11-24, Claude Sonnet 5.5)
 
 - Branch `phase7/stability-soak` (from `main` at `893ee5d`): added `Tools/SoakTest.cpp`, target `drmsmrtvrb_soak_test`, CTest `PluginSoak`. macOS: passes (default and 1,440 s/seed 777 runs). Windows CI run 45215377733 passed all 7 CTest targets including PluginSoak (4.86 s).
