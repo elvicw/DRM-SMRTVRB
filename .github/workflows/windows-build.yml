@@ -20,6 +20,8 @@ jobs:
         run: ctest --test-dir build -C Release --output-on-failure
       - name: CPU benchmark (informational)
         run: build/Release/drmsmrtvrb_benchmark.exe 48000 512 10
+      - name: Plugin processor CPU benchmark (informational)
+        run: build/drmsmrtvrb_plugin_benchmark_artefacts/Release/drmsmrtvrb_plugin_benchmark.exe 48000 512 10
       - name: Stage VST3 bundle
         shell: pwsh
         run: |

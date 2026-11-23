@@ -38,6 +38,19 @@ if(DRMSMRTVRB_BUILD_PLUGIN)
         PUBLIC juce::juce_recommended_config_flags
                juce::juce_recommended_lto_flags
                juce::juce_recommended_warning_flags)
+
+    juce_add_console_app(drmsmrtvrb_plugin_benchmark PRODUCT_NAME "drmsmrtvrb_plugin_benchmark")
+    juce_generate_juce_header(drmsmrtvrb_plugin_benchmark)
+    target_sources(drmsmrtvrb_plugin_benchmark PRIVATE
+        Tools/PluginBenchmark.cpp
+        Source/PluginProcessor.cpp Source/PluginProcessor.h
+        Source/PluginEditor.cpp Source/PluginEditor.h)
+    target_compile_features(drmsmrtvrb_plugin_benchmark PRIVATE cxx_std_17)
+    target_compile_definitions(drmsmrtvrb_plugin_benchmark PRIVATE
+        JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
+    target_link_libraries(drmsmrtvrb_plugin_benchmark PRIVATE
+        drmsmrtvrb_dsp juce::juce_audio_utils juce::juce_dsp
+        PUBLIC juce::juce_recommended_config_flags)
 endif()
 
 add_library(drmsmrtvrb_dsp STATIC

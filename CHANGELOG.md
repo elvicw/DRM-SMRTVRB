@@ -72,6 +72,10 @@
 - Added `.github/workflows/release-package.yml` (tag `v*` or manual dispatch): builds and tests on Windows, checks the tag matches the CMake project version, and uploads a versioned `DRM-SMRTVRB-<version>-Windows-VST3.zip` with a SHA-256 file as a workflow artifact.
 - It does not publish a GitHub Release; JUCE distribution terms are still unresolved. Manual dispatch run 45210138012 succeeded and produced the zip and matching SHA-256.
 
+## Unreleased — plugin processor CPU benchmark
+
+- Added `drmsmrtvrb_plugin_benchmark` (`Tools/PluginBenchmark.cpp`), a JUCE console target that runs the real processor over all eight factory presets, and an informational Windows CI step for it. macOS: worst case 0.312% of one core at 48 kHz/512, finite output. See `TESTING.md`.
+
 ## Unreleased — CPU benchmark
 
 - Added `drmsmrtvrb_benchmark` (`Tools/Benchmark.cpp`), an offline CPU benchmark over all targets and engines including decaying tails. macOS result: worst case 0.363% of one core at 48 kHz/512 samples, finite output. DSP core only; see `TESTING.md`.
