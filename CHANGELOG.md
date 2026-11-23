@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — release source compliance
+
+- Release package now bundles `LICENSE` and `SOURCE.txt` (source commit link). Tag/version mismatch check verified with a scratch tag.
+
 ## Unreleased — first real-stem audition
 
 - Rendered owner-supplied stems through all engines; owner's informal verdict positive. No DSP changes.
