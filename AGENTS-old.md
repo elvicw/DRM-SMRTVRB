@@ -285,6 +285,30 @@ Create or update a reconciliation report (for example,
 Do not claim that all documentation is reconciled if any relevant file was not
 inspected or any material discrepancy remains unresolved. Clearly list exceptions.
 
+## Lessons Learned
+
+Every project must maintain a LESSONS_LEARNED.md file.
+
+Agents must update it when meaningful, reusable lessons
+are discovered during development.
+
+Document:
+- Successful approaches and why they worked.
+- Failed approaches and their root causes.
+- Architectural decisions worth reusing.
+- Dependency and tooling experiences.
+- Testing and validation lessons.
+- AI agent workflow improvements.
+- Recommendations for future projects.
+
+Lessons must be evidence-based where possible.
+
+Do not use this file as a daily activity log.
+Do not duplicate CHANGELOG.md or AGENT_HANDOVER.md.
+
+The goal is to make future projects benefit from
+the experience gained in previous projects.
+
 ## 6. Development and Validation Rules
 
 - Stay within the assigned task.
