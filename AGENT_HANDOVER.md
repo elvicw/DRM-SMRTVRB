@@ -1,5 +1,11 @@
 # Agent Handover
 
+## Plugin processor CPU benchmark (2026-11-24, Claude Sonnet 5.5)
+
+- Branch `phase7/plugin-wrapper-cpu` (from `main` at `4a38a2d`): added `Tools/PluginBenchmark.cpp` / `drmsmrtvrb_plugin_benchmark` and an informational Windows CI step. macOS 0.312% worst case; Windows CI run 45212922040 passed, worst case 0.751%. All output finite.
+- Not measured: editor drawing, in-DAW CPU, host playhead lookup. Open: real-recording auditions, JUCE licence decision.
+- Next: owner reviews/merges this branch.
+
 ## Phase 7 Windows CPU benchmark (2026-11-23, Claude Sonnet 5.5)
 
 - `build/release-packaging` was merged into `main` (fast-forward, `e5c97f2`) on the owner's instruction. Branch `phase7/windows-cpu-benchmark-ci` adds an informational benchmark step to `.github/workflows/windows-build.yml`.
