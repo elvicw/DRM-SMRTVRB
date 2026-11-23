@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — Phase 7 close-out
+
+- Phase 7 exit review added to `PROJECT_STATUS.md`; stale licence/visibility/version statements reconciled. No code changes.
+
 ## Unreleased — release source compliance
 
 - Release package now bundles `LICENSE` and `SOURCE.txt` (source commit link). Tag/version mismatch check verified with a scratch tag.

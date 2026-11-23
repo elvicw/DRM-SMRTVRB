@@ -1,5 +1,10 @@
 # Agent Handover
 
+## Phase 7 close-out (2026-11-24, Claude Sonnet 5.5)
+
+- Branch `phase7/close-out`: docs reconciliation only. Local plugin build + CTest 8/8 passed. Exit review table is in `PROJECT_STATUS.md`. Owner authorised self-review and merge of this PR.
+- Carried forward: other DAW hosts, in-DAW CPU, macOS/Linux packaging, signing, installer, published release. Next phase: owner to choose.
+
 ## Release source link + tag check (2026-11-24, Claude Sonnet 5.5)
 
 - Branch `phase7/release-source-link`: `release-package.yml` bundles `LICENSE` + `SOURCE.txt`. Dispatch run 45225739734 passed and the artifact was inspected. Tag mismatch check verified (run 45225737575 failed as intended; scratch tag deleted). Repo is public.
