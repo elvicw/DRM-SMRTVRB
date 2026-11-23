@@ -1,5 +1,10 @@
 # Agent Handover
 
+## Stability soak (2026-11-24, Claude Sonnet 5.5)
+
+- Branch `phase7/stability-soak` (from `main` at `893ee5d`): added `Tools/SoakTest.cpp`, target `drmsmrtvrb_soak_test`, CTest `PluginSoak`. macOS: passes (default and 1,440 s/seed 777 runs). Windows CI result pending at the time of writing.
+- Not covered: DAW host, editor, real-time scheduling, Windows memory growth. Open: real-recording auditions, JUCE licence decision.
+
 ## Plugin processor CPU benchmark (2026-11-24, Claude Sonnet 5.5)
 
 - Branch `phase7/plugin-wrapper-cpu` (from `main` at `4a38a2d`): added `Tools/PluginBenchmark.cpp` / `drmsmrtvrb_plugin_benchmark` and an informational Windows CI step. macOS 0.312% worst case; Windows CI run 45212922040 passed, worst case 0.751%. All output finite.

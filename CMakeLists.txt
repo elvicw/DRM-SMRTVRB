@@ -51,6 +51,23 @@ if(DRMSMRTVRB_BUILD_PLUGIN)
     target_link_libraries(drmsmrtvrb_plugin_benchmark PRIVATE
         drmsmrtvrb_dsp juce::juce_audio_utils juce::juce_dsp
         PUBLIC juce::juce_recommended_config_flags)
+
+    juce_add_console_app(drmsmrtvrb_soak_test PRODUCT_NAME "drmsmrtvrb_soak_test")
+    juce_generate_juce_header(drmsmrtvrb_soak_test)
+    target_sources(drmsmrtvrb_soak_test PRIVATE
+        Tools/SoakTest.cpp
+        Source/PluginProcessor.cpp Source/PluginProcessor.h
+        Source/PluginEditor.cpp Source/PluginEditor.h)
+    target_compile_features(drmsmrtvrb_soak_test PRIVATE cxx_std_17)
+    target_compile_definitions(drmsmrtvrb_soak_test PRIVATE
+        JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
+    target_link_libraries(drmsmrtvrb_soak_test PRIVATE
+        drmsmrtvrb_dsp juce::juce_audio_utils juce::juce_dsp
+        PUBLIC juce::juce_recommended_config_flags)
+    if(DRMSMRTVRB_BUILD_TESTS)
+        enable_testing()
+        add_test(NAME PluginSoak COMMAND drmsmrtvrb_soak_test 10)
+    endif()
 endif()
 
 add_library(drmsmrtvrb_dsp STATIC
