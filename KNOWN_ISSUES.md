@@ -7,29 +7,25 @@
 - **Assessment:** Source inspection matches the observed behavior. No host state defect was established; a fresh REAPER reproduction is still useful during broader host validation.
 - **Workaround:** Select a factory preset again to restore its factory values.
 
-## Windows VST3 host validation remains outstanding
+## Phase 6 host acceptance is incomplete
 
-- **Reproduction:** Build the current CMake project and inspect its targets.
-- **Expected:** A functioning Windows VST3 drum reverb plugin with musically tuned source profiles.
-- **Actual:** Windows CI run [45053765301](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45053765301) passed configure, build, six tests, bundle staging, and upload for the focus-ring clearance patch. The downloaded artifact contains the top-level `.vst3` bundle directory. REAPER 7.34/macOS arm64 loaded the VST3 and played a synthetic kick fixture through a track with the plugin inserted; REAPER track/master meters showed signal. This exploratory smoke check was not a controlled wet/dry comparison. No Windows host, automation/state round-trip, or Windows UI validation has been performed.
-- **Workaround:** Use the standalone DSP renderer and tests for non-host evaluation.
-- **Suggested fix:** Validate the Windows VST3 in REAPER and complete the UI acceptance checks before distribution.
+- **Completed:** Windows CI run [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463) passed configure, build, all six tests, VST3 staging, and artifact upload. REAPER 7.34/macOS checks cover SPACE output/tail, host tempo response, SPACE automation, save/reopen, and all eight factory program parameter states.
+- **Still required:** Open and exercise the VST3 editor in Windows REAPER: live meters/history, resize, automation, preset/state restore, and editor reopen. CI compilation is not Windows DAW validation.
+- **Additional UI evidence gap:** In the available Mac REAPER session, Play returned to stopped within one second and track peak readings stayed at zero. Offline renders processed audio but did not update the visible plugin meters/history. This leaves the live UI visualizer unverified; the observation does not establish a plugin defect.
+- **Suggested fix:** Repeat the live playback/UI check in a working REAPER audio session, then complete the Windows host checklist.
 
-## Host transport behavior and full automation validation remain outstanding
+## Host transport edge cases remain
 
-- **Reproduction:** Inspect `Source/TempoSync.*` and the plugin targets in CMake.
-- **Expected:** Host BPM and tempo changes drive synchronized timing in a Windows VST3.
-- **Actual:** The wrapper reads BPM when the host exposes it and uses the timing module, but it does not consume transport play/stop state. REAPER playback was observed, but host BPM changes, tempo/parameter automation, and state restoration have not been exercised in a DAW.
-- **Workaround:** Free and Tap modes remain available; missing BPM uses the timing module fallback.
-- **Suggested fix:** Validate host tempo changes, transport behavior, automation, and host state restore in REAPER.
+- **Reproduction:** Inspect `Source/TempoSync.*` and the wrapper host playhead lookup.
+- **Expected:** Host BPM changes drive synchronized timing; unavailable BPM uses fallback. Transport play/stop behavior follows the product contract.
+- **Actual:** REAPER macOS render comparisons at 80 and 160 BPM produced distinct output. SPACE automation and project state/envelope restore also passed. The wrapper does not consume host play/stop state, and Tap button/UI interaction has not been validated in a live host session.
+- **Suggested fix:** Confirm Tap interaction, host tempo fallback/display, and transport edge cases during the remaining host validation.
 
 ## UI acceptance checks remain
 
-- **Reproduction:** Open the editor and inspect the meter strip and preset selector.
-- **Expected:** Host tempo display, advanced values enabled only when their toggles are active, and a responsive, accessible editor.
-- **Actual:** The BPM display and toggle-based control enabling are implemented. Default-size and 640 x 420 content-size standalone captures show the layout; minimum-size review fixed SPACE overlapping Character and Wet Envelope caption clipping. Native keyboard adjustment and the amber focus outline are verified, and selector names/slider values appear in the accessibility tree. REAPER host playback of a synthetic kick fixture moved the host track and master meters; plugin meter handoff, wet history, Host/Tap behavior, wet/dry comparison, and real-material audio quality remain unverified.
-- **Workaround:** Numeric parameters and host controls remain available.
-- **Suggested fix:** Verify meter handoff and Host/Tap modes in a host and standalone session.
+- **Completed:** Default and 640 x 420 layout review, keyboard SPACE adjustment/focus ring, accessible selector and slider names, host BPM render response, and preset parameter-state checks.
+- **Outstanding:** Live meter/history visuals and full Windows REAPER UI acceptance.
+- **Suggested fix:** See Phase 6 checklist in `UI_SPEC.md`.
 
 ## DSP tuning not verified with drum recordings
 

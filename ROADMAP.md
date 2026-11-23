@@ -1,15 +1,15 @@
 You are the lead software engineer, DSP engineer, audio plugin architect, UI designer, QA engineer, and release manager responsible for developing DRM-SMRTVRB.
 
-## Execution status (updated 2026-11-22)
+## Execution status (updated 2026-11-23)
 
 - Phase 0 foundation is complete: private GitHub repository created and initial documentation pushed to `main`.
 - Phase 1 engine and synthetic-signal checks are complete enough to proceed; actual drum recordings remain an outstanding listening check.
 - Phase 2 source profiles are implemented: twelve distinct source/engine defaults and source-conditioned wet-send processing pass tests and synthetic profile renders.
-- Phase 3 standalone SPACE macro is implemented and tested across all twelve combinations; host automation binding remains for plugin integration.
-- Phase 4 calculations are implemented: Free/Host/Tap timing and subdivisions are tested; host BPM/transport extraction remains for the plugin wrapper.
+- Phase 3 SPACE macro is implemented and tested across all twelve combinations; the JUCE wrapper exposes SPACE as a host-automatable parameter.
+- Phase 4 calculations are implemented: Free/Host/Tap timing and subdivisions are tested; the JUCE wrapper reads host BPM when available. Host tempo-change behavior still needs DAW validation, and transport play/stop is not consumed.
 - Phase 5 is implemented and passes Windows CI: advanced overrides, eight factory presets, and versioned portable state serialization.
-- Phase 6 is underway: the JUCE 8.0.6 VST3/standalone wrapper, APVTS parameters/state, factory programs, basic tempo bridge, parameter-attached editor, Windows VST3 workflow, stereo meters, activity history, and preset status are implemented locally and build on macOS. Windows CI and host validation remain outstanding.
-- JUCE is selected for implementation; its distribution license choice is open. Windows build and REAPER validation remain outstanding. The DSP core remains framework-independent.
+- Phase 6 implementation is in place: JUCE 8.0.6 VST3/standalone wrapper, APVTS parameters/state, factory programs, tempo bridge, parameter-attached editor, stereo meters, activity history, and preset status. Windows CI run [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463) passed all six tests and staged the Windows VST3 artifact.
+- Controlled REAPER 7.34/macOS checks now cover SPACE dry/wet and tail, 80/160 BPM host response, SPACE automation, saved-project reopen, and all eight factory program states. Phase 6 acceptance still needs visual meter/history confirmation during live playback and an actual Windows REAPER editor run. The current Mac REAPER session stops immediately after Play, so it cannot confirm live visualizer behavior. Real drum auditions and JUCE distribution terms are tracked for later phases.
 
 Your responsibility is to take this project from an empty repository to a functional, tested, documented, and distributable Windows audio plugin.
 

@@ -13,10 +13,10 @@ The project uses JUCE 8.0.6 with CMake FetchContent. JUCE offers its JUCE licenc
 - **DSP:** allocation-free processing components with independent tests.
 - **Source profiles:** one explicit profile per Target x Engine pair, with source-specific wet-send filtering and reverb defaults.
 - **Plugin/parameters:** `Source/PluginProcessor.*` uses JUCE APVTS with stable initial parameter IDs, automation, XML state callbacks, factory program recall, and SPACE smoothing.
-- **Host timing:** reads host BPM when available and routes Free/Host/Tap timing through the existing timing module; transport-state behavior is not yet used.
+- **Host timing:** reads host BPM when available and routes Free/Host/Tap timing through the existing timing module. Host tempo-change and transport behavior still need validation in a DAW.
 - **Preset system:** the eight factory states are exposed as host programs and recalled into APVTS parameters. User preset files are not implemented; the editor compares current values to the active factory state for its modified indicator.
 - **UI:** `Source/PluginEditor.*` provides the hardware-inspired editor and parameter attachments for the real processor parameters.
-- **Metering/visualization:** atomic peak/activity snapshots are polled by a bounded UI timer. Current meters are mono-combined peak bars without stereo separation, peak hold, or decay history.
+- **Metering/visualization:** atomic peak/activity snapshots are polled by a bounded UI timer. The editor displays left/right input and output meters with peak hold/release and a wet-activity history. Host validation of these displays remains outstanding.
 - **Build/release:** Windows-only CI and reproducible VST3 packaging.
 
 Keep audio processing real-time safe: no file I/O, blocking locks, or dynamic allocation in the audio callback.
@@ -29,10 +29,10 @@ Keep audio processing real-time safe: no file I/O, blocking locks, or dynamic al
 
 `Source/SpaceMacro.*` evaluates one independently tuned macro curve per target/engine pair, smooths its values over 20 ms by default, and mixes dry/wet output. The JUCE wrapper binds SPACE to a host-automatable APVTS parameter.
 
-`Source/TempoSync.*` supplies division math, Free/Host/Tap mode semantics, BPM fallback, tap interval tracking, and a timing smoother. Host transport/BPM extraction remains in the future plugin adapter.
+`Source/TempoSync.*` supplies division math, Free/Host/Tap mode semantics, BPM fallback, tap interval tracking, and a timing smoother. The JUCE processor reads host BPM when available; transport play/stop is not consumed.
 
 `Source/PluginState.*` defines the portable plugin state, five optional advanced overrides, eight factory presets, and a versioned text codec. The JUCE wrapper currently serializes APVTS XML for host state; it does not yet bridge the portable codec into that host state format.
 
 ## Current wrapper limitations
 
-The wrapper accepts matching mono or stereo input/output layouts. It does not implement mono-to-stereo routing. The editor includes target/character, SPACE, timing, advanced overrides, factory preset selection, and basic input/output/activity indicators. Windows VST3 loading, REAPER behavior, host automation/state restore, resizing at minimum dimensions, and audio performance remain unverified.
+The wrapper accepts matching mono or stereo input/output layouts. It does not implement mono-to-stereo routing. The editor includes target/character, SPACE, timing, advanced overrides, factory preset selection, stereo meters, and activity history. Windows CI has built and packaged the VST3. REAPER 7.34 on macOS loaded it and passed a basic signal-through check. Windows REAPER behavior, controlled wet/dry output, host automation/state restore, plugin meter behavior in a host, and audio performance remain unverified.

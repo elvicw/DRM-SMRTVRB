@@ -62,5 +62,6 @@
 
 - macOS Apple clang 21.0.1 Release build produced VST3 and standalone targets.
 - Existing CTest suite passed 6/6.
-- Windows build, REAPER validation, UI acceptance checks, and release licensing remain outstanding.
-- The current source compiled on macOS and the existing six tests passed. Windows CI and host audio/state validation remain outstanding.
+- Windows CI run [45053765301](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45053765301) passed configure, build, all six tests, VST3 bundle staging, and artifact upload.
+- REAPER 7.34 on macOS loaded the VST3 and passed a basic synthetic-audio signal-through smoke check. Controlled wet/dry, host tempo/automation/state behavior, Windows REAPER validation, and host meter/history behavior remain outstanding.
+- Minimum-size layout, keyboard SPACE adjustment, focus indication, and selector accessibility were checked in the macOS standalone. JUCE distribution licensing and real-recording auditions remain outstanding.

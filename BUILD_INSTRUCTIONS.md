@@ -2,7 +2,7 @@
 
 ## Current status
 
-The framework-independent DSP library, tests, and an initial JUCE 8.0.6 VST3/standalone wrapper are configured with CMake. Initial machine inspection found macOS, Apple clang 21.0.1, CMake 4.5.0, and Ninja. The plugin targets have compiled locally on macOS as a development check; Windows remains the only supported release target for V1 and has not been built or validated yet. The VST3 has not been loaded in a DAW.
+The framework-independent DSP library, tests, and JUCE 8.0.6 VST3/standalone wrapper are configured with CMake. The development machine is macOS with Apple clang 21.0.1, CMake 4.5.0, and Ninja. The plugin targets compile locally on macOS. Windows CI run [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463) configured and built the VST3, passed all six CTest targets, staged the bundle, and uploaded the artifact. Windows-host use is not validated. REAPER 7.34 on macOS loaded the VST3 and passed a basic synthetic-audio signal-through smoke check; controlled SPACE, tempo response, automation, state round-trip, and eight factory-program checks have been run in macOS REAPER; live meter/history UI and Windows host testing remain open.
 
 ## DSP core build
 
@@ -12,7 +12,7 @@ cmake --build build
 ctest --test-dir build --output-on-failure
 ```
 
-Windows CI currently builds/tests this DSP core only. It does not yet produce a plugin artifact.
+The Windows workflow builds and tests the project and uploads a Windows VST3 artifact. The latest recorded Windows workflow is [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463), including all six CTest targets and bundle staging. This does not validate plugin behavior in a Windows DAW.
 
 ## Offline WAV renderer
 
@@ -32,8 +32,8 @@ ctest --test-dir build-plugin --output-on-failure
 
 The VST3 and standalone targets are available for the current host platform. Their presence does not establish Windows compatibility or DAW validation.
 
-The latest macOS build linked the VST3 and standalone targets, and CTest passed 6/6 after the meter, preset-status, and tail-smoothing edits. The edited Windows workflow has not run yet.
+The latest recorded macOS build linked the VST3 and standalone targets. The latest recorded Windows CI run passed all six CTest targets and uploaded the VST3 bundle. See [AGENT_HANDOVER.md](AGENT_HANDOVER.md) for the exact validation scope and remaining host checks.
 
-## Future Windows build
+## Windows build
 
-The intended release artifact is a Windows VST3, built and verified on a Windows environment. Use Visual Studio 2022 Build Tools and CMake on a Windows runner; document the exact toolchain and packaging command after the first Windows run. Do not report Windows support as validated based on the local macOS build.
+The intended release artifact is a Windows VST3. CI builds it on a Windows runner, but Windows REAPER validation remains outstanding. Do not report Windows host support as validated based on CI compilation or macOS host checks.

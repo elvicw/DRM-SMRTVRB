@@ -59,6 +59,6 @@ Values are `(HP Hz / LP Hz / Send / Decay s / Pre-delay ms / Damping / Width / G
 
 The source-controlled table is in `Source/TargetProfiles.cpp`; `Tests/TargetProfilesTests.cpp` verifies distinctness, ranges, finite output, and mono/stereo processing. Twelve SPACE curves are in `Source/SpaceMacro.cpp`; `Tests/SpaceMacroTests.cpp` verifies endpoints, input clamps, smoothing, and exact dry output at zero.
 
-Factory presets are defined in `Source/PluginState.cpp`: Tight Shells, Big Snare, Explosive Snare, Small Studio, Large Room, Wide Overheads, Metallic Spring, and Vintage Gated. Portable state format version 1 serializes the selected target/engine, SPACE, sync/division, free decay, advanced override enable flags, and values. Host IDs and actual plugin state callbacks are still pending.
+Factory presets are defined in `Source/PluginState.cpp`: Tight Shells, Big Snare, Explosive Snare, Small Studio, Large Room, Wide Overheads, Metallic Spring, and Vintage Gated. Portable state format version 1 serializes the selected target/engine, SPACE, sync/division, free decay, advanced override enable flags, and values. The JUCE wrapper saves/restores host state as APVTS XML; the portable text codec is not connected to that host format.
 
 Audio-thread automation is read from APVTS atomics. SPACE is smoothed; profile, timing, and advanced parameters are currently sampled at block/control-quantum boundaries. Test automation and state round trips in a Windows host before release.

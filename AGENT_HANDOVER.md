@@ -2,12 +2,25 @@
 
 ## Latest handoff (2026-11-23)
 
+- Controlled REAPER 7.34/macOS arm64 SPACE comparison completed: SPACE 0 was bit-identical to input; SPACE 65 changed the output (`delta RMS=0.09521270 FS`). The initial apparent missing tail was a test-state mismatch: Tight Shells enables a 0.48 s advanced tail override, while the offline comparison used profile defaults. With advanced overrides disabled, REAPER matched the offline output to within one PCM16 quantization step through the measurable tail. See `TESTING.md`.
+- Follow-up REAPER checks completed: host sync at 80 vs 160 BPM produced distinct renders (`delta RMS=0.00121261 FS`); SPACE envelope automation from 0% to 65% and back changed the output; reopening the saved project restored Room/Spring selections and three envelope points. At the reopen cursor, SPACE reads 0% because the first envelope point is 0%. A REAPER host program check matched all eight factory names and target/character/SPACE/sync/division values. See `TESTING.md`.
+- Windows CI run [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463) passed configure, build, all six tests, VST3 staging, and artifact upload.
+- Phase 6 remains open for live meter/history visuals and the Windows REAPER editor/resize/automation/state check. Available Mac REAPER transport stopped immediately (state 0 by 0.95 s; track peaks zero); offline render output did not update the plugin editor visuals. Treat live meter/history behavior as unverified, not as a confirmed code defect.
+- Next: complete those host UI checks in a working live audio session and Windows REAPER. Then audition real drum recordings and finish transport edge cases.
+- Cleanup: temporary DRM-SMRTVRB VST3 removed; WaveMorph untouched. REAPER test processes were asked to quit and then sent SIGTERM.
+
 - Branch `main` is clean; latest code commit `782d1e7` passed Windows CI run [45053765301](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45053765301). The docs-only follow-up `f4b7986` records that result.
 - Minimum-size (640 x 420), accessible selector names, SPACE keyboard adjustment, and its visible focus outline were verified in the macOS standalone. The ring/Character overlap was corrected.
 - REAPER 7.34/macOS arm64 smoke check: temporarily installed the VST3, found and loaded `VST3: DRM-SMRTVRB`, opened the editor, imported `recordings/synthetic-kick-shells.wav`, and played it through the track. REAPER track and master meters showed signal. This confirms host scan/load and signal passing through a track with the VST3 inserted; it does not verify wet output quality, plugin meter/history behavior, tempo sync, automation, or state round-trip. The capture happened during exploratory parameter interaction, so do not treat it as a controlled wet/dry comparison.
 - Cleanup completed: stopped the temporary REAPER instance (none remains running) and removed only the temporary `~/Library/Audio/Plug-Ins/VST3/DRM-SMRTVRB.vst3` copy. The existing `WaveMorph.vst3` install was left in place. The REAPER test project was unsaved and discarded.
 - Next: repeat host playback with a controlled saved test project and SPACE > 0, compare SPACE 0 and wet output, test host BPM changes, parameter automation and project save/reopen, then run the Windows VST3 in Windows REAPER. Audition real drum recordings and resolve JUCE distribution terms before release.
 - Do not claim Windows host validation or audio-quality validation from the macOS smoke test.
+
+## Continuation note (2026-11-23)
+
+- A controlled offline render used the existing synthetic kick fixture at SPACE 0 and 65. SPACE 0 matched input sample-for-sample over the input duration; SPACE 65 differed (delta RMS 0.09518). Outputs were finite and below 0 dBFS. See `TESTING.md` for commands and scope.
+- A controlled REAPER wet/dry project was not completed. A temporary plugin bundle was installed for discovery and then removed; the REAPER instance started for this attempt was closed without saving a project. The existing `WaveMorph.vst3` installation was left untouched.
+- Next: complete the controlled wet/dry, host BPM, automation, and state round-trip checks in REAPER; then validate in Windows REAPER. Keep the offline synthetic result separate from host and listening claims.
 
 ## Resumed handover (2026-11-22)
 
