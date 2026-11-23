@@ -2,7 +2,7 @@
 
 ## Stability soak (2026-11-24, Claude Sonnet 5.5)
 
-- Branch `phase7/stability-soak` (from `main` at `893ee5d`): added `Tools/SoakTest.cpp`, target `drmsmrtvrb_soak_test`, CTest `PluginSoak`. macOS: passes (default and 1,440 s/seed 777 runs). Windows CI result pending at the time of writing.
+- Branch `phase7/stability-soak` (from `main` at `893ee5d`): added `Tools/SoakTest.cpp`, target `drmsmrtvrb_soak_test`, CTest `PluginSoak`. macOS: passes (default and 1,440 s/seed 777 runs). Windows CI run 45215377733 passed all 7 CTest targets including PluginSoak (4.86 s).
 - Not covered: DAW host, editor, real-time scheduling, Windows memory growth. Open: real-recording auditions, JUCE licence decision.
 
 ## Plugin processor CPU benchmark (2026-11-24, Claude Sonnet 5.5)
