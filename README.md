@@ -2,7 +2,7 @@
 
 **DRM-SMRTVRB** is a purpose-built drum reverb plugin by **yeahwaah audio**. Its workflow centers on selecting a drum source, choosing a reverb character, and shaping the result with the SPACE macro.
 
-The DSP foundation through Phase 5 is implemented: three engines, twelve source/engine profiles, SPACE, tempo calculations, advanced overrides, presets, and portable state. The JUCE 8.0.6 VST3/standalone wrapper and editor build on macOS. Windows CI has built and tested the VST3 bundle, and REAPER 7.34 on macOS loaded the plugin and passed a basic signal-through smoke check. Windows REAPER validation, controlled wet/dry and host-state checks, real drum recording auditions, and JUCE distribution licensing remain open.
+The DSP foundation through Phase 5 is implemented: three engines, twelve source/engine profiles, SPACE, tempo calculations, advanced overrides, presets, and portable state. The JUCE 8.0.6 VST3/standalone wrapper and editor build on macOS. Windows CI has built and tested the VST3 bundle, and REAPER 7.34 on macOS loaded the plugin and passed a basic signal-through smoke check. Windows REAPER validation, controlled wet/dry and host-state checks, real drum recording auditions, remain open. JUCE licensing is settled as AGPLv3 (see `LICENSE`); the repository must be public before binaries are distributed.
 
 ## Planned V1
 

@@ -1,5 +1,10 @@
 # Agent Handover
 
+## Licence decision: AGPLv3 (2026-11-24, Claude Sonnet 5.5)
+
+- Owner chose a free/open-source route: project is AGPLv3, `LICENSE` added (branch `docs/adopt-agpl3`). Before distributing binaries: make the repo public and link source in releases.
+- Stale branch `phase7/audition-analysis-tool` is merged into main; deletion awaits owner go-ahead. Owner will supply drum stems in git-ignored `recordings/`.
+
 ## Audition analysis tool (2026-11-24, Claude Sonnet 5.5)
 
 - Branch `phase7/audition-analysis-tool` (from `main` at `5f94845`): added `drmsmrtvrb_analyze`, `drmsmrtvrb_metrics` library and CTest `AudioMetrics`. macOS DSP-only build: CTest 7/7. Note: these commits (`5dd587a`, `acbcd34`) were committed directly to `main` by mistake (HEAD had moved off the branch); the owner accepted keeping them, and Windows CI on `main` passed. Ready for real recordings: render with `drmsmrtvrb_render` then analyze with `--dry`.
