@@ -1,0 +1,57 @@
+name: macOS and Linux Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Configure (universal arm64 + x86_64)
+        run: >
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
+          -DDRMSMRTVRB_BUILD_TESTS=ON -DDRMSMRTVRB_BUILD_PLUGIN=ON
+      - name: Build
+        run: cmake --build build
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+      - name: Verify universal VST3 binary
+        run: lipo -info build/DRMSMRTVRB_artefacts/Release/VST3/DRM-SMRTVRB.vst3/Contents/MacOS/DRM-SMRTVRB
+      - name: Archive macOS VST3
+        uses: actions/upload-artifact@v7
+        with:
+          name: DRM-SMRTVRB-macOS-VST3
+          path: build/DRMSMRTVRB_artefacts/Release/VST3/DRM-SMRTVRB.vst3
+          if-no-files-found: error
+          retention-days: 14
+
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install JUCE build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build libasound2-dev libx11-dev libxext-dev libxrandr-dev \
+            libxinerama-dev libxcursor-dev libfreetype-dev libfontconfig1-dev libgl1-mesa-dev
+      - name: Configure
+        run: >
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          -DDRMSMRTVRB_BUILD_TESTS=ON -DDRMSMRTVRB_BUILD_PLUGIN=ON
+      - name: Build
+        run: cmake --build build
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+      - name: Archive Linux VST3
+        uses: actions/upload-artifact@v7
+        with:
+          name: DRM-SMRTVRB-Linux-VST3
+          path: build/DRMSMRTVRB_artefacts/Release/VST3/DRM-SMRTVRB.vst3
+          if-no-files-found: error
+          retention-days: 14
