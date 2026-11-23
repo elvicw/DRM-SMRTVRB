@@ -6,6 +6,7 @@
 - **Phase:** 7 — Testing, optimization, and release preparation
 - **Completed:** Standalone engines/profiles/SPACE; Free/Host/Tap timing calculations; five synthetic fixtures; optional advanced overrides; eight factory presets; portable versioned state codec; JUCE 8.0.6 VST3 and standalone wrapper; full Windows REAPER 7.42 host acceptance (exact dry endpoint, wet SPACE response, host tempo synchronization, automation envelopes, all eight factory programs, state/project save/reopen, UI rendering and resize down to 640 x 420).
 - **Active tasks:** Release-packaging workflow added on branch `build/release-packaging` (not yet run on GitHub); audition with real drum recordings when available; resolve JUCE distribution licensing terms before release.
+- **CPU:** DSP-core benchmark on macOS: worst case 0.363% of one core (48 kHz, 512 samples); plugin-in-host and Windows CPU unmeasured.
 - **Outstanding:** Real drum recording auditions; JUCE commercial vs. AGPLv3 distribution decision.
 - **Latest successful build:** Windows x64 MSVC (Visual Studio 2022 BuildTools) + Ninja Release; VST3 and standalone built and verified locally on Windows; macOS Release also linked.
 - **Latest test evidence:** Local Windows CTest passed 6/6 (ReverbEngines, TargetProfiles, SpaceMacro, TempoSync, PluginState, WavFile); Windows REAPER 7.42 passed exact dry (max error 0.0), SPACE 65 wet (delta RMS 0.09518), host tempo sync (80 vs 160 BPM delta RMS 0.00157), envelope automation, all 8 factory programs, and project save/reopen.

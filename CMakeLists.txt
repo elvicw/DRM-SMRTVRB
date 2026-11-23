@@ -67,6 +67,10 @@ add_executable(drmsmrtvrb_render Tools/RenderWav.cpp)
 target_link_libraries(drmsmrtvrb_render PRIVATE drmsmrtvrb_dsp drmsmrtvrb_wav)
 target_compile_features(drmsmrtvrb_render PRIVATE cxx_std_17)
 
+add_executable(drmsmrtvrb_benchmark Tools/Benchmark.cpp)
+target_link_libraries(drmsmrtvrb_benchmark PRIVATE drmsmrtvrb_dsp)
+target_compile_features(drmsmrtvrb_benchmark PRIVATE cxx_std_17)
+
 if(DRMSMRTVRB_BUILD_TESTS)
     enable_testing()
     add_executable(drmsmrtvrb_dsp_tests Tests/ReverbEnginesTests.cpp)

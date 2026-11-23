@@ -95,3 +95,9 @@ Native testing on Windows x64 using REAPER 7.42/x64 and the locally compiled Win
 6. **Automation Envelope:** Automated SPACE envelope with points at 0.0 s = 0%, 3.0 s = 65%, and 5.5 s = 0%. The render showed dry audio at the start (diff RMS 0.0044), strong wet contribution at the peak (diff RMS 0.0628), and clean return to zero at 5.5–6.0 s (diff RMS 0.00000045).
 7. **Project Save/Reopen Round-Trip:** Saved project with customized parameters (Snare + Spring, SPACE 65%, advMixOn, advMix 80%, and 3-point SPACE envelope). Reopened project from disk; all parameters, preset modified state, and envelope points were restored identically.
 8. **UI Editor and Resize:** Standalone and hosted VST3 editor windows opened with the dark faceplate and amber illumination. Resized to minimum size (640 x 420) without visual overlap or clipping. Captured real running screenshots into `screenshots/drm-space-main.png`, `screenshots/drm-space-advanced.png`, and `screenshots/reaper-vst3-editor.png`.
+
+## CPU benchmark (DSP only)
+
+`drmsmrtvrb_benchmark [sampleRate=48000] [blockSize=512] [seconds=30]` runs `SpaceMacroProcessor` (SPACE 65, stereo) for every source target and engine with a 100 ms noise burst each second, so decaying tails are included, and reports CPU as a share of one core. It exits non-zero on non-finite output. Build: `cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release && cmake --build build`.
+
+Observed on the macOS development machine (Apple silicon, Release, 2026-11-23): 48 kHz / 512-sample blocks worst case 0.363% of one core (Room engine, Shells target; other combinations 0.18–0.25%); 44.1 kHz / 64-sample blocks worst case 0.204%; all output finite. Scope: DSP core only, not the JUCE wrapper, editor/meters, a DAW, or Windows hardware. Windows numbers and plugin-in-host CPU are unmeasured.
