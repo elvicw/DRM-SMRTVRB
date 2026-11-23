@@ -72,6 +72,10 @@
 - Added `.github/workflows/release-package.yml` (tag `v*` or manual dispatch): builds and tests on Windows, checks the tag matches the CMake project version, and uploads a versioned `DRM-SMRTVRB-<version>-Windows-VST3.zip` with a SHA-256 file as a workflow artifact.
 - It does not publish a GitHub Release; JUCE distribution terms are still unresolved. Manual dispatch run 45210138012 succeeded and produced the zip and matching SHA-256.
 
+## Unreleased — audition analysis tool
+
+- Added `drmsmrtvrb_analyze` (`Tools/AnalyzeWav.cpp`, `Tools/AudioMetrics.*`) for objective level, band-share, decay-time and stereo-stability measurements of rendered WAVs, plus CTest `AudioMetrics`. Verified on synthetic signals only; no real recordings used. See `TESTING.md`.
+
 ## Unreleased — stability soak test
 
 - Added `drmsmrtvrb_soak_test` (`Tools/SoakTest.cpp`) and CTest `PluginSoak`: randomized block-size/sample-rate/layout/parameter/preset fuzzing of the processor with finite/bounded output and POSIX memory-growth checks. macOS: PASS over up to 1,440 s of simulated audio. See `TESTING.md`.
