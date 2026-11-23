@@ -1,5 +1,14 @@
 # Agent Handover
 
+## Latest handoff (2026-11-23)
+
+- Branch `main` is clean; latest code commit `782d1e7` passed Windows CI run [45053765301](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45053765301). The docs-only follow-up `f4b7986` records that result.
+- Minimum-size (640 x 420), accessible selector names, SPACE keyboard adjustment, and its visible focus outline were verified in the macOS standalone. The ring/Character overlap was corrected.
+- REAPER 7.34/macOS arm64 smoke check: temporarily installed the VST3, found and loaded `VST3: DRM-SMRTVRB`, opened the editor, imported `recordings/synthetic-kick-shells.wav`, and played it through the track. REAPER track and master meters showed signal. This confirms host scan/load and signal passing through a track with the VST3 inserted; it does not verify wet output quality, plugin meter/history behavior, tempo sync, automation, or state round-trip. The capture happened during exploratory parameter interaction, so do not treat it as a controlled wet/dry comparison.
+- Cleanup completed: stopped the temporary REAPER instance (none remains running) and removed only the temporary `~/Library/Audio/Plug-Ins/VST3/DRM-SMRTVRB.vst3` copy. The existing `WaveMorph.vst3` install was left in place. The REAPER test project was unsaved and discarded.
+- Next: repeat host playback with a controlled saved test project and SPACE > 0, compare SPACE 0 and wet output, test host BPM changes, parameter automation and project save/reopen, then run the Windows VST3 in Windows REAPER. Audition real drum recordings and resolve JUCE distribution terms before release.
+- Do not claim Windows host validation or audio-quality validation from the macOS smoke test.
+
 ## Resumed handover (2026-11-22)
 
 The user resumed work after the pause. The local build/tests pass and the first Windows plugin build succeeded; continue verification below.
@@ -38,7 +47,7 @@ The user resumed work after the pause. The local build/tests pass and the first 
 - Sliders now request keyboard focus and use `DRMFocusableSlider` to draw an amber focus outline. Native mouse/key input moved SPACE from 28% to 29%; it was restored to 28%, and the focus state/ring were observed. That screenshot exposed the ring touching Character at default size. `Source/PluginEditor.cpp` shifts the SPACE rotary and its label together to clear the selector; local CMake build succeeds.
 - Windows CI run [45053765301](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45053765301) passed configure, build, all six tests, VST3 bundle staging, and artifact upload for commit `782d1e7`. Downloaded artifact inspection confirmed both the Windows VST3 binary and `moduleinfo.json` under the expected bundle root.
 - Standalone accessibility inspection reports selector names for preset, source, character, sync, and division, plus slider values for SPACE and the advanced controls. Native keyboard adjustment and the focus ring are verified. The updated default-size view clears the Character selector; at minimum size the rotary left edge remains at x=356, preserving its clearance.
-- Next: push and verify the follow-up layout adjustment with Windows CI, then proceed with Windows REAPER integration checks. No user recordings or Windows host validation are available yet.
+- REAPER smoke-test details and cleanup are recorded in **Latest handoff (2026-11-23)** above.
 
 ## Current state
 
