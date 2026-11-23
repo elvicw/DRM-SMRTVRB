@@ -2,7 +2,7 @@
 
 ## Audition analysis tool (2026-11-24, Claude Sonnet 5.5)
 
-- Branch `phase7/audition-analysis-tool` (from `main` at `5f94845`): added `drmsmrtvrb_analyze`, `drmsmrtvrb_metrics` library and CTest `AudioMetrics`. macOS DSP-only build: CTest 7/7. Ready for real recordings: render with `drmsmrtvrb_render` then analyze with `--dry`.
+- Branch `phase7/audition-analysis-tool` (from `main` at `5f94845`): added `drmsmrtvrb_analyze`, `drmsmrtvrb_metrics` library and CTest `AudioMetrics`. macOS DSP-only build: CTest 7/7. Note: these commits (`5dd587a`, `acbcd34`) were committed directly to `main` by mistake (HEAD had moved off the branch); the owner accepted keeping them, and Windows CI on `main` passed. Ready for real recordings: render with `drmsmrtvrb_render` then analyze with `--dry`.
 - Not done: real-recording auditions (none supplied), JUCE licence decision. The analyzer gives numbers only, no thresholds.
 
 ## Stability soak (2026-11-24, Claude Sonnet 5.5)
