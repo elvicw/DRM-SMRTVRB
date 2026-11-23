@@ -2,7 +2,7 @@
 
 `Tests/ReverbEnginesTests.cpp` exercises Room, Spring, and Gated using stereo impulse input, checks finite/bounded output and nonzero tails, checks that the engine responses differ, checks mono processing, and checks gated tail reduction after its selected gate interval.
 
-Latest recorded automated result: Windows CI run [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463) passed all six CTest targets (`ReverbEngines`, `TargetProfiles`, `SpaceMacro`, `TempoSync`, `PluginState`, `WavFile`) and staged/uploaded the VST3 artifact. The macOS standalone UI also passed the documented minimum-size and keyboard/accessibility checks. These checks do not replace DAW behavior or audio-quality validation.
+Latest recorded automated result: Windows CI run [45185893939](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45185893939) passed all six CTest targets (`ReverbEngines`, `TargetProfiles`, `SpaceMacro`, `TempoSync`, `PluginState`, `WavFile`) and staged/uploaded the VST3 artifact. In addition, native Windows REAPER 7.42 validation was performed and verified locally on Windows x64.
 
 The first Windows CI run compiled successfully but the test executable segfaulted because the harness stored multiple full render buffers on the Windows thread stack. Moving these buffers to heap-backed vectors fixed the issue. Windows run 45004120337 passed configure, build, and both CTest targets on `windows-latest`.
 

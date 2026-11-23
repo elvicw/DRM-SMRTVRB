@@ -61,7 +61,7 @@
 ## Validation
 
 - macOS Apple clang 21.0.1 Release build produced VST3 and standalone targets; local CTest passed 6/6.
-- Windows CI run [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463) passed configure, build, all six tests, VST3 bundle staging, and artifact upload.
+- Windows CI run [45185893939](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45185893939) passed configure, build, all six tests, VST3 bundle staging, and artifact upload.
 - Windows local build and CTest passed 6/6 with MSVC and Ninja.
 - Windows REAPER 7.42/x64 verified: VST3 plugin scan/load, exact dry endpoint at SPACE 0 (max error 0.0), SPACE 65 wet response (delta RMS 0.09518), host tempo sync at 80 vs 160 BPM (delta RMS 0.00157), SPACE envelope automation, all eight factory presets, and project save/reopen state restore.
 - Real running UI screenshots captured from standalone and REAPER-hosted instances into `screenshots/` at default and minimum sizes (640 x 420).

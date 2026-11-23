@@ -2,7 +2,7 @@
 
 ## Current status
 
-The framework-independent DSP library, tests, and JUCE 8.0.6 VST3/standalone wrapper are configured with CMake. The development machine is macOS with Apple clang 21.0.1, CMake 4.5.0, and Ninja. The plugin targets compile locally on macOS. Windows CI run [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463) configured and built the VST3, passed all six CTest targets, staged the bundle, and uploaded the artifact. Windows-host use is not validated. REAPER 7.34 on macOS loaded the VST3 and passed a basic synthetic-audio signal-through smoke check; controlled SPACE, tempo response, automation, state round-trip, and eight factory-program checks have been run in macOS REAPER; live meter/history UI and Windows host testing remain open.
+The framework-independent DSP library, tests, and JUCE 8.0.6 VST3/standalone wrapper are configured with CMake. The development machine is macOS with Apple clang 21.0.1, CMake 4.5.0, and Ninja. The plugin targets compile locally on macOS. Windows CI run [45185893939](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45185893939) configured and built the VST3, passed all six CTest targets, staged the bundle, and uploaded the artifact. Windows REAPER 7.42 host acceptance was completed locally on Windows x64: controlled SPACE dry/wet, tempo response at 80/160 BPM, automation envelope, project save/reopen, all eight factory presets, and UI floating editor/resize were validated.
 
 ## DSP core build
 
@@ -12,7 +12,7 @@ cmake --build build
 ctest --test-dir build --output-on-failure
 ```
 
-The Windows workflow builds and tests the project and uploads a Windows VST3 artifact. The latest recorded Windows workflow is [45163535463](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45163535463), including all six CTest targets and bundle staging. This does not validate plugin behavior in a Windows DAW.
+The Windows workflow builds and tests the project and uploads a Windows VST3 artifact. The latest recorded Windows workflow is [45185893939](https://github.com/elvicw/DRM-SMRTVRB/actions/runs/45185893939), including all six CTest targets and bundle staging. Windows REAPER 7.42 host validation was performed locally on Windows x64.
 
 ## Offline WAV renderer
 
