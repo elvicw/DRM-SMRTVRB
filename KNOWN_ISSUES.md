@@ -33,7 +33,7 @@
 ## UI acceptance checks completed on Windows
 
 - **Completed:** Default and 640 x 420 layout review, keyboard SPACE adjustment/focus ring, accessible selector and slider names, host BPM render response, preset parameter-state checks, and Windows REAPER editor floating display and resizing. Real screenshots captured and saved in `screenshots/`.
-- **Remaining for Phase 7:** Audition with real drum recordings when available, and settle JUCE commercial vs. AGPLv3 distribution terms.
+- **Remaining for Phase 7:** Audition with real drum recordings when available, (JUCE licensing is settled: AGPLv3).
 
 ## DSP tuning not verified with drum recordings
 
@@ -43,10 +43,10 @@
 - **Workaround:** None established.
 - **Suggested fix:** Add listening/measurement validation before calling the engines production-ready.
 
-## JUCE distribution terms are not confirmed
+## JUCE distribution terms: AGPLv3 chosen (owner decision, pending compliance steps)
 
 - **Reproduction:** Check the JUCE licence/account held by the product owner and the intended distribution model.
 - **Expected:** The product is developed and distributed under terms that cover the applicable revenue and source-availability requirements.
-- **Actual:** The project uses JUCE 8.0.6, but no licence status or product distribution decision is documented.
-- **Workaround:** Keep binaries private and do not publish a release until the product owner verifies the terms.
+- **Actual:** The owner chose the free open-source route: the project is licensed AGPLv3 (`LICENSE`), using JUCE 8.0.6 under its AGPLv3 option. Remaining: confirm the source repository is public before any binary is distributed, and offer the source with every binary. Not legal advice.
+- **Workaround:** Do not distribute binaries until the repository is public under AGPLv3 and the release includes a source offer/link.
 - **Suggested fix:** Confirm the appropriate JUCE licence plan or AGPLv3 compliance obligations using the [official JUCE licensing overview](https://juce.com/get-juce/) and [JUCE 8 EULA](https://juce.com/legal/juce-8-licence/).

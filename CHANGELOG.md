@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — licence
+
+- Adopted AGPLv3 (owner decision; free JUCE option). Added `LICENSE`; updated status, known-issue and build docs.
+
 ## Unreleased — foundation
 
 - Created the private DRM-SMRTVRB project repository and initial documentation set.
