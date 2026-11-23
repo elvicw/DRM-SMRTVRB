@@ -1,3 +1,14 @@
+# DEPRECATED — DO NOT FOLLOW
+
+This file is retained for historical reference only.
+
+The authoritative agent instructions are located in
+the repository root `AGENTS.md`.
+
+Do not use this file for agent onboarding,
+development procedures, or operational decisions.
+
+
 # AGENTS.md — DRM-SMRTVRB
 
 These instructions apply to every AI coding agent working in this repository.
