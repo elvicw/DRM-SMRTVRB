@@ -59,6 +59,82 @@ weaken, bypass, or silently reinterpret it. If these instructions and another
 repository document appear inconsistent, report the conflict and follow the safer
 rule: do not begin or continue development until clarified.
 
+
+### Mandatory Handover Reading Protocol
+
+Every agent working on DRM-SMRTVRB MUST read
+`AGENT_HANDOVER.md` before beginning development.
+
+This requirement applies to all agents, including
+Codex, Antigravity, Copilot, and Qwen.
+
+#### Startup Order
+
+Agents MUST follow the startup order already
+defined in their respective startup paths.
+
+Qwen's special startup order MUST remain intact:
+1. Inspect the current Git state.
+2. Create and verify its dedicated task branch.
+3. Read the project Markdown documentation,
+   including AGENT_HANDOVER.md.
+
+Other agents must follow their existing startup
+requirements before proceeding to documentation.
+
+#### Required Handover Review
+
+Read these sections first:
+
+1. CURRENT HANDOVER
+2. NEXT AGENT INSTRUCTIONS
+
+The HANDOVER HISTORY section is reference material
+only and must not override the current handover.
+
+After reading the handover, the agent MUST:
+
+1. Identify the current development phase.
+2. Identify the latest completed milestone.
+3. Identify outstanding tasks and known blockers.
+4. Review the stated next steps.
+5. Inspect the actual Git branch and working tree.
+6. Verify important handover claims against the
+   actual repository state.
+7. Identify outdated or contradictory information.
+
+#### Startup Report
+
+Before implementation, provide a concise report
+containing:
+
+- Current development phase.
+- Latest verified completed milestone.
+- Outstanding tasks.
+- Known blockers or inconsistencies.
+- Recommended next action.
+
+Do not begin implementation until the handover
+has been reviewed and the repository state checked.
+
+#### Handover Authority
+
+`AGENT_HANDOVER.md` is the canonical handover file.
+
+The CURRENT HANDOVER section is authoritative.
+
+Historical handovers are retained for context only.
+
+If the handover conflicts with actual repository
+state, investigate and report the discrepancy.
+
+Never assume a task is completed solely because
+an older handover says it was completed.
+
+Never create alternative handover files unless
+explicitly instructed by the project owner.
+
+
 ## 2. Mandatory Task Branch Isolation
 
 Every agent must do its work on a dedicated task branch. No agent may develop
@@ -286,7 +362,7 @@ silently skip a mandatory step.
 
 ## 10. Agent Shift and Account Rotation Protocol
 
-This protocol applies to non-Qwen agents when their remaining usage allowance reaches 15% or below.
+This protocol applies to non-Qwen agents when their remaining usage allowance reaches 15%.
 
 ### Mandatory Shift Procedure
 
