@@ -1,5 +1,11 @@
 # Agent Handover
 
+## First real-stem audition (2026-11-24, Claude Sonnet 5.5)
+
+- Owner supplied five 24-bit/44.1 kHz stems (kick, snare, ride, overheads, room) in git-ignored `recordings/`. Rendered through all three engines at SPACE 65 (`recordings/real/`) and analysed with `drmsmrtvrb_analyze`. Metrics: kick/snare show clear engine differences (snare RT60 est. Spring 0.18 s, Room 0.30 s, Gated 1.02 s); ride/overheads/room stems are dominated by their own sustain, so the metrics barely separate engines.
+- Owner's subjective verdict: likes how it sounds. Informal, one listener, defaults only; no per-profile tuning changes were made.
+- AGPLv3 adopted (PR #5 merged). Release still needs the repo public and a source link.
+
 ## Licence decision: AGPLv3 (2026-11-24, Claude Sonnet 5.5)
 
 - Owner chose a free/open-source route: project is AGPLv3, `LICENSE` added (branch `docs/adopt-agpl3`). Before distributing binaries: make the repo public and link source in releases.

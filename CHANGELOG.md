@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — first real-stem audition
+
+- Rendered owner-supplied stems through all engines; owner's informal verdict positive. No DSP changes.
+
 ## Unreleased — licence
 
 - Adopted AGPLv3 (owner decision; free JUCE option). Added `LICENSE`; updated status, known-issue and build docs.
