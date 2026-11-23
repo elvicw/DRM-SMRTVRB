@@ -1,5 +1,10 @@
 # Agent Handover
 
+## Release source link + tag check (2026-11-24, Claude Sonnet 5.5)
+
+- Branch `phase7/release-source-link`: `release-package.yml` bundles `LICENSE` + `SOURCE.txt`. Dispatch run 45225739734 passed and the artifact was inspected. Tag mismatch check verified (run 45225737575 failed as intended; scratch tag deleted). Repo is public.
+- Not done: no GitHub Release published (owner action). Next: owner tags `v0.1.0` (matches CMake) when ready; review release notes.
+
 ## First real-stem audition (2026-11-24, Claude Sonnet 5.5)
 
 - Owner supplied five 24-bit/44.1 kHz stems (kick, snare, ride, overheads, room) in git-ignored `recordings/`. Rendered through all three engines at SPACE 65 (`recordings/real/`) and analysed with `drmsmrtvrb_analyze`. Metrics: kick/snare show clear engine differences (snare RT60 est. Spring 0.18 s, Room 0.30 s, Gated 1.02 s); ride/overheads/room stems are dominated by their own sustain, so the metrics barely separate engines.
