@@ -18,6 +18,8 @@ jobs:
         run: cmake --build build --config Release
       - name: Test
         run: ctest --test-dir build -C Release --output-on-failure
+      - name: CPU benchmark (informational)
+        run: build/Release/drmsmrtvrb_benchmark.exe 48000 512 10
       - name: Stage VST3 bundle
         shell: pwsh
         run: |

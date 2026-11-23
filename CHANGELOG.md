@@ -70,7 +70,7 @@
 ## Unreleased — release packaging workflow
 
 - Added `.github/workflows/release-package.yml` (tag `v*` or manual dispatch): builds and tests on Windows, checks the tag matches the CMake project version, and uploads a versioned `DRM-SMRTVRB-<version>-Windows-VST3.zip` with a SHA-256 file as a workflow artifact.
-- It does not publish a GitHub Release; JUCE distribution terms are still unresolved. The workflow has not yet been run on GitHub.
+- It does not publish a GitHub Release; JUCE distribution terms are still unresolved. Manual dispatch run 45210138012 succeeded and produced the zip and matching SHA-256.
 
 ## Unreleased — CPU benchmark
 
