@@ -1,8 +1,9 @@
 name: Windows VST3 Release Package
 
 # Builds a versioned, checksummed Windows VST3 zip as a workflow artifact only.
-# It intentionally does not publish a GitHub Release: JUCE distribution terms
-# are unresolved (see KNOWN_ISSUES.md).
+# The project is AGPLv3 (see LICENSE), so the package bundles LICENSE and a
+# SOURCE.txt pointing at the exact corresponding source commit. Publishing a
+# GitHub Release remains a manual owner action.
 on:
   push:
     tags: ['v*']
@@ -34,9 +35,18 @@ jobs:
         shell: pwsh
         env:
           VERSION: ${{ steps.version.outputs.version }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
         run: |
           $name = "DRM-SMRTVRB-$env:VERSION-Windows-VST3"
           New-Item -ItemType Directory -Force -Path "dist/$name" | Out-Null
+          Copy-Item -LiteralPath LICENSE -Destination "dist/$name/LICENSE"
+          @(
+            "DRM-SMRTVRB $env:VERSION by yeahwaah audio",
+            "Licensed under the GNU Affero General Public License v3 (see LICENSE).",
+            "Corresponding source: https://github.com/$env:REPO/tree/$env:SHA",
+            "Source archive:       https://github.com/$env:REPO/archive/$env:SHA.zip"
+          ) | Set-Content -Encoding ascii "dist/$name/SOURCE.txt"
           Copy-Item -LiteralPath build/DRMSMRTVRB_artefacts/Release/VST3/DRM-SMRTVRB.vst3 -Destination "dist/$name/DRM-SMRTVRB.vst3" -Recurse -Force
           if (-not (Test-Path "dist/$name/DRM-SMRTVRB.vst3/Contents/x86_64-win/DRM-SMRTVRB.vst3")) { throw 'VST3 binary missing from bundle' }
           Compress-Archive -Path "dist/$name" -DestinationPath "dist/$name.zip"
