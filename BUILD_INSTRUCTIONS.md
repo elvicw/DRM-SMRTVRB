@@ -37,3 +37,7 @@ The latest recorded macOS build linked the VST3 and standalone targets. The late
 ## Windows build
 
 The intended release artifact is a Windows VST3. CI builds it on a Windows runner, but Windows REAPER validation remains outstanding. Do not report Windows host support as validated based on CI compilation or macOS host checks.
+
+## Release packaging
+
+`.github/workflows/release-package.yml` runs on a `v<major>.<minor>.<patch>` tag push or manual dispatch. The tag must match the `project(DRM_SMRTVRB VERSION ...)` value in `CMakeLists.txt`. It builds, runs CTest, and uploads `DRM-SMRTVRB-<version>-Windows-VST3.zip` plus a `.sha256` file as a 30-day workflow artifact. It does not create a GitHub Release, and no binary should be distributed until the JUCE licensing decision is made. The workflow is added but not yet run on GitHub.

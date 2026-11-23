@@ -66,3 +66,8 @@
 - Windows REAPER 7.42/x64 verified: VST3 plugin scan/load, exact dry endpoint at SPACE 0 (max error 0.0), SPACE 65 wet response (delta RMS 0.09518), host tempo sync at 80 vs 160 BPM (delta RMS 0.00157), SPACE envelope automation, all eight factory presets, and project save/reopen state restore.
 - Real running UI screenshots captured from standalone and REAPER-hosted instances into `screenshots/` at default and minimum sizes (640 x 420).
 - JUCE distribution licensing terms and real drum recording listening auditions remain tracked for Phase 7.
+
+## Unreleased — release packaging workflow
+
+- Added `.github/workflows/release-package.yml` (tag `v*` or manual dispatch): builds and tests on Windows, checks the tag matches the CMake project version, and uploads a versioned `DRM-SMRTVRB-<version>-Windows-VST3.zip` with a SHA-256 file as a workflow artifact.
+- It does not publish a GitHub Release; JUCE distribution terms are still unresolved. The workflow has not yet been run on GitHub.

@@ -1,0 +1,53 @@
+name: Windows VST3 Release Package
+
+# Builds a versioned, checksummed Windows VST3 zip as a workflow artifact only.
+# It intentionally does not publish a GitHub Release: JUCE distribution terms
+# are unresolved (see KNOWN_ISSUES.md).
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Read project version
+        id: version
+        shell: pwsh
+        run: |
+          $m = Select-String -Path CMakeLists.txt -Pattern 'project\(DRM_SMRTVRB VERSION ([0-9]+\.[0-9]+\.[0-9]+)'
+          if (-not $m) { throw 'Could not read version from CMakeLists.txt' }
+          $version = $m.Matches[0].Groups[1].Value
+          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne "v$version") {
+            throw "Tag $env:GITHUB_REF_NAME does not match CMake version v$version"
+          }
+          "version=$version" >> $env:GITHUB_OUTPUT
+      - name: Configure
+        run: cmake -S . -B build -A x64 -DDRMSMRTVRB_BUILD_TESTS=ON -DDRMSMRTVRB_BUILD_PLUGIN=ON
+      - name: Build
+        run: cmake --build build --config Release
+      - name: Test
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Package VST3
+        shell: pwsh
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          $name = "DRM-SMRTVRB-$env:VERSION-Windows-VST3"
+          New-Item -ItemType Directory -Force -Path "dist/$name" | Out-Null
+          Copy-Item -LiteralPath build/DRMSMRTVRB_artefacts/Release/VST3/DRM-SMRTVRB.vst3 -Destination "dist/$name/DRM-SMRTVRB.vst3" -Recurse -Force
+          if (-not (Test-Path "dist/$name/DRM-SMRTVRB.vst3/Contents/x86_64-win/DRM-SMRTVRB.vst3")) { throw 'VST3 binary missing from bundle' }
+          Compress-Archive -Path "dist/$name" -DestinationPath "dist/$name.zip"
+          $hash = (Get-FileHash "dist/$name.zip" -Algorithm SHA256).Hash.ToLower()
+          "$hash  $name.zip" | Set-Content -Encoding ascii "dist/$name.zip.sha256"
+      - name: Archive release package
+        uses: actions/upload-artifact@v7
+        with:
+          name: DRM-SMRTVRB-${{ steps.version.outputs.version }}-Windows-VST3
+          path: |
+            dist/*.zip
+            dist/*.zip.sha256
+          if-no-files-found: error
+          retention-days: 30

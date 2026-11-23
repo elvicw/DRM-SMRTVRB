@@ -1,5 +1,12 @@
 # Agent Handover
 
+## Release packaging (2026-11-23, Claude Sonnet 5.5)
+
+- Branch `build/release-packaging` (from `main` at `83c1913`). Added `.github/workflows/release-package.yml`; updated `CHANGELOG.md`, `BUILD_INSTRUCTIONS.md`, `PROJECT_STATUS.md`.
+- Checks: workflow YAML parses (ruby). It has NOT been run on GitHub; the version-vs-tag check and zip/SHA-256 output are unverified until a manual dispatch run.
+- Usage check: no exact figure was accessible; the owner authorized proceeding, and an estimate (well above 20% remaining) was used.
+- Next: push the branch, run the workflow via `workflow_dispatch`, inspect the artifact, then owner review/merge. JUCE licensing and real-recording auditions remain open.
+
 ## Latest handoff (2026-11-23 — Windows Host Verification Completed)
 
 - **Phase 6 Host Validation Completed:** Native Windows testing conducted in REAPER 7.42/win64 on Windows x64.
