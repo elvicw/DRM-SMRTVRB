@@ -1,5 +1,10 @@
 # Agent Handover
 
+## v0.1.0 Windows pre-release (2026-11-24, Claude Sonnet 5.5)
+
+- Tagged `v0.1.0` on `main` (`c840672`); run 45233325683 passed; published pre-release with zip + SHA-256. Owner chose to skip macOS/Linux for now; PR #9 (unix-build.yml) closed unmerged. Known for later: Linux link failure needs `POSITION_INDEPENDENT_CODE ON` on `drmsmrtvrb_dsp`; macOS universal build passed.
+- Not done: other DAWs, in-DAW CPU, code signing, installer, macOS/Linux packaging.
+
 ## Phase 7 close-out (2026-11-24, Claude Sonnet 5.5)
 
 - Branch `phase7/close-out`: docs reconciliation only. Local plugin build + CTest 8/8 passed. Exit review table is in `PROJECT_STATUS.md`. Owner authorised self-review and merge of this PR.
