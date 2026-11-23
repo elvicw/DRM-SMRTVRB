@@ -1,5 +1,12 @@
 # Agent Handover
 
+## Phase 7 Windows CPU benchmark (2026-11-23, Claude Sonnet 5.5)
+
+- `build/release-packaging` was merged into `main` (fast-forward, `e5c97f2`) on the owner's instruction. Branch `phase7/windows-cpu-benchmark-ci` adds an informational benchmark step to `.github/workflows/windows-build.yml`.
+- Verified: windows-build dispatch run 45210114347 passed with the benchmark (worst case 3.813% of one core); release-package dispatch run 45210138012 passed and its zip/SHA-256 were inspected and matched.
+- Not verified: tag-mismatch check; plugin-in-host CPU. Open: real-recording auditions, JUCE licence decision.
+- Next: owner reviews/merges this branch.
+
 ## Release packaging (2026-11-23, Claude Sonnet 5.5)
 
 - Branch `build/release-packaging` (from `main` at `83c1913`). Added `.github/workflows/release-package.yml`; updated `CHANGELOG.md`, `BUILD_INSTRUCTIONS.md`, `PROJECT_STATUS.md`.
