@@ -1,4 +1,62 @@
 
+## 2. Mandatory Visual Reference Inspection
+
+The repository must contain the generated SSL-console-inspired UI reference image.
+
+Suggested filename:
+
+`docs/references/ui_reference.png`
+
+**THIS IMAGE IS THE PRIMARY AND AUTHORITATIVE VISUAL REFERENCE FOR THE REDESIGN.**
+
+Before making any UI modifications, the agent MUST:
+
+1. Locate the reference image in the repository.
+2. Open and visually inspect the actual image.
+3. Examine the overall layout, panel proportions, spacing and alignment.
+4. Study the appearance of each rotary control.
+5. Study the illuminated buttons, particularly the PRE-DELAY, TONE, WIDTH and TAIL controls.
+6. Examine the metallic textures, borders, shadows, typography and color palette.
+7. Use the image as a continuous visual reference throughout implementation.
+
+Do not rely exclusively on the written descriptions in this document.
+
+Do not substitute the reference image with a generic interpretation of an SSL console.
+
+### Reference Image Priority
+
+When making visual decisions, follow this priority:
+
+1. The actual reference image.
+2. The visual requirements in this document.
+3. Existing project architecture and technical limitations.
+
+If a written description is ambiguous, use the reference image to determine the intended appearance.
+
+If a visual element cannot be reproduced exactly, implement the closest practical equivalent and document the difference.
+
+### Mandatory Visual Comparison
+
+After implementing the interface:
+
+1. Build and launch the plugin.
+2. Capture or inspect the actual rendered interface.
+3. Compare it directly against the reference image.
+4. Identify differences in layout, proportions, colors, controls and typography.
+5. Make another refinement pass.
+6. Repeat until the visual resemblance is as close as reasonably possible.
+
+A successful build does NOT mean the redesign is complete.
+
+The task is only complete after the rendered interface has been visually inspected and compared against the supplied reference image.
+
+
+
+
+
+# DO NOT READ BEYOND THIS SECTION. THIS PART IS ALREADY DONE. ANYTHING ABOVE THIS IS THE NEW AND ABSOLUTE INSTRUCTIONS FOR THIS
+
+
 # DRM-SMRTVRB — UI Design Specification
 
 **Document status:** Implementation specification  
