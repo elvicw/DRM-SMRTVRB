@@ -4,7 +4,10 @@
 
 - `windows-build.yml` now runs only on pushes to `main` (i.e. after a PR is merged) and on manual dispatch, no longer on pull requests. Validate branches by building locally or dispatching the workflow manually.
 
-## Unreleased — wet filters, symmetric output fader, collapsible advanced section
+## 0.4.0 — wet filters, symmetric output fader, console layout (Windows VST3)
+
+- Version bumped 0.3.0 -> 0.4.0. The plugin is now named `DRM-SMRTVRB<version>` (`DRM-SMRTVRB0.4.0`) via `PRODUCT_NAME "DRM-SMRTVRB${PROJECT_VERSION}"`, so the DAW effects list shows the version. The VST3 bundle is `DRM-SMRTVRB0.4.0.vst3`; plugin/manufacturer codes and parameter IDs are unchanged, so saved projects still resolve the plugin, but each release installs as a separate file (remove older copies to avoid duplicates). Workflows locate the bundle by version instead of a fixed name.
+
 
 - Layout experiment (console look): TEMPO selectors (Sync, Tap, Division) now share one row with the BPM knob centred below; SPACE, REVERB TIME and MIX captions and knob centres sit on shared horizontal axes. No parameter or behaviour changes.
 

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(DRM_SMRTVRB VERSION 0.3.0 LANGUAGES C CXX)
+project(DRM_SMRTVRB VERSION 0.4.0 LANGUAGES C CXX)
 
 option(DRMSMRTVRB_BUILD_TESTS "Build DSP validation tests" ON)
 option(DRMSMRTVRB_BUILD_PLUGIN "Build the JUCE VST3 and standalone plugin" ON)
@@ -17,7 +17,7 @@ if(DRMSMRTVRB_BUILD_PLUGIN)
         BUNDLE_ID "audio.yeahwaah.drmsmrtvrb"
         PLUGIN_MANUFACTURER_CODE Ywaa
         PLUGIN_CODE SmRv
-        PRODUCT_NAME "DRM-SMRTVRB"
+        PRODUCT_NAME "DRM-SMRTVRB${PROJECT_VERSION}"
         DESCRIPTION "Source-aware drum reverb"
         FORMATS VST3 Standalone
         IS_SYNTH FALSE

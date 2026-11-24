@@ -24,7 +24,9 @@ jobs:
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path artifact | Out-Null
-          Copy-Item -LiteralPath build/DRMSMRTVRB_artefacts/Release/VST3/DRM-SMRTVRB.vst3 -Destination artifact/DRM-SMRTVRB.vst3 -Recurse -Force
+          $bundle = Get-ChildItem build/DRMSMRTVRB_artefacts/Release/VST3 -Filter *.vst3 -Directory | Select-Object -First 1
+          if (-not $bundle) { throw 'VST3 bundle missing' }
+          Copy-Item -LiteralPath $bundle.FullName -Destination "artifact/$($bundle.Name)" -Recurse -Force
       - name: Archive Windows VST3
         uses: actions/upload-artifact@v7
         with:
