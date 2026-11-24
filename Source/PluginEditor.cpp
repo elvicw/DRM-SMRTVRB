@@ -705,46 +705,60 @@ void DRMsmrtvrbAudioProcessorEditor::resized()
         character.setBounds(right.withHeight(26));
     }
 
-    // Tempo panel.
+    // Knob block: caption on the top edge, readout on the bottom edge, knob centred between them.
+    const auto placeKnob = [](juce::Label& caption, juce::Slider& knob, juce::Rectangle<int> area,
+                              int textHeight, int maxDiameter)
     {
-        auto columns = tempoPanel.reduced(10).withTrimmedTop(18);
-        auto controls = columns.removeFromLeft(columns.getWidth() * 54 / 100).withTrimmedRight(6);
-        syncLabel.setBounds(controls.removeFromTop(16));
-        auto syncRow = controls.removeFromTop(26);
-        tapButton.setBounds(syncRow.removeFromRight(syncRow.getWidth() * 40 / 100));
-        sync.setBounds(syncRow.withTrimmedRight(4));
-        controls.removeFromTop(4);
-        divisionLabel.setBounds(controls.removeFromTop(16));
-        division.setBounds(controls.removeFromTop(26));
+        const int diameter = juce::jmin(maxDiameter, area.getWidth(), area.getHeight() - 16 - textHeight - 4);
+        caption.setBounds(area.getX(), area.getY(), area.getWidth(), 16);
+        knob.setTextBoxStyle(juce::Slider::TextBoxBelow, false, juce::jmin(72, area.getWidth()), textHeight);
+        knob.setBounds(area.getCentreX() - diameter / 2, area.getY() + 20, diameter, area.getHeight() - 20);
+    };
+    // Places a knob of a given diameter with its centre on a shared horizontal axis.
+    const auto placeOnAxis = [](juce::Label& caption, juce::Slider& knob, juce::Rectangle<int> area,
+                                int captionY, int axisY, int diameter, int textHeight)
+    {
+        caption.setBounds(area.getX(), captionY, area.getWidth(), 16);
+        knob.setTextBoxStyle(juce::Slider::TextBoxBelow, false, juce::jmin(72, area.getWidth()), textHeight);
+        knob.setBounds(area.getCentreX() - diameter / 2, axisY - diameter / 2, diameter, diameter + textHeight);
+    };
 
-        bpmLabel.setBounds(columns.removeFromTop(16));
-        bpm.setTextBoxStyle(juce::Slider::TextBoxBelow, false, juce::jmin(72, columns.getWidth()), 18);
-        bpm.setBounds(columns);
+    // Tempo panel: one row of selectors, then the BPM knob centred underneath.
+    {
+        auto inner = tempoPanel.reduced(10).withTrimmedTop(18);
+        auto selectors = inner.removeFromTop(42);
+        const int width = selectors.getWidth();
+        auto syncColumn = selectors.removeFromLeft(width * 34 / 100);
+        selectors.removeFromLeft(6);
+        auto tapColumn = selectors.removeFromLeft(width * 22 / 100);
+        selectors.removeFromLeft(6);
+        syncLabel.setBounds(syncColumn.removeFromTop(16));
+        sync.setBounds(syncColumn.removeFromTop(26));
+        tapButton.setBounds(tapColumn.removeFromBottom(26));
+        divisionLabel.setBounds(selectors.removeFromTop(16));
+        division.setBounds(selectors.removeFromTop(26));
+
+        inner.removeFromTop(6);
+        bpm.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 72, 18);
+        placeKnob(bpmLabel, bpm, inner, 18, 96);
     }
 
-    // SPACE panel: large SPACE knob with Reverb Time beside it.
+    // SPACE and OUTPUT panels: captions, knob centres and readouts share common horizontal axes.
+    int captionY = 0, axisY = 0;
     {
         auto inner = spacePanel.reduced(10).withTrimmedTop(18);
         auto decayColumn = inner.removeFromRight(inner.getWidth() * 34 / 100);
-        spaceLabel.setBounds(inner.removeFromTop(16));
-        space.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 72, 20);
-        space.setBounds(inner);
-        decayLabel.setBounds(decayColumn.removeFromTop(16));
-        const int decayHeight = juce::jmin(decayColumn.getHeight(), decayColumn.getWidth() + 22);
-        freeDecay.setTextBoxStyle(juce::Slider::TextBoxBelow, false, juce::jmin(72, decayColumn.getWidth()), 18);
-        freeDecay.setBounds(decayColumn.withSizeKeepingCentre(decayColumn.getWidth(), decayHeight));
+        placeKnob(spaceLabel, space, inner, 20, 190);
+        captionY = spaceLabel.getY();
+        axisY = space.getY() + (space.getHeight() - 20) / 2;
+        placeOnAxis(decayLabel, freeDecay, decayColumn, captionY, axisY, juce::jmin(decayColumn.getWidth(), 92), 18);
     }
-
-    // Output panel: meters, Mix, wet envelope.
     {
         auto inner = outputPanel.reduced(10).withTrimmedTop(18);
         envelopeBox = inner.removeFromBottom(46);
         inner.removeFromBottom(6);
         meterBox = inner.removeFromLeft(66);
-        auto mixArea = inner.withTrimmedLeft(4);
-        mixLabel.setBounds(mixArea.removeFromTop(16));
-        mix.setTextBoxStyle(juce::Slider::TextBoxBelow, false, juce::jmin(64, mixArea.getWidth()), 18);
-        mix.setBounds(mixArea);
+        placeOnAxis(mixLabel, mix, inner.withTrimmedLeft(4), captionY, axisY, juce::jmin(inner.getWidth() - 4, 84), 18);
     }
 
     // Advanced panel: four ON/OFF switches, each above its knob.
