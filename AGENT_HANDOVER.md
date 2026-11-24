@@ -1,5 +1,9 @@
 # Agent Handover
 
+## Release 0.4.0 (Claude Sonnet 5.5)
+
+Branch `release/0.4.0`: PR #20 (wet HPF/LPF, +/-12 dB output, collapsible advanced trims), #21 (height follows toggle) and #22 (console-style layout, owner approved) are merged. This branch bumps 0.3.0 -> 0.4.0 and renames the plugin to `DRM-SMRTVRB0.4.0` (`NAMEversionnumber`, owner request) so the DAW list shows the version; workflows updated for the versioned bundle name. After merge: tag `v0.4.0`, wait for `release-package.yml`, publish the GitHub Release with the owner's release-notes structure (screenshots of both UI states, "no more second-guessing drum reverb" + low-CPU/no-oversampling pitch, manual install folders, features, then release notes). Not DAW-tested on Windows. The AGENTS.md token check has no accessible API here and was not performed.
+
 ## HPF/LPF faders, +/-12 dB output, collapsible advanced section (Claude Sonnet 5.5)
 
 Branch `feature/hpf-lpf-output-range-adv-toggle` (from `main` at `835a255`). Added `Source/WetFilters.{h,cpp}` + `Tests/WetFiltersTests.cpp` (CTest `WetFilters`), `hpf`/`lpf` parameters (wet signal only), `outGain` range -12..+12 dB, a toggle button labelled "ADVANCED PROFILE TRIMS" (default hidden, saved as `advancedExpanded` state property). macOS local build + 9/9 CTest + standalone screenshots done. Owner rule: do not run CI builds until a PR is merged. Source/Character now sit in their own SOURCE box above the TEMPO panel. Not done: DAW check, Windows build, release/version bump. Assumptions to confirm: filters act on wet only; -12..+12 narrows the 0.3.0 +18 range. The AGENTS.md token check has no accessible API here and was not performed.

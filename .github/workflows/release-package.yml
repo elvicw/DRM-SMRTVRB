@@ -47,8 +47,10 @@ jobs:
             "Corresponding source: https://github.com/$env:REPO/tree/$env:SHA",
             "Source archive:       https://github.com/$env:REPO/archive/$env:SHA.zip"
           ) | Set-Content -Encoding ascii "dist/$name/SOURCE.txt"
-          Copy-Item -LiteralPath build/DRMSMRTVRB_artefacts/Release/VST3/DRM-SMRTVRB.vst3 -Destination "dist/$name/DRM-SMRTVRB.vst3" -Recurse -Force
-          if (-not (Test-Path "dist/$name/DRM-SMRTVRB.vst3/Contents/x86_64-win/DRM-SMRTVRB.vst3")) { throw 'VST3 binary missing from bundle' }
+          # The plugin is named DRM-SMRTVRB<version> (e.g. DRM-SMRTVRB0.4.0) so the version shows in the DAW.
+          $bundle = "DRM-SMRTVRB$env:VERSION.vst3"
+          Copy-Item -LiteralPath "build/DRMSMRTVRB_artefacts/Release/VST3/$bundle" -Destination "dist/$name/$bundle" -Recurse -Force
+          if (-not (Test-Path "dist/$name/$bundle/Contents/x86_64-win/$bundle")) { throw 'VST3 binary missing from bundle' }
           Compress-Archive -Path "dist/$name" -DestinationPath "dist/$name.zip"
           $hash = (Get-FileHash "dist/$name.zip" -Algorithm SHA256).Hash.ToLower()
           "$hash  $name.zip" | Set-Content -Encoding ascii "dist/$name.zip.sha256"
