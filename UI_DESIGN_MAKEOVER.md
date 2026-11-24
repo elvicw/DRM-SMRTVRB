@@ -424,3 +424,11 @@ Do not claim a compatibility or regression check passed unless it was actually p
 The interface should be tactile, restrained, readable, and purposeful. Visual character is important, but usability and compatibility come first.
 
 The released sound is the foundation: improve the instrument's presentation without changing the instrument itself.
+
+
+## Additonal changes 
+
+The box around the knobs which glows orange when touch the knobs. I dont want it.
+Rather make the knobs glow a bit rather than have that i believe what you call a focus ring.
+
+This is mid prio so do it whenever the highest priority is achieved.
