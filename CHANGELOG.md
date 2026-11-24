@@ -4,6 +4,13 @@
 
 - `windows-build.yml` now runs only on pushes to `main` (i.e. after a PR is merged) and on manual dispatch, no longer on pull requests. Validate branches by building locally or dispatching the workflow manually.
 
+## Unreleased — wet filters, symmetric output fader, collapsible advanced section
+
+- Output Level range changed from -24..+18 dB to -12..+12 dB (ticks at -12 / 0 / +12, fill from 0). Sessions that saved a value outside the new range clamp to it.
+- New host parameters `hpf` (High-pass, 20-1000 Hz, default 20 = off) and `lpf` (Low-pass, 1-20 kHz, default 20000 = off): two faders above the output fader, applied to the wet signal only via the new `drmspace::WetFilters` (12 dB/oct, exact bypass at the end stops). New CTest `WetFilters`.
+- The Advanced Profile Trims section is hidden by default and is toggled by a button labelled "ADVANCED PROFILE TRIMS" (lit when shown); the choice is saved in the plugin state (`advancedExpanded` property, not a host parameter). Source and Character selectors moved out of the tempo area into their own SOURCE box above a separate TEMPO panel. Editor default size 760x620, minimum height 600.
+- Validation: macOS local build and 9/9 CTest; standalone screenshots `screenshots/ui-hpf-lpf-collapsed.png` and `screenshots/ui-hpf-lpf-expanded.png`. Not DAW-tested; not built on Windows.
+
 ## 0.3.0 — output level fader (Windows VST3)
 
 - Released 2026-11-24. Windows x64 VST3 package built by `release-package.yml` from tag `v0.3.0`. Owner confirmed the fader works in REAPER; a DAW check on Windows of the +18 dB range is still outstanding.

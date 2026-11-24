@@ -3,6 +3,7 @@
 #include <JuceHeader.h>
 #include "PluginState.h"
 #include "TargetProfiles.h"
+#include "WetFilters.h"
 
 #include <array>
 #include <atomic>
@@ -55,6 +56,7 @@ private:
 
     drmspace::ProfiledReverb reverb;
     drmspace::SpaceMacroSmoother macroSmoother;
+    drmspace::WetFilters wetFilters;
     drmspace::TempoSync tempoSync;
     drmspace::TapTempo tapTempo;
     juce::SmoothedValue<float, juce::ValueSmoothingTypes::Linear> tailSmoother;

@@ -30,6 +30,19 @@ std::unique_ptr<AudioParameterFloat> floatParameter(const char* id, const char* 
             .withValueFromStringFunction(toValue));
 }
 
+// Log-style frequency parameter: `centre` sits at the middle of the travel. The label
+// text is overridden in the editor so the "off" edge reads OFF.
+std::unique_ptr<AudioParameterFloat> frequencyParameter(const char* id, const char* name,
+                                                          float minimum, float maximum, float centre, float initial)
+{
+    NormalisableRange<float> range(minimum, maximum);
+    range.setSkewForCentre(centre);
+    return std::make_unique<AudioParameterFloat>(ParameterID { id, 1 }, name, range, initial,
+        AudioParameterFloatAttributes().withLabel("Hz")
+            .withStringFromValueFunction([](float value, int) { return String(juce::roundToInt(value)); })
+            .withValueFromStringFunction([](const String& text) { return text.getFloatValue(); }));
+}
+
 std::unique_ptr<AudioParameterBool> boolParameter(const char* id, const char* name, bool initial = false)
 {
     return std::make_unique<AudioParameterBool>(ParameterID { id, 1 }, name, initial);
@@ -83,7 +96,11 @@ juce::AudioProcessorValueTreeState::ParameterLayout DRMsmrtvrbAudioProcessor::cr
     p.emplace_back(floatParameter("advMix", "Advanced Mix", 0.0f, 1.0f, 1.0f, "%", 0, 100.0f));
     p.push_back(boolParameter("advTailOn", "Advanced Tail Enabled"));
     p.emplace_back(floatParameter("advTail", "Advanced Tail", 0.08f, 8.0f, 1.2f, "s", 2));
-    p.emplace_back(floatParameter("outGain", "Output Level", -24.0f, 18.0f, 0.0f, "dB", 1));
+    p.emplace_back(floatParameter("outGain", "Output Level", -12.0f, 12.0f, 0.0f, "dB", 1));
+    p.emplace_back(frequencyParameter("hpf", "High-pass", WetFilters::highPassMinHz, WetFilters::highPassMaxHz,
+                                      150.0f, WetFilters::highPassMinHz));
+    p.emplace_back(frequencyParameter("lpf", "Low-pass", WetFilters::lowPassMinHz, WetFilters::lowPassMaxHz,
+                                      5000.0f, WetFilters::lowPassMaxHz));
     return { p.begin(), p.end() };
 }
 
@@ -121,6 +138,8 @@ void DRMsmrtvrbAudioProcessor::prepareToPlay(double sampleRate, int blockSize)
     tailSmootherTarget = read("advTail");
     outputGainSmoother.reset(sampleRate, 0.025);
     outputGainSmoother.setCurrentAndTargetValue(juce::Decibels::decibelsToGain(read("outGain"), -100.0f));
+    wetFilters.setCutoffs(read("hpf"), read("lpf"));
+    wetFilters.prepare(sampleRate);
     tempoSync.reset();
     tapTempo.reset();
 }
@@ -199,6 +218,7 @@ void DRMsmrtvrbAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, ju
     std::array<AdvancedResult, maximumQuantum> controlBuffer {};
     std::array<float, maximumQuantum> gainBuffer {};
     outputGainSmoother.setTargetValue(juce::Decibels::decibelsToGain(read("outGain"), -100.0f));
+    wetFilters.setCutoffs(read("hpf"), read("lpf"));
     auto historyWrite = activityWriteCount.load(std::memory_order_relaxed);
     for (int offset = 0; offset < samples;)
     {
@@ -222,6 +242,7 @@ void DRMsmrtvrbAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, ju
         for (int channel = 0; channel < channels; ++channel)
             inputPointers[channel] = buffer.getReadPointer(channel, offset);
         reverb.process(inputPointers, wetPointers, channels, count);
+        wetFilters.process(wetPointers, channels, count);
 
         float quantumActivity = 0.0f;
         for (int channel = 0; channel < channels; ++channel)

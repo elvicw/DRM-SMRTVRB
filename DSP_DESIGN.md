@@ -28,6 +28,10 @@ The four user-selected sources (Shells, Snare, Room, Overheads) each have all th
 
 `applyAdvancedControls` applies enabled controls after the SPACE curve. Pre-delay, Tone, Width, and Tail replace their corresponding macro-derived value; positive Tone reduces damping (brighter), negative Tone increases it (darker). Advanced Mix replaces the profile wet cap with a user wet proportion while preserving the SPACE position and exact dry output at SPACE 0%. Disabled overrides leave SPACE results unchanged. Preset/state recall uses the portable state model; the plugin wrapper must route changes through the smoothers before connecting UI automation.
 
+## Wet filters
+
+`Source/WetFilters.*` applies a 2nd-order Butterworth high-pass (20-1000 Hz) and low-pass (1-20 kHz) to the wet signal after the reverb engine and before the dry/wet sum, so dry audio is never filtered. A filter at its end stop (20 Hz / 20 kHz) is bypassed exactly. Cutoff changes glide in the log-frequency domain (about 20 ms) per 32-sample control quantum. Covered by the `WetFilters` CTest.
+
 ## Safety and verification
 
 Delay buffers are prepared outside processing. Feedback is bounded, parameter inputs are clamped, and non-finite output samples are zeroed. Automated checks cover finite/bounded impulse response, engine distinction, mono routing, gated tail reduction, and generated drum-like signals at three sample rates, five block sizes, and parameter extremes. Five deterministic synthetic fixtures are also rendered through all three engines. These are procedural signals, not recordings; audio quality still needs validation with actual drum recordings and host automation.

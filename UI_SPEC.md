@@ -19,12 +19,15 @@ Phase 6 design with an initial JUCE editor implementation in `Source/PluginEdito
 | Region | Controls / display | Required behavior |
 |---|---|---|
 | Header | DRM-SMRTVRB, yeahwaah audio, preset selector | Preset selection recalls the complete versioned state; modified state is indicated until saved or another preset is recalled. |
+| Source box | Source and Character selectors in their own panel above the Tempo panel | See rows below. |
 | Source | Shells, Snare, Room, Overheads | Exclusive selection; changing target updates the active profile and is host-automatable. |
 | Character | Room, Spring, Gated | Exclusive selection; changing character updates the active profile and is host-automatable. |
 | Main | Large SPACE rotary, numeric percent readout | Dominant control; 0% is exact dry, 100% reaches the profile's intended maximum. Drag, mouse wheel, keyboard arrows, and double-click default are supported. |
 | Timing | Free / Host / Tap, BPM readout, division selector, tap button | Host mode displays host tempo or the documented fallback; Tap measures taps; divisions are enabled only when relevant. Gated tail timing follows the selected division and the engine's safe maximum. |
-| Advanced | Pre-delay, Tone, Width, Mix, Tail; each with enable/bypass | Values edit only when enabled. Disabled values remain stored. Engine/profile constraints are shown in the value range and respected by DSP. |
-| Output level | Horizontal fader strip at the bottom, -24 to +18 dB, double-click resets to 0 dB | Parameter `outGain`; post dry/wet gain, not stored in factory presets. |
+| Advanced | Pre-delay, Tone, Width, Tail (Mix is in the Output panel); each with enable/bypass | Values edit only when enabled. Disabled values remain stored. Engine/profile constraints are shown in the value range and respected by DSP. |
+| High-pass / Low-pass | Two horizontal faders above the output level fader; 20-1000 Hz and 1-20 kHz, readout shows OFF at the end stop, double-click resets to off | Parameters `hpf`, `lpf`; 12 dB/oct filters on the wet signal only; not stored in factory presets. |
+| Output level | Horizontal fader strip at the bottom, -12 / 0 / +12 dB with 0 at the centre, double-click resets to 0 dB | Parameter `outGain`; post dry/wet gain, not stored in factory presets. |
+| Advanced visibility | Button labelled "ADVANCED PROFILE TRIMS" in the panel's caption row (lit amber when the section is shown) | Hidden by default; when hidden the panel collapses to that button bar and the other panels grow. State is saved with the plugin state; enable switches and values are unaffected. |
 | Meter strip | Input and output peak meters | Show stereo channels independently, with peak hold and decay; meter handoff must be lock-free and safe for the audio callback. |
 | Reverb activity | Compact envelope/history display | Visualize the recent wet output envelope from audio-thread data; provide a static reduced-motion fallback and no audio-thread drawing or allocation. |
 
