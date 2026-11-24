@@ -327,7 +327,6 @@ DRMsmrtvrbAudioProcessorEditor::DRMsmrtvrbAudioProcessorEditor(DRMsmrtvrbAudioPr
 {
     setLookAndFeel(&lookAndFeel);
     setResizable(true, true);
-    setResizeLimits(640, 600, 1040, 780);
 
     for (auto* combo : { &preset, &target, &character, &sync, &division })
         addAndMakeVisible(*combo);
@@ -482,7 +481,7 @@ DRMsmrtvrbAudioProcessorEditor::DRMsmrtvrbAudioProcessorEditor(DRMsmrtvrbAudioPr
     mix.onDisengage = [setMixEnabled] { setMixEnabled(false); };
 
     setAdvancedExpanded(static_cast<bool>(pluginProcessor.parameters.state.getProperty("advancedExpanded", false)));
-    setSize(760, 620);
+    setSize(760, advancedExpanded ? 688 : 560);
     startTimerHz(24);
 }
 
@@ -495,6 +494,13 @@ void DRMsmrtvrbAudioProcessorEditor::setAdvancedExpanded(bool expanded)
              &preDelayOn, &toneOn, &widthOn, &tailOn })
         control->setVisible(expanded);
     backdrop = juce::Image();
+    // The window grows/shrinks with the section so panels never stretch into empty space.
+    constexpr int expandedExtra = 128;
+    setResizeLimits(640, expanded ? 648 : 520, 1040, expanded ? 820 : 700);
+    if (getHeight() > 0)
+        setSize(getWidth(), getHeight() + (expanded ? expandedExtra : -expandedExtra));
+    else
+        setSize(760, expanded ? 688 : 560);
     resized();
     repaint();
 }
@@ -659,7 +665,7 @@ void DRMsmrtvrbAudioProcessorEditor::resized()
     content.removeFromTop(10);
     levelPanel = content.removeFromBottom(100);
     content.removeFromBottom(8);
-    advancedPanel = content.removeFromBottom(advancedExpanded ? juce::jlimit(132, 190, content.getHeight() * 38 / 100) : 28);
+    advancedPanel = content.removeFromBottom(advancedExpanded ? 156 : 28);
     content.removeFromBottom(8);
     auto leftColumn = content.removeFromLeft(content.getWidth() * 40 / 100);
     sourcePanel = leftColumn.removeFromTop(86);

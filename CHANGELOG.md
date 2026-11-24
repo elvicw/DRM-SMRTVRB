@@ -6,6 +6,8 @@
 
 ## Unreleased — wet filters, symmetric output fader, collapsible advanced section
 
+- Layout: window height now follows the Advanced Profile Trims toggle (560 hidden / 688 shown) and the advanced panel has a fixed height, reducing empty space in the panels.
+
 - Output Level range changed from -24..+18 dB to -12..+12 dB (ticks at -12 / 0 / +12, fill from 0). Sessions that saved a value outside the new range clamp to it.
 - New host parameters `hpf` (High-pass, 20-1000 Hz, default 20 = off) and `lpf` (Low-pass, 1-20 kHz, default 20000 = off): two faders above the output fader, applied to the wet signal only via the new `drmspace::WetFilters` (12 dB/oct, exact bypass at the end stops). New CTest `WetFilters`.
 - The Advanced Profile Trims section is hidden by default and is toggled by a button labelled "ADVANCED PROFILE TRIMS" (lit when shown); the choice is saved in the plugin state (`advancedExpanded` property, not a host parameter). Source and Character selectors moved out of the tempo area into their own SOURCE box above a separate TEMPO panel. Editor default size 760x620, minimum height 600.
