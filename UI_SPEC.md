@@ -9,7 +9,7 @@ Phase 6 design with an initial JUCE editor implementation in `Source/PluginEdito
 
 ## Main window
 
-- Default content size: 760 x 500 logical pixels; keep all controls usable at 640 x 420.
+- Default content size: 760 x 560 logical pixels with Advanced Profile Trims hidden, 760 x 688 when shown. The window height grows/shrinks by 128 px when the section is toggled so panels do not stretch into empty space. Minimum 640 x 520 (hidden) / 640 x 648 (shown).
 - Dark charcoal faceplate, restrained brushed-metal detail, warm amber active accents, high-contrast labels, and compact studio-hardware styling.
 - Use a clear top-to-bottom hierarchy: preset and identity, source/character choices, SPACE, timing, then optional advanced controls and meters.
 - All controls remain visible without scrolling at the default size. Advanced controls may open a compact side panel or expand below the main controls at the minimum size.
