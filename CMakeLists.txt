@@ -80,7 +80,9 @@ add_library(drmsmrtvrb_dsp STATIC
     Source/TargetProfiles.cpp
     Source/TargetProfiles.h
     Source/TempoSync.cpp
-    Source/TempoSync.h)
+    Source/TempoSync.h
+    Source/WetFilters.cpp
+    Source/WetFilters.h)
 target_include_directories(drmsmrtvrb_dsp PUBLIC Source)
 target_compile_features(drmsmrtvrb_dsp PUBLIC cxx_std_17)
 if(MSVC)
@@ -126,6 +128,10 @@ if(DRMSMRTVRB_BUILD_TESTS)
     target_link_libraries(drmsmrtvrb_tempo_tests PRIVATE drmsmrtvrb_dsp)
     target_compile_features(drmsmrtvrb_tempo_tests PRIVATE cxx_std_17)
     add_test(NAME TempoSync COMMAND drmsmrtvrb_tempo_tests)
+    add_executable(drmsmrtvrb_wetfilter_tests Tests/WetFiltersTests.cpp)
+    target_link_libraries(drmsmrtvrb_wetfilter_tests PRIVATE drmsmrtvrb_dsp)
+    target_compile_features(drmsmrtvrb_wetfilter_tests PRIVATE cxx_std_17)
+    add_test(NAME WetFilters COMMAND drmsmrtvrb_wetfilter_tests)
     add_executable(drmsmrtvrb_state_tests Tests/PluginStateTests.cpp)
     target_link_libraries(drmsmrtvrb_state_tests PRIVATE drmsmrtvrb_dsp)
     target_compile_features(drmsmrtvrb_state_tests PRIVATE cxx_std_17)

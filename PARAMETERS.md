@@ -19,7 +19,11 @@ The JUCE wrapper now exposes the host parameters below. IDs are the stable ident
 | `advWidth` | Advanced Width | 0–2 | 1 |
 | `advMix` | Advanced Mix | 0–1 | 1 |
 | `advTail` | Advanced Tail | 0.08–8 s | 1.2 |
-| `outGain` | Output Level | -24–+18 dB | 0 |
+| `outGain` | Output Level | -12–+12 dB | 0 |
+| `hpf` | High-pass | 20–1000 Hz (log-style skew, centre 150 Hz); 20 Hz = off | 20 |
+| `lpf` | Low-pass | 1000–20000 Hz (log-style skew, centre 5 kHz); 20 kHz = off | 20000 |
+
+`hpf` and `lpf` filter the wet (reverb) signal only, before the dry/wet sum. `outGain` range was narrowed from -24–+18 dB (0.3.0) to -12–+12 dB; saved values outside the new range clamp. The editor also persists whether the Advanced Profile Trims section is shown as a non-parameter `advancedExpanded` property in the plugin state (default hidden).
 
 The wrapper uses JUCE APVTS parameter state and XML host serialization. Host tempo is read-only and not a parameter. Tap BPM is editable in Tap mode. The TAP button updates the BPM parameter from tap intervals. The portable versioned text codec remains separate from host serialization.
 

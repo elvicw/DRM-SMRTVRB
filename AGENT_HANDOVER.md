@@ -1,5 +1,9 @@
 # Agent Handover
 
+## HPF/LPF faders, +/-12 dB output, collapsible advanced section (Claude Sonnet 5.5)
+
+Branch `feature/hpf-lpf-output-range-adv-toggle` (from `main` at `835a255`). Added `Source/WetFilters.{h,cpp}` + `Tests/WetFiltersTests.cpp` (CTest `WetFilters`), `hpf`/`lpf` parameters (wet signal only), `outGain` range -12..+12 dB, a toggle button labelled "ADVANCED PROFILE TRIMS" (default hidden, saved as `advancedExpanded` state property). macOS local build + 9/9 CTest + standalone screenshots done. Owner rule: do not run CI builds until a PR is merged. Source/Character now sit in their own SOURCE box above the TEMPO panel. Not done: DAW check, Windows build, release/version bump. Assumptions to confirm: filters act on wet only; -12..+12 narrows the 0.3.0 +18 range. The AGENTS.md token check has no accessible API here and was not performed.
+
 Branch `release/v0.3.0`: version bumped 0.2.1 -> 0.3.0 and changelog retitled for release (output level fader, -24..+18 dB; CI now builds only on merge). After merge: tag `v0.3.0`, wait for `release-package.yml`, publish GitHub Release. Do not create a new branch for follow-ups on this task.
 
 
