@@ -6,6 +6,8 @@
 
 ## Unreleased — wet filters, symmetric output fader, collapsible advanced section
 
+- Layout experiment (console look): TEMPO selectors (Sync, Tap, Division) now share one row with the BPM knob centred below; SPACE, REVERB TIME and MIX captions and knob centres sit on shared horizontal axes. No parameter or behaviour changes.
+
 - Layout: window height now follows the Advanced Profile Trims toggle (560 hidden / 688 shown) and the advanced panel has a fixed height, reducing empty space in the panels.
 
 - Output Level range changed from -24..+18 dB to -12..+12 dB (ticks at -12 / 0 / +12, fill from 0). Sessions that saved a value outside the new range clamp to it.
